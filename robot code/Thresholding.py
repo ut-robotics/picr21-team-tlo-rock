@@ -34,7 +34,7 @@ def savefile(filename):
 if __name__ == '__main__':
     #__________________________HSV LEGACY____________________________________________
     try:
-        defaults = open('trackbar_defaults.txt', mode = 'r', encoding = 'UTF-8')
+        defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
         Trackbar_values = []
         for line in defaults:
             Trackbar_values.append(int(line.strip()))
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     blobparams = cv2.SimpleBlobDetector_Params()
 
     blobparams.filterByArea = True
-    blobparams.minArea = 100
+    blobparams.minArea = 30
     blobparams.maxArea = 70000000
     blobparams.filterByCircularity = False
     blobparams.filterByInertia = False

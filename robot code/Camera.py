@@ -123,7 +123,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
-        cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
+        #cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
         #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
         while True:
             # Read the image from the camera
@@ -177,10 +177,12 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
             blueBasketCoords[1] = bluey[0]
             blueBasketCoords[2] = bluez[0]
 
-            for i in range(MAX_KEYPOINT_COUNT):
+            '''for i in range(MAX_KEYPOINT_COUNT):
                 cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            
-            cv2.imshow('cap', outimage)
+            cv2.putText(outimage, str(blueBasketCoords[0])+ ', ' + str(blueBasketCoords[1]) + ', ' + str(blueBasketCoords[2]) , (blueBasketCoords[0], blueBasketCoords[1]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            '''
+
+            #cv2.imshow('cap', outimage)
             #cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
