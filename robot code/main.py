@@ -3,11 +3,11 @@ import Camera as cam
 
 if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
-    num = mp.Value('d', 0.0)
-    arr = mp.Array('i', range(10))
+    keypointX = mp.Array('i', range(11))
+    keypointZ = mp.Array('i', range(11))
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
-    p = mp.Process(target=cam.operate_camera, args=())
+    p = mp.Process(target=cam.operate_camera, args=(keypointX, keypointZ))
 
     #p.start()
 
