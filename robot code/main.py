@@ -1,7 +1,7 @@
 import multiprocessing as mp
-import pynput
 import Camera as cam
 import Localization as loc
+from pynput import keyboard
 
 if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
