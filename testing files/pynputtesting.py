@@ -13,7 +13,7 @@ def on_release(key):
     global mark
     print('{0} released'.format(
         key))
-    if key == keyboard.Key.esc:
+    if key == keyboard.KeyCode.from_char('q'):
         # Stop listener
         mark = False
         return False
@@ -21,9 +21,9 @@ def on_release(key):
 mark = True
 if __name__ == '__main__':
     # ...or, in a non-blocking fashion:
-    listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+    listener = keyboard.Listener(on_press=on_press, on_release=on_release, suppress = True)
     listener.start()
 
     while mark:
-        print('another 10 seconds')
-        time.sleep(10)
+        pass
+    print('Closing down!')
