@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import multiprocessing as mp
 import Camera as cam
 
