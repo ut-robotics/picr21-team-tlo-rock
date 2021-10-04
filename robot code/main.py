@@ -28,7 +28,7 @@ if __name__ == '__main__':
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     #mingi callbacki/muutuja jälgimise alusel cleanup ja sulgemine
     # Pynputiga keyboard inputide jälgimine
-    listener = keyboard.Listener(on_press=on_press)
+    listener = keyboard.Listener(on_press=on_press, suppressed = True)
     listener.start()
 
     while program_Live:
