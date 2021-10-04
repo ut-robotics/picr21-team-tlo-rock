@@ -19,7 +19,7 @@ def get_average_of_subarray(array, x, y, size):
     # return average/median of values in array
     return np.median(array)
 
-def operate_camera():
+def operate_camera(keypointX, keypointZ):
     #__________________________HSV LEGACY____________________________________________
     try:
         defaults = open('trackbar_defaults.txt', mode = 'r', encoding = 'UTF-8')
@@ -109,11 +109,23 @@ def operate_camera():
             #detecting the blobs
             keypoints = detector.detect(thresholded)
            
+            i = 0
+            tempKeypointX = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            tempKeypointZ = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             #printing the coordinates
             for punkt in keypoints:
                 point_x = round(punkt.pt[0])
                 point_y = round(punkt.pt[1])
                 point_depth = round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2)
+                tempKeypointX[i] = point_x
+                tempKeypointZ[i] = point_depth
+                i += 1
+
+            i = 0
+            for i in range(11):
+                keypointX[i] = tempKeypointX[i]
+                keypointZ[i] = tempKeypointZ[i]
+                i += 1
 
     finally:
         # When everything done, release the capture
