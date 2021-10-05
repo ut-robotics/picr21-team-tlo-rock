@@ -4,7 +4,7 @@ import Localization as loc
 from pynput import keyboard
 
 def on_press(key):
-    global mark
+    global program_Live
     print('{0} pressed'.format(
         key))
     if key == keyboard.KeyCode.from_char('q'):
