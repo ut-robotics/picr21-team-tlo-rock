@@ -61,7 +61,7 @@ def operate_camera(keypointX, keypointZ):
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
-    depth_scale = depth_sensor.get_depth_scale()
+    depth_scale = depth_sensor.get_depth_scale()*1000
 
     #________________________BLOB DETECTION PARAMETERS______________________________
     #detector object
