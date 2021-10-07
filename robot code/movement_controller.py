@@ -45,7 +45,7 @@ def main(nearest_ball, running):
         while running:
             #print(nearest_ball[0], nearest_ball[1])
             if nearest_ball[0] != 0:
-                motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(100, 0),1,move_omni(nearest_ball[0]/640*200-100, 90),1),1))
+                motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(100, 0),1,move_omni(nearest_ball[0]/640*200-100, 90),20),1))
                 print(motor_data)
             sleep(0.05)
     except Exception as e:
