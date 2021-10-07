@@ -43,9 +43,11 @@ def main(nearest_ball, running):
         port='/dev/ttyACM0'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
         while running:
-            motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(20, 0),1,rotate_omni(10),1),20))
+            if nearest_ball != [0,0]:
+                motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(100, 0),1,move_omni(nearest_ball[0]/640*200-100, 90),1),20))
             sleep(0.05)
     except Exception as e:
         print(e)
     if ser != None:
         ser.close()
+    running = -1
