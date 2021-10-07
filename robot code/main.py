@@ -11,10 +11,8 @@ def on_press(key):
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
-        program_Live = False
         return False
 
-program_Live = True
 if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
     camKeypointX = mp.Array('i', range(11))
@@ -29,6 +27,7 @@ if __name__ == '__main__':
 
     camera_process.start()
     localization_process.start()
+    movement_controller.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     #mingi callbacki/muutuja jälgimise alusel cleanup ja sulgemine
@@ -36,10 +35,9 @@ if __name__ == '__main__':
     listener = keyboard.Listener(on_press=on_press, suppressed = True)
     listener.start()
 
-    while program_Live:
-        pass
     while running.value != -1:
         pass
+
     camera_process.kill()
     localization_process.kill()
     print("Closing down!")
