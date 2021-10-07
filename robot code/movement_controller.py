@@ -3,10 +3,10 @@ import struct
 import math
 from time import sleep
 
-def send_ms(speeds): #unpack motorspeeds
-    return send_motorspeeds(speeds[0],speeds[1],speeds[2],speeds[3]) #returns motor data
+def send_ms(ser,speeds): #unpack motorspeeds
+    return send_motorspeeds(ser,speeds[0],speeds[1],speeds[2],speeds[3]) #returns motor data
 
-def send_motorspeeds(m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
+def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
     ser.write(struct.pack('<hhhHBH', m1, m2, m3, thrower, 0, 0xAAAA))
     size = struct.calcsize('<hhhH')
     data = ser.read(size)
@@ -37,12 +37,13 @@ def rectify_speed(object, max_speed):
     object = [int(element * mx) for element in object]
     return object
 
-def main(nearest_ball):
+def main(nearest_ball, running):
     ser = None
     try:
         port='/dev/ttyACM0'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
-            send_ms(rectify_speed(combine_moves(move_omni(20, 0),1,rotate_omni(10),1),20))
+        while running:
+            motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(20, 0),1,rotate_omni(10),1),20))
             sleep(0.05)
     except Exception as e:
         print(e)
