@@ -122,6 +122,7 @@ def operate_camera(keypointX, keypointZ):
                     tempKeypointZ[i] = point_depth
                     i += 1
 
+            #print(tempKeypointX)
             i = 0
             for i in range(11):
                 keypointX[i] = tempKeypointX[i]
