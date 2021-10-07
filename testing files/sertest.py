@@ -40,7 +40,6 @@ def thrower(speed):
 
 def move_omni(speed, angle): 
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    
     return [int(speed * math.cos(math.radians(angle) - math.radians(210))), int(speed * math.cos(math.radians(angle) - math.radians(300))), int(speed * math.cos(math.radians(angle) - math.radians(90))), 0]
 
 def rotate_omni(speed): 
