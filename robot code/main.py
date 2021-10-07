@@ -27,6 +27,7 @@ if __name__ == '__main__':
 
     camera_process.start()
     localization_process.start()
+    movement_controller.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     #mingi callbacki/muutuja jälgimise alusel cleanup ja sulgemine
