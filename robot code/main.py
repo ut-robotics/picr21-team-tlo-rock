@@ -6,8 +6,7 @@ from pynput import keyboard
 
 def on_press(key):
     global program_Live
-    print('{0} pressed'.format(
-        key))
+    print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         program_Live = False
@@ -18,10 +17,11 @@ if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
     camKeypointX = mp.Array('i', range(11))
     camKeypointZ = mp.Array('i', range(11))
+    nearest_ball = mp.Array('i', range(2))
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
-    localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ))
+    localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball))
 
     camera_process.start()
     localization_process.start()

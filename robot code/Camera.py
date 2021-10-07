@@ -114,12 +114,13 @@ def operate_camera(keypointX, keypointZ):
             tempKeypointZ = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             #printing the coordinates
             for punkt in keypoints:
-                point_x = round(punkt.pt[0])
-                point_y = round(punkt.pt[1])
-                point_depth = round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2)
-                tempKeypointX[i] = point_x
-                tempKeypointZ[i] = point_depth
-                i += 1
+                if i <= 10:
+                    point_x = int(round(punkt.pt[0]))
+                    point_y = int(round(punkt.pt[1]))
+                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2))
+                    tempKeypointX[i] = point_x
+                    tempKeypointZ[i] = point_depth
+                    i += 1
 
             i = 0
             for i in range(11):
