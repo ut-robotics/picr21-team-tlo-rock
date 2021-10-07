@@ -7,8 +7,6 @@ def find_nearest_ball(keypointsX, keypointsZ):
             nearest_ball[1] = keypointsZ[i]
     return nearest_ball
 
-
-
 def localize(BALLkeypointsX, BALLkeypointsZ, nearest_ball):
     while True:
         nearest_ball = find_nearest_ball(BALLkeypointsX, BALLkeypointsZ)
