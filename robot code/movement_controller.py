@@ -38,18 +38,20 @@ def rectify_speed(object, max_speed):
     return object
 
 def main(nearest_ball, running):
-    ser = None
+    robot_speed = 30 
+    ser = None    
     try:
         port='/dev/ttyACM0'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
         while running:
-            #print(nearest_ball[0], nearest_ball[1])
+            #print(running.value)
+            print(nearest_ball[0], nearest_ball[1])
+            if running.value == 0:
+                running.value = -1
             if nearest_ball[0] != 0:
-                motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(100, 0),1,move_omni(nearest_ball[0]/640*200-100, 90),20),1))
-                print(motor_data)
+                motor_data = send_ms(ser,rectify_speed(combine_moves(move_omni(100, 0),1,move_omni((nearest_ball[0]-320)/320*10, -90),20), robot_speed))
             sleep(0.05)
     except Exception as e:
         print(e)
     if ser != None:
         ser.close()
-    running = -1

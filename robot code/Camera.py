@@ -43,8 +43,8 @@ def operate_camera(keypointX, keypointZ):
     # Configure depth and color streams
     pipeline = rs.pipeline()
     config = rs.config()
-    colorizer = rs.colorizer()
-    colorizer.set_option(rs.option.visual_preset, 2)
+    #colorizer = rs.colorizer()
+    #colorizer.set_option(rs.option.visual_preset, 2)
 
     #camera product line is D400
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
@@ -54,10 +54,11 @@ def operate_camera(keypointX, keypointZ):
     pipeline_profile = pipeline.start(config)
 
     #configure exposure
-    #device = pipeline.get_active_profile().get_device().query_sensors()[1]
-    #device.set_option(rs.option.exposure, 320.0)
-    #device.set_option(rs.option.enable_auto_exposure,0)
-    #device.set_option(rs.option.enable_auto_white-balance,0)
+    device = pipeline.get_active_profile().get_device().query_sensors()[1]
+    device.set_option(rs.option.enable_auto_exposure,0)
+    device.set_option(rs.option.enable_auto_white_balance,0)
+    device.set_option(rs.option.exposure, 100.0)
+    device.set_option(rs.option.white_balance, 50.0)
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
@@ -69,7 +70,7 @@ def operate_camera(keypointX, keypointZ):
 
     blobparams.filterByArea = True
     blobparams.maxArea = 700000
-    blobparams.minArea = 200
+    blobparams.minArea = 50
     blobparams.filterByInertia = False
     blobparams.filterByConvexity = False
 
@@ -105,6 +106,7 @@ def operate_camera(keypointX, keypointZ):
             thresholded = cv2.inRange(color_frame, lowerLimits, upperLimits)
             thresholded = cv2.bitwise_not(thresholded)
             thresholded = cv2.rectangle(thresholded, (0, 0), (width-1, height-1), (255, 255, 255), 2)
+            outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded)
 
             #detecting the blobs
             keypoints = detector.detect(thresholded)
@@ -117,17 +119,23 @@ def operate_camera(keypointX, keypointZ):
                 if i <= 10:
                     point_x = int(round(punkt.pt[0]))
                     point_y = int(round(punkt.pt[1]))
-                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2))
+                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 1)*depth_scale, 2))
                     tempKeypointX[i] = point_x
                     tempKeypointZ[i] = point_depth
+                    cv2.putText(outimage, str(point_x)+ ', ' + str(point_y) + ', ' + str(point_depth) , (point_x, point_y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                     i += 1
-
+            
             #print(tempKeypointX)
-            i = 0
             for i in range(11):
                 keypointX[i] = tempKeypointX[i]
                 keypointZ[i] = tempKeypointZ[i]
-                i += 1
+            
+            cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('cap', outimage)
+            cv2.waitKey(1)
+    
+    except Exception as e:
+        print(e)
 
     finally:
         # When everything done, release the capture

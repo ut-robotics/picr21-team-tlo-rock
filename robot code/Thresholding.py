@@ -89,10 +89,11 @@ if __name__ == '__main__':
     pipeline_profile = pipeline.start(config)
 
     #configure exposure
-    #device = pipeline.get_active_profile().get_device().query_sensors()[1]
-    #device.set_option(rs.option.exposure, 320.0)
-    #device.set_option(rs.option.enable_auto_exposure,0)
-    #device.set_option(rs.option.enable_auto_white_balance,0)
+    device = pipeline.get_active_profile().get_device().query_sensors()[1]
+    device.set_option(rs.option.enable_auto_exposure,0)
+    device.set_option(rs.option.enable_auto_white_balance,0)
+    device.set_option(rs.option.exposure, 100.0)
+    device.set_option(rs.option.white_balance, 50.0)
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
@@ -104,7 +105,7 @@ if __name__ == '__main__':
 
     blobparams.filterByArea = True
     blobparams.maxArea = 700000
-    blobparams.minArea = 200
+    blobparams.minArea = 100
     blobparams.filterByInertia = False
     blobparams.filterByConvexity = False
 

@@ -1,18 +1,23 @@
 def find_nearest_ball(keypointsX, keypointsZ):
-    nearest_ball = [0, 0]
-    i = 0
+    '''
     for i in range(11):
-        if i == 0:
-            nearest_ball[0] = keypointsX[i]
-            nearest_ball[1] = keypointsZ[i]
-        elif keypointsZ == 0:
-            pass
-        elif keypointsZ[i] <= nearest_ball[1]:
-            nearest_ball[0] = keypointsX[i]
-            nearest_ball[1] = keypointsZ[i]
+        print('keypoint ', i)
+        print(keypointsX[i])
+        print(keypointsZ[i])
+    print("-------------")
+    '''
+    
+    temp_ball = [0, 0]
 
-    print(nearest_ball)
-    return nearest_ball
+    closest_index = 0
+    for i in range(11):
+        if (keypointsZ[i] <= keypointsZ[closest_index]) and (keypointsZ[i] != 0):
+            #print(keypointsZ[i])
+            closest_index = i
+            temp_ball[0] = keypointsX[closest_index]
+            temp_ball[1] = keypointsZ[closest_index]
+
+    return temp_ball
 
 def localize(BALLkeypointsX, BALLkeypointsZ, nearest_ball):
     while True:

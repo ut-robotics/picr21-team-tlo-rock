@@ -39,5 +39,9 @@ if __name__ == '__main__':
         pass
 
     camera_process.kill()
+    #print('cam killed')
     localization_process.kill()
+    #print('loc killed')
+    movement_controller.kill()
+    #print('moving killed')
     print("Closing down!")
