@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
     blobparams.filterByArea = True
     blobparams.maxArea = 700000
-    blobparams.minArea = 100
+    blobparams.minArea = 30
     blobparams.filterByInertia = False
     blobparams.filterByConvexity = False
 

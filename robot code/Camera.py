@@ -4,20 +4,38 @@ import numpy as np
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
+    #640 x 480
     # get the rows and collumns to keep from the matrix
-    lowcol = max(0, x-size)
-    lowrow = max(0, y-size)
+    lowrow = max(0, x-size)
+    lowcol = max(0, y-size)
     
-    highcol = min(array.shape[0], x+size+1)
-    highrow = min(array.shape[1], y+size+1)
+    highrow = min(array.shape[1], x+size+1)
+    highcol = min(array.shape[0], y+size+1)
+
+    """
+    print(x)
+    print(y)
+    print("-------")
+
+    print(lowrow)
+    print(lowcol)
+    print("-------")
+    
+    print(highrow)
+    print(highcol)
+    print("------------")
+    """
 
     # get the submatrix
     array = array[lowcol:highcol, lowrow:highrow]
-    # if matrix has no values return 0
+    #print(array)
+    
+    # if matrix has no values return -1
     if (array.size==0):
         return -1
-    # return average/median of values in array
-    return np.median(array)
+    #return average/median of values in array
+    #return np.median(array)
+    return np.max(array)
 
 def operate_camera(keypointX, keypointZ):
     #__________________________HSV LEGACY____________________________________________
@@ -70,7 +88,7 @@ def operate_camera(keypointX, keypointZ):
 
     blobparams.filterByArea = True
     blobparams.maxArea = 700000
-    blobparams.minArea = 50
+    blobparams.minArea = 30
     blobparams.filterByInertia = False
     blobparams.filterByConvexity = False
 
@@ -78,6 +96,8 @@ def operate_camera(keypointX, keypointZ):
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
+        cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
+        #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
         while True:
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
@@ -113,25 +133,30 @@ def operate_camera(keypointX, keypointZ):
            
             i = 0
             tempKeypointX = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            tempKeypointY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             tempKeypointZ = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            
             #printing the coordinates
             for punkt in keypoints:
                 if i <= 10:
                     point_x = int(round(punkt.pt[0]))
                     point_y = int(round(punkt.pt[1]))
-                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 1)*depth_scale, 2))
+                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2))
                     tempKeypointX[i] = point_x
+                    tempKeypointY[i] = point_y
                     tempKeypointZ[i] = point_depth
                     cv2.putText(outimage, str(point_x)+ ', ' + str(point_y) + ', ' + str(point_depth) , (point_x, point_y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                     i += 1
             
             #print(tempKeypointX)
+            #print("-----")
             for i in range(11):
                 keypointX[i] = tempKeypointX[i]
                 keypointZ[i] = tempKeypointZ[i]
+                #print(keypointX[i], keypointZ[i])
             
-            cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('cap', outimage)
+            #cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
     except Exception as e:
