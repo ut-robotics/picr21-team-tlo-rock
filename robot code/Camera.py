@@ -9,25 +9,11 @@ def get_average_of_subarray(array, x, y, size):
     lowrow = max(0, x-size)
     lowcol = max(0, y-size)
     
-    highrow = min(array.shape[1], x+size+1)
-    highcol = min(array.shape[0], y+size+1)
-
-    """
-    print(x)
-    print(y)
-    print("-------")
-
-    print(lowrow)
-    print(lowcol)
-    print("-------")
-    
-    print(highrow)
-    print(highcol)
-    print("------------")
-    """
+    highrow = min(array.shape[0], x+size+1)
+    highcol = min(array.shape[1], y+size+1)
 
     # get the submatrix
-    array = array[lowcol:highcol, lowrow:highrow]
+    array = array[lowrow:highrow, lowcol:highcol]
     #print(array)
     
     # if matrix has no values return -1
