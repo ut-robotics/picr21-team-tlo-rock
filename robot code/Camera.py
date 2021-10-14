@@ -26,7 +26,7 @@ def get_average_of_subarray(array, x, y, size):
 def operate_camera(keypointX, keypointZ):
     #__________________________HSV LEGACY____________________________________________
     try:
-        defaults = open('trackbar_defaults.txt', mode = 'r', encoding = 'UTF-8')
+        defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
         Trackbar_values = []
         for line in defaults:
             Trackbar_values.append(int(line.strip()))
