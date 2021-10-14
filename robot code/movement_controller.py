@@ -20,26 +20,33 @@ def stop():
 
 def main(target_speeds, state, running):# main function of movement controller
 
-    max_speed_change =  400 #how much wheel speed can change in a second
+    max_speed_change =  10 #how much wheel speed can change in a second
 
 
     ser = None    #create serial connection
     prev_speeds = [0,0,0]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
 
-    last_time = time.time()
+    last_time = time()
 
     try:
         port='/dev/ttyACM1'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
-        while True:
+
+        run = True
+
+        while run:
+            if state.value == 0:
+                send_ms(ser, stop())
+                run = False
+                break
             tme = time()
             delta = tme - last_time # delta
-            if state == 0:
-                send_ms(ser, stop())
-            if state == 1:
 
-                speeds = target_speeds[0:len(object)-1]
+            if state.value == 1:
+                print(target_speeds[0])
+                #target_speeds = [100,100,100, 0]
+                speeds = [target_speeds[0:3]]
                 mx = 0 # suurim kiiruste erinevus
                 for i, v in enumerate(speeds):
                     speeds[i] = v-prev_speeds[i]
@@ -48,12 +55,15 @@ def main(target_speeds, state, running):# main function of movement controller
                 
                 #mx - maximum change
                 
-                changerate = max_speed_change * delta / mx
+                if mx == 0:
+                    changerate = 0
+                else:
+                    changerate = max_speed_change * delta / mx
 
-                prev_speeds = [v+speeds[i]*changerate for i,v in enumerate(prev_speeds)]
-
+                prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
                 
                 
+
                 send_ms(ser, prev_speeds + [target_speeds[3]])
 
 
@@ -61,5 +71,5 @@ def main(target_speeds, state, running):# main function of movement controller
         print(e)
     if ser != None:
         ser.close()
-    running.value = -1
+    running = -1
     

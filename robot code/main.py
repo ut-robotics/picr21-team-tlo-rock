@@ -21,12 +21,13 @@ if __name__ == '__main__':
     nearest_ball = mp.Array('i', range(2))
     speeds = mp.Array('i', range(4))
     running = mp.Value('i', 1)
+    state = mp.Value('i', 1)
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
     localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball))
     movement_logic_process = mp.Process(target=ml.main, args=(nearest_ball, speeds))
-    movement_controller_process = mp.Process(target=mc.main, args=(speeds ,running))
+    movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
 
     camera_process.start()
     localization_process.start()

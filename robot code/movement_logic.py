@@ -38,9 +38,8 @@ def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the
 def main(nearest_ball, speeds):# main function of movement controller
     robot_speed = 100 # robots speed
 
-    speeds = [100,100,100]
     while True:
-        pass
+        speeds = rotate_omni(100)
     
     # pid constants
     Kp = 0.8
