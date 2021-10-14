@@ -3,20 +3,24 @@ import cv2
 import numpy as np
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
+    #640 x 480
     # get the rows and collumns to keep from the matrix
-    lowcol = max(0, x-size)
-    lowrow = max(0, y-size)
+    lowrow = max(0, x-size)
+    lowcol = max(0, y-size)
     
-    highcol = min(array.shape[0], x+size+1)
-    highrow = min(array.shape[1], y+size+1)
+    highrow = min(array.shape[0], x+size+1)
+    highcol = min(array.shape[1], y+size+1)
 
     # get the submatrix
-    array = array[lowcol:highcol, lowrow:highrow]
-    # if matrix has no values return 0
+    array = array[lowrow:highrow, lowcol:highcol]
+    #print(array)
+    
+    # if matrix has no values return -1
     if (array.size==0):
         return -1
-    # return average/median of values in array
-    return np.median(array)
+    #return average/median of values in array
+    #return np.median(array)
+    return np.max(array)
 
 if __name__ == '__main__':
     #__________________________HSV LEGACY____________________________________________
@@ -37,6 +41,8 @@ if __name__ == '__main__':
         hH = 74
         hS = 151
         hV = 193
+
+    threshold_mode = 5
 
     # A callback function for a trackbar
     # It is triggered every time the trackbar slider is used
@@ -64,6 +70,10 @@ if __name__ == '__main__':
         # Make sure to write the new value into the global variable
         global hV
         hV = new_value
+    def updateValueTM(new_value):
+        # Make sure to write the new value into the global variable
+        global threshold_mode
+        threshold_mode = new_value
 
     # Attach a trackbar to a window
     cv2.namedWindow("Trackbars")
@@ -73,6 +83,7 @@ if __name__ == '__main__':
     cv2.createTrackbar("hH", "Trackbars", hH, 179, updateValuehH)
     cv2.createTrackbar("hS", "Trackbars", hS, 255, updateValuehS)
     cv2.createTrackbar("hV", "Trackbars", hV, 255, updateValuehV)
+    cv2.createTrackbar("Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)", "Trackbars", threshold_mode, 5, updateValueTM)
 
     #___________________________________OPERATING CAMERA_________________________________
     # Configure depth and color streams
@@ -104,11 +115,11 @@ if __name__ == '__main__':
     blobparams = cv2.SimpleBlobDetector_Params()
 
     blobparams.filterByArea = True
-    blobparams.maxArea = 700000
-    blobparams.minArea = 30
+    #blobparams.maxArea = 7000000
+    blobparams.minArea = 400
+    blobparams.filterByCircularity = False
     blobparams.filterByInertia = False
-    blobparams.filterByConvexity = False
-
+    
     detector = cv2.SimpleBlobDetector_create(blobparams)
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
@@ -140,7 +151,7 @@ if __name__ == '__main__':
             # Our operations on the frame come here
             thresholded = cv2.inRange(color_frame, lowerLimits, upperLimits)
             thresholded = cv2.bitwise_not(thresholded)
-            thresholded = cv2.rectangle(thresholded, (0, 0), (width-1, height-1), (255, 255, 255), 2)
+            thresholded = cv2.rectangle(thresholded, (0, 0), (width-1, height-1), (255, 165, 0), 2)
             outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded)
 
             #detecting the blobs
@@ -171,6 +182,44 @@ if __name__ == '__main__':
                 break
 
     finally:
+
+        if threshold_mode == 0:
+            save = open('green.txt', mode = 'w', encoding = 'UTF-8')
+            Trackbar_values = [lH, lS, lV, hH, hS, hV]
+            for value in Trackbar_values:
+                save.write(str(value) + '\n')
+            save.close()
+
+        elif threshold_mode == 1:
+            save = open('black.txt', mode = 'w', encoding = 'UTF-8')
+            Trackbar_values = [lH, lS, lV, hH, hS, hV]
+            for value in Trackbar_values:
+                save.write(str(value) + '\n')
+            save.close()
+
+        elif threshold_mode == 2:
+            save = open('white.txt', mode = 'w', encoding = 'UTF-8')
+            Trackbar_values = [lH, lS, lV, hH, hS, hV]
+            for value in Trackbar_values:
+                save.write(str(value) + '\n')
+            save.close()
+
+        elif threshold_mode == 3:
+            save = open('pink.txt', mode = 'w', encoding = 'UTF-8')
+            Trackbar_values = [lH, lS, lV, hH, hS, hV]
+            for value in Trackbar_values:
+                save.write(str(value) + '\n')
+            save.close()
+
+        elif threshold_mode == 4:
+            save = open('blue.txt', mode = 'w', encoding = 'UTF-8')
+            Trackbar_values = [lH, lS, lV, hH, hS, hV]
+            for value in Trackbar_values:
+                save.write(str(value) + '\n')
+            save.close()
+
+        else:
+            pass
 
         save = open('trackbar_defaults.txt', mode = 'w', encoding = 'UTF-8')
         Trackbar_values = [lH, lS, lV, hH, hS, hV]
