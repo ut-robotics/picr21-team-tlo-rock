@@ -35,11 +35,17 @@ def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the
     object = [int(element * mx) for element in object]
     return object # returns the correctedmovement vector
 
+def set_speed(target_speeds,speed):
+    for i in range(len(speed)):
+        target_speeds[i] = speed [i]
+
 def main(nearest_ball, speeds):# main function of movement controller
     robot_speed = 100 # robots speed
 
     while True:
-        speeds = rotate_omni(100)
+        set_speed(speeds, rotate_omni(100))
+        #speeds = rotate_omni(100)
+        #print(speeds[0],speeds[1],speeds[2],speeds[3])
     
     # pid constants
     Kp = 0.8

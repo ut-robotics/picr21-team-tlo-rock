@@ -30,23 +30,27 @@ def main(target_speeds, state, running):# main function of movement controller
     last_time = time()
 
     try:
-        port='/dev/ttyACM1'
+        port='/dev/ttyACM0'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
 
         run = True
 
         while run:
-            if state.value == 0:
-                send_ms(ser, stop())
-                run = False
-                break
             tme = time()
             delta = tme - last_time # delta
+            
+            if running.value == 0:
+                break
+
+            if state.value == 0:
+                send_ms(ser, stop())
+            
 
             if state.value == 1:
-                print(target_speeds[0])
+                #print(target_speeds[0])
                 #target_speeds = [100,100,100, 0]
-                speeds = [target_speeds[0:3]]
+                speeds = target_speeds[0:3]
+                
                 mx = 0 # suurim kiiruste erinevus
                 for i, v in enumerate(speeds):
                     speeds[i] = v-prev_speeds[i]
@@ -54,22 +58,23 @@ def main(target_speeds, state, running):# main function of movement controller
                         mx = abs(i)
                 
                 #mx - maximum change
-                
                 if mx == 0:
                     changerate = 0
                 else:
                     changerate = max_speed_change * delta / mx
 
                 prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
-                
+
+                print(prev_speeds)
                 
 
                 send_ms(ser, prev_speeds + [target_speeds[3]])
+            sleep(0.001)
 
 
     except Exception as e:
         print(e)
     if ser != None:
         ser.close()
-    running = -1
+    running.value = -1
     
