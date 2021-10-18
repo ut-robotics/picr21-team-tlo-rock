@@ -18,6 +18,13 @@ def get_average_of_subarray(array, x, y, size):
     # return average/median of values in array
     return np.median(array)
 
+def savefile(filename):
+    save = open(filename, mode = 'w', encoding = 'UTF-8')
+    Trackbar_values = [lH, lS, lV, hH, hS, hV]
+    for value in Trackbar_values:
+        save.write(str(value) + '\n')
+    save.close()
+
 if __name__ == '__main__':
     #__________________________HSV LEGACY____________________________________________
     try:
@@ -166,17 +173,16 @@ if __name__ == '__main__':
             #_____________________________CLEANUP AT THE END___________________________________________
             cv2.waitKey(1)
 
+            #save the threshold into a file
+            if cv2.waitKey(1) & 0xFF == ord('s'):
+                
+
             # Quit the program when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
     finally:
-
-        save = open('trackbar_defaults.txt', mode = 'w', encoding = 'UTF-8')
-        Trackbar_values = [lH, lS, lV, hH, hS, hV]
-        for value in Trackbar_values:
-            save.write(str(value) + '\n')
-        save.close()
+        savefile('trackbar_defaults.txt')
 
         # When everything done, release the capture
         print('closing program')
