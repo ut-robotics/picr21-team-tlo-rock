@@ -19,7 +19,7 @@ if __name__ == '__main__':
     camKeypointX = mp.Array('i', range(11))
     camKeypointZ = mp.Array('i', range(11))
     nearest_ball = mp.Array('i', range(2))
-    speeds = mp.Array('i', range(4))
+    speeds = mp.Array('i', [i-i for i in range(4)])
     running = mp.Value('i', 1)
     state = mp.Value('i', 1)
 

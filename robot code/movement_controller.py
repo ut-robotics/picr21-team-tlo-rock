@@ -20,14 +20,13 @@ def stop():
 
 def main(target_speeds, state, running):# main function of movement controller
 
-    max_speed_change =  10 #how much wheel speed can change in a second
+    max_speed_change =  200 #how much wheel speed can change in a second
 
 
     ser = None    #create serial connection
     prev_speeds = [0,0,0]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
 
-    last_time = time()
 
     try:
         port='/dev/ttyACM0'
@@ -35,9 +34,12 @@ def main(target_speeds, state, running):# main function of movement controller
 
         run = True
 
+        last_time = time()
+
         while run:
             tme = time()
-            delta = tme - last_time # delta
+            delta = min(tme - last_time, 1000 / max_speed_change) # delta cant be large enough to make the robots wheels overspin (failsafe)
+            last_time = tme
             
             if running.value == 0:
                 break
@@ -47,8 +49,6 @@ def main(target_speeds, state, running):# main function of movement controller
             
 
             if state.value == 1:
-                #print(target_speeds[0])
-                #target_speeds = [100,100,100, 0]
                 speeds = target_speeds[0:3]
                 
                 mx = 0 # suurim kiiruste erinevus
@@ -64,9 +64,6 @@ def main(target_speeds, state, running):# main function of movement controller
                     changerate = max_speed_change * delta / mx
 
                 prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
-
-                print(prev_speeds)
-                
 
                 send_ms(ser, prev_speeds + [target_speeds[3]])
             sleep(0.001)

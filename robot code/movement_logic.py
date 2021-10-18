@@ -41,10 +41,9 @@ def set_speed(target_speeds,speed):
 
 def main(nearest_ball, speeds):# main function of movement controller
     robot_speed = 100 # robots speed
-
-    while True:
-        set_speed(speeds, rotate_omni(100))
-        #speeds = rotate_omni(100)
+    sleep(3)
+    #while True:
+    #    set_speed(speeds, rectify_speed (move_omni(100, 0),100))
         #print(speeds[0],speeds[1],speeds[2],speeds[3])
     
     # pid constants
@@ -67,13 +66,13 @@ def main(nearest_ball, speeds):# main function of movement controller
 
         if nearest_ball[0] != 0: # failsafe
             if nearest_ball[1] < 400:
-                speeds = stop()
+                set_speed(speeds, stop())
                 pass
             else:
                 if nearest_ball[1] == last_ball:
                     stop_counter += 1
                     if stop_counter > 100:
-                        speeds = rotate_omni(20)
+                        set_speed(speeds, rotate_omni(20))
                         continue
                 else :
                     stop_counter = 0
@@ -88,12 +87,14 @@ def main(nearest_ball, speeds):# main function of movement controller
                     integral += p_val*delta
 
                     pid = p_val * Kp + integral * Ki + slope * Kd # pid controller
-                    print(pid)
+                    #print(pid)
 
                     #print(p_val)
                     movement_vector = combine_moves(move_omni(min(60,int( nearest_ball[1]-300 / 4.5)), 0),move_omni(p_val*0, -90)) #calculate movement vector trying to center the ball
                     turning_vector = combine_moves (movement_vector, rotate_omni(pid*40)) # calculate turning vector trying to turn toward the ball
                     wheel_speeds = rectify_speed(turning_vector , robot_speed) #set movement speed
 
-                    speeds = wheel_speeds
+                    print(wheel_speeds)
+
+                    set_speed(speeds, wheel_speeds)
     
