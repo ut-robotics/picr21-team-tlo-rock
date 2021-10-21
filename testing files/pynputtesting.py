@@ -8,6 +8,8 @@ def on_press(key):
     except AttributeError:
         print('special key {0} pressed'.format(
             key))
+        if key == keyboard.Key.up:
+            print('praaks')
 
 def on_release(key):
     global mark

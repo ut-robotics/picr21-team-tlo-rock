@@ -7,12 +7,18 @@ import movement_controller as mc
 from pynput import keyboard
 
 def on_press(key):
-    global program_Live, running
+    global running
     print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
         return False
+    elif key == None:
+        state = 2
+        print('Switching to manual control!')
+    elif key == keyboard.Key.insert:
+        state = 1
+        print('Switching to logic controller!')
 
 if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
