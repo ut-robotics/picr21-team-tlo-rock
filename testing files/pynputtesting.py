@@ -26,19 +26,19 @@ def on_press(key):
         # Stop program and listener
         mark = False
         return False
-    elif key == keyboard.Key.home:
+    elif key == keyboard.KeyCode.from_char('u'):
         manual_inputs[0] = 1
-    elif key == keyboard.Key.up:
+    elif key == keyboard.KeyCode.from_char('i'):
         manual_inputs[1] = 1
-    elif key == keyboard.Key.page_up:
+    elif key == keyboard.KeyCode.from_char('o'):
         manual_inputs[2] = 1
-    elif key == keyboard.Key.left:
+    elif key == keyboard.KeyCode.from_char('j'):
         manual_inputs[3] = 1
-    elif key == keyboard.Key.right:
+    elif key == keyboard.KeyCode.from_char('l'):
         manual_inputs[4] = 1
-    elif key == keyboard.Key.down:
+    elif key == keyboard.KeyCode.from_char('k'):
         manual_inputs[5] = 1
-    elif key == keyboard.Key.end:
+    elif key == keyboard.KeyCode.from_char('n'):
         manual_inputs[6] = 1
         manual_inputs[0] = 0
         manual_inputs[1] = 0
@@ -49,19 +49,19 @@ def on_press(key):
 
 def on_release(key):
     global manual_inputs, state
-    if key == keyboard.Key.home:
+    if key == keyboard.KeyCode.from_char('u'):
         manual_inputs[0] = 0
-    elif key == keyboard.Key.up:
+    elif key == keyboard.KeyCode.from_char('i'):
         manual_inputs[1] = 0
-    elif key == keyboard.Key.page_up:
+    elif key == keyboard.KeyCode.from_char('o'):
         manual_inputs[2] = 0
-    elif key == keyboard.Key.left:
+    elif key == keyboard.KeyCode.from_char('j'):
         manual_inputs[3] = 0
-    elif key == keyboard.Key.right:
+    elif key == keyboard.KeyCode.from_char('l'):
         manual_inputs[4] = 0
-    elif key == keyboard.Key.down:
+    elif key == keyboard.KeyCode.from_char('k'):
         manual_inputs[5] = 0
-    elif key == keyboard.Key.end:
+    elif key == keyboard.KeyCode.from_char('n'):
         manual_inputs[6] = 0
 
 manual_inputs = [0 for i in range(7)]
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     listener.start()
 
     while mark:
-        #print(manual_inputs)
-        pass
+        print(manual_inputs)
+        #pass
     
     print('Closing down!')
