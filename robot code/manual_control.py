@@ -2,6 +2,7 @@ import movement_logic as ml
 
 def manualdrive(inputarray, control_state, speeds):
     while True:
+        print(control_state.value)
         if control_state == 2:
             #inputarray-home, up, pgup, left, right, down, end
             
@@ -12,6 +13,7 @@ def manualdrive(inputarray, control_state, speeds):
             turning_vector = ml.combine_moves (movement_vector, ml.rotate_omni(50*(inputarray[2]-inputarray[0]))) # calculate turning vector
             wheel_speeds = ml.rectify_speed(turning_vector, 100) #set movement speed
             #print(wheel_speeds)
+            print(inputarray)
             ml.set_speed(speeds, wheel_speeds)
         else:
             pass

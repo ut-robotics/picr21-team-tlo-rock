@@ -46,7 +46,8 @@ def main(nearest_ball, speeds):# main function of movement controller
     robot_speed = 100 # robots speed
     sleep(3)
     while True:
-        set_speed(speeds, thrower(2047)) 
+        pass
+        #set_speed(speeds, thrower(2047)) 
         #print(speeds[0],speeds[1],speeds[2],speeds[3])
     
     # pid constants
