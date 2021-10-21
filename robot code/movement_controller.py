@@ -5,7 +5,6 @@ import math
 from time import sleep, time
 
 #helpers
-
 def send_ms(ser,speeds): #unpacks motorspeeds
     return send_motorspeeds(ser,speeds[0],speeds[1],speeds[2],speeds[3]) #returns motor data
 
@@ -16,83 +15,60 @@ def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to mot
     values = struct.unpack('<hhhH',data)
     return values #returns motor data
 
-    #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-
-#combine 2 movement vectors together with some ratio (default 1 to 1)
-def combine_moves(move1, move2, p1 = 1, p2 = 1):
-    speed = [0,0,0,0]
-    for i,v in enumerate(move1):
-        speed[i]+= v*p1
-    for i,v in enumerate(move2):
-        speed[i]+= v*p2
-    return speed#returns new movement vector (motor speeds)
-
 def stop():
     return [0, 0, 0, 0]
 
-def move_omni(speed, angle): #generate movement vector with direction and speed
+def main(target_speeds, state, running):# main function of movement controller
 
-    #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    
-    return [int(speed * math.cos(math.radians(angle) - math.radians(210))), int(speed * math.cos(math.radians(angle) - math.radians(330))), int(speed * math.cos(math.radians(angle) - math.radians(90))), 0]
+    max_speed_change =  5 #how much wheel speed can change in a second
 
-def rotate_omni(speed): # generate rotation vector with speed
-    return[speed,speed,speed,0]
 
-def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the same as given speed but keeps all ratios the same
-    obj = object[0:len(object)-1]
-    mx = 0
-    for i in obj:
-        if abs(i) > mx:
-            mx = abs(i)
-    mx = max_speed/mx
-    object = [int(element * mx) for element in object]
-    return object # returns the correctedmovement vector
-
-def main(target_speeds, running):# main function of movement controller
     ser = None    #create serial connection
+    prev_speeds = [0,0,0]
+    #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
+
+
     try:
-        port='/dev/ttyACM1'
+        port='/dev/ttyACM0'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
-        while True:
-            
+
+        run = True
+
+        last_time = time()
+
+        while run:
             tme = time()
-            delta = tme - l_time
-            l_time = tme
-
-            #print(running.value)
-            #print(nearest_ball[0], nearest_ball[1])
-            if running.value == 0:# stop if no longer runing
+            delta = min(tme - last_time, 1000 / max_speed_change) # delta cant be large enough to make the robots wheels overspin (failsafe)
+            last_time = tme
+            
+            if running.value == 0:
                 break
-            if nearest_ball[0] != 0: # failsafe
-                if nearest_ball[1] < 400:
-                    send_ms(ser, stop())
+
+            if state.value == 0:
+                send_ms(ser, stop())
+            
+
+            if state.value == 1:
+                speeds = target_speeds[0:3]
+                
+                mx = 0 # suurim kiiruste erinevus
+                for i, v in enumerate(speeds):
+                    speeds[i] = v-prev_speeds[i]
+                    if abs(v-prev_speeds[i]) > mx:
+                        mx = abs(i)
+                
+                #mx - maximum change
+                if mx == 0:
+                    changerate = 0
                 else:
-                    if nearest_ball[1] == last_ball:
-                        stop_counter += 1
-                        if stop_counter > 100:
-                            send_ms(ser, rotate_omni(20))
-                            continue
-                    else :
-                        stop_counter = 0
-                    if stop_counter < 200:
-                        last_ball = nearest_ball[1]
-                        
-                        p_val = (nearest_ball[0]-320)/320 #p controller
+                    changerate = max_speed_change * delta / mx
 
-                        slope = p_val-l_p_val
-                        l_p_val = p_val
+                prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
 
-                        integral += p_val*delta
+                send_ms(ser, prev_speeds + [target_speeds[3]])
+            sleep(0.001)
 
-                        pid = p_val * Kp + integral * Ki + slope * Kd # pid controller
-                        print(pid)
 
-                        #print(p_val)
-                        movement_vector = combine_moves(move_omni(min(60,int( nearest_ball[1]-300 / 4.5)), 0),move_omni(p_val*0, -90)) #calculate movement vector trying to center the ball
-                        turning_vector = combine_moves (movement_vector, rotate_omni(pid*40)) # calculate turning vector trying to turn toward the ball
-                        wheel_speeds = rectify_speed(turning_vector , robot_speed) #set movement speed
-                        motor_data = send_ms(ser,wheel_speeds) # execute movement
     except Exception as e:
         print(e)
     if ser != None:
