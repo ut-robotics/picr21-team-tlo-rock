@@ -20,7 +20,7 @@ def stop():
 
 def main(target_speeds, state, running):# main function of movement controller
 
-    max_speed_change =  200 #how much wheel speed can change in a second
+    max_speed_change =  5 #how much wheel speed can change in a second
 
 
     ser = None    #create serial connection
