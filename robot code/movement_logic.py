@@ -49,11 +49,26 @@ def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the
     object = [int(element * mx) for element in object]
     return object # returns the correctedmovement vector
 
-def main(target_speeds, running):# main function of movement controller
+def main(nearest_ball, running):# main function of movement controller
+    robot_speed = 100 # robots speed
+    
+    # pid constants
+    Kp = 0.8
+    Ki = 0.9
+    Kd = 0.6
+
     ser = None    #create serial connection
     try:
         port='/dev/ttyACM1'
         ser = serial.Serial(port, baudrate=115200, timeout=3)
+
+        last_ball = 0
+        stop_counter = 0
+
+        integral = 0
+        l_p_val = 0
+        l_time = 0
+
         while True:
             
             tme = time()
