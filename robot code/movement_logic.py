@@ -34,6 +34,8 @@ def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the
     for i in obj:
         if abs(i) > mx:
             mx = abs(i)
+    if mx == 0:
+        return[0,0,0,0]
     mx = max_speed/mx
     object = [int(element * mx) for element in object]
     return object # returns the correctedmovement vector

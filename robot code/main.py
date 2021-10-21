@@ -15,12 +15,12 @@ def on_press(key):
         running.value = 0
         return False
     elif key == keyboard.KeyCode.from_char('m'):
-        state = 2
+        state.value = 2
         print('Switching to manual control!')
     elif key == keyboard.KeyCode.from_char('b'):
-        state = 1
+        state.value = 1
         print('Switching to logic controller!')
-    elif state == 2:
+    elif state.value == 2:
         if key == keyboard.KeyCode.from_char('u'):
             manual_inputs[0] = 1
         elif key == keyboard.KeyCode.from_char('i'):
@@ -44,7 +44,7 @@ def on_press(key):
 
 def on_release(key):
     global manual_inputs, state
-    if state == 2:
+    if state.value == 2:
         if key == keyboard.KeyCode.from_char('u'):
             manual_inputs[0] = 0
         elif key == keyboard.KeyCode.from_char('i'):

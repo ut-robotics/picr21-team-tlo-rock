@@ -20,7 +20,7 @@ def stop():
 
 def main(target_speeds, state, running):# main function of movement controller
 
-    max_speed_change =  5 #how much wheel speed can change in a second
+    max_speed_change =  100 #how much wheel speed can change in a second
 
 
     ser = None    #create serial connection
@@ -46,7 +46,7 @@ def main(target_speeds, state, running):# main function of movement controller
 
             if state.value == 0:
                 send_ms(ser, stop())
-            elif state.value == 1:
+            elif state.value == 1 or state.value == 2:
                 speeds = target_speeds[0:3]
                 
                 mx = 0 # suurim kiiruste erinevus
