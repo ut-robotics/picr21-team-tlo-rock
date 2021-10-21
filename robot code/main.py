@@ -9,7 +9,7 @@ from pynput import keyboard
 
 def on_press(key):
     global running, state, manual_inputs
-    print('{0} pressed'.format(key))
+    #print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
