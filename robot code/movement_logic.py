@@ -49,7 +49,7 @@ def main(nearest_ball, speeds):# main function of movement controller
 #        set_speed(speeds, thrower(800)) 
 #        print(speeds[0],speeds[1],speeds[2],speeds[3])
     
-    # pid constants
+    # pid con1stants
     #Kp = 0.8
     #Ki = 0.9
     #Kd = 0.6
@@ -64,12 +64,37 @@ def main(nearest_ball, speeds):# main function of movement controller
         delta = tme - l_time
         l_time = tme
         #print(delta)
+def main(nearest_ball, speeds):# main function of movement controller
+    robot_speed = 100 # robots speed
+    sleep(3)
+    #while True:
+    #    set_speed(speeds, thrower(900)) 
+    #    print(speeds[0],speeds[1],speeds[2],speeds[3])
+    
+    # pid constants
+    #Kp = 0.8
+    #Ki = 0.9
+    #Kd = 0.6
 
+    last_ball = 0
+    stop_counter = 0
+    l_time = time()
+
+    tme = time()
+    delta = tme - l_time
+    l_time = tme
+
+    while True:
+        print(nearest_ball[0], nearest_ball[1])
         if nearest_ball[0] != 0: # failsafe
-            if nearest_ball[1] < 350:
+            if nearest_ball[1] < 120:
                 set_speed(speeds, stop())
                 pass
             else:
-                error = (nearest_ball[0]-320)/320*100
-                print(error, nearest_ball[0])
+                error = (nearest_ball[0]-320)/3.2
+                #print(int(math.floor(error ** 1.05 * 0.1)))
+                movement_vector = rotate_omni(int(math.floor(error * 0.3)))
+                set_speed(speeds, movement_vector)
+        
+        #set_speed(speeds, rotate_omni(10))
     

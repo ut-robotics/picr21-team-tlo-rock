@@ -49,7 +49,7 @@ def main(target_speeds, state, running):# main function of movement controller
             if state.value == 0:
                 send_ms(ser, stop())
             
-            if state.value == 1:
+            if state.value in {1,2}:
                 speeds = target_speeds[0:3]
                 
                 mx = 0 # suurim kiiruste erinevus
