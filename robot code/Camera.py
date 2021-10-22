@@ -128,7 +128,7 @@ def operate_camera(keypointX, keypointZ):
                 if i <= 10:
                     point_x = int(round(punkt.pt[0]))
                     point_y = int(round(punkt.pt[1]))
-                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2))
+                    point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
                     tempKeypointX[i] = point_x
                     tempKeypointY[i] = point_y
                     tempKeypointZ[i] = point_depth

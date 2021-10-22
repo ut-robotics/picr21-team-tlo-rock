@@ -26,7 +26,7 @@ def main(target_speeds, state, running):# main function of movement controller
     ser = None    #create serial connection
     prev_speeds = [0,0,0]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    for i in range (10):
+    for i in range (100):
         try:
             port=f'/dev/ttyACM{i}'
             ser = serial.Serial(port, baudrate=115200, timeout=3)
@@ -39,8 +39,10 @@ def main(target_speeds, state, running):# main function of movement controller
 
     last_time = time()
     while run:
+            sleep(0.001)
             tme = time()
             delta = min(tme - last_time, 1000 / max_speed_change) # delta cant be large enough to make the robots wheels overspin (failsafe)
+            #print("delta", delta)
             last_time = tme
             
             if running.value == 0:
@@ -67,7 +69,6 @@ def main(target_speeds, state, running):# main function of movement controller
                     prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
 
                     send_ms(ser, prev_speeds + [target_speeds[3]])
-                sleep(0.001)
 
     if ser != None:
         ser.close()

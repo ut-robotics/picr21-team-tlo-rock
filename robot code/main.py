@@ -74,7 +74,7 @@ if __name__ == '__main__':
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
     localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball))
-    movement_logic_process = mp.Process(target=ml.main, args=(nearest_ball, speeds))
+    movement_logic_process = mp.Process(target=ml.main, args=(nearest_ball, speeds, state))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
 
