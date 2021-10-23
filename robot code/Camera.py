@@ -99,6 +99,7 @@ def operate_camera(keypointX, keypointZ):
 
             #This will be sent to processing
             color_image = cv2.normalize(color_image, np.zeros((640, 480)), 0, 255, cv2.NORM_MINMAX)
+            color_image = cv2.rectangle(color_image, (260,0), (360,30), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             height, width = (480, 640)
@@ -127,7 +128,7 @@ def operate_camera(keypointX, keypointZ):
                 if i <= 10:
                     point_x = int(round(punkt.pt[0]))
                     point_y = int(round(punkt.pt[1]))
-                    point_depth = int(round(get_average_of_subarray(depth_image, point_x, point_y, 2)*depth_scale, 2))
+                    point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
                     tempKeypointX[i] = point_x
                     tempKeypointY[i] = point_y
                     tempKeypointZ[i] = point_depth
