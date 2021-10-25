@@ -1,7 +1,5 @@
-from cv2 import integral
 import serial
 import struct
-import math
 from time import sleep, time
 from movement_logic import stop
 
@@ -28,6 +26,8 @@ def main(target_speeds, state, running):# main function of movement controller
     ser = None    #create serial connection
     prev_speeds = [0,0,0]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
+
+    #TODO use this: serial.tools.list_ports.comports instead of whats below
     for i in range (100):
         try:
             port=f'/dev/ttyACM{i}'
