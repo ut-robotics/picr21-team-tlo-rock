@@ -2,7 +2,7 @@
 import multiprocessing as mp
 import Camera as cam
 import Localization as loc
-import movement_logic as ml
+import game_logic as gl
 import movement_controller as mc
 import manual_control as man
 from pynput import keyboard
@@ -74,13 +74,13 @@ if __name__ == '__main__':
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
     localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball))
-    movement_logic_process = mp.Process(target=ml.main, args=(nearest_ball, speeds))
+    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
 
     camera_process.start()
     localization_process.start()
-    movement_logic_process.start()
+    game_logic_process.start()
     movement_controller_process.start()
     manual_override_process.start()
 
