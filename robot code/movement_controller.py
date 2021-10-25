@@ -3,25 +3,27 @@ import serial
 import struct
 import math
 from time import sleep, time
+from movement_logic import stop
+
+
+COMMAND_STRUCT_FORMAT = '<hhhHBH'
+FEEDBACK_STRUCT_FORMAT = '<hhhH'
+FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
+
 
 #helpers
 def send_ms(ser,speeds): #unpacks motorspeeds
     return send_motorspeeds(ser,speeds[0],speeds[1],speeds[2],speeds[3]) #returns motor data
 
 def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
-    ser.write(struct.pack('<hhhHBH', m1, m2, m3, thrower, 0, 0xAAAA))
-    size = struct.calcsize('<hhhH')
-    data = ser.read(size)
-    values = struct.unpack('<hhhH',data)
-    return values #returns motor data
-
-def stop():
-    return [0, 0, 0, 0]
+    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, m1, m2, m3, thrower, 0, 0xAAAA))
+    data = ser.read(FEEDBACK_STRUCT_SIZE)
+    values = struct.unpack(FEEDBACK_STRUCT_FORMAT, data)
+    return values # returns motor data
 
 def main(target_speeds, state, running):# main function of movement controller
 
     max_speed_change =  100 #how much wheel speed can change in a second
-
 
     ser = None    #create serial connection
     prev_speeds = [0,0,0]
