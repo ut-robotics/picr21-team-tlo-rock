@@ -7,8 +7,8 @@ import movement_controller as mc
 from pynput import keyboard
 
 def on_press(key):
-    global program_Live, running
-    print('{0} pressed'.format(key))
+    global running, state, manual_inputs
+    #print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
