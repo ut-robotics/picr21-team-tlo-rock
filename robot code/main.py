@@ -74,7 +74,7 @@ if __name__ == '__main__':
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
     localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball))
-    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds))
+    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     #print('cam killed')
     localization_process.kill()
     #print('loc killed')
-    movement_logic_process.kill()
+    game_logic_process.kill()
     manual_override_process.kill()
     #print('logic killed')
     movement_controller_process.kill()
