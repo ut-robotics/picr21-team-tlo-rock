@@ -1,7 +1,7 @@
 import serial
 import struct
 from time import sleep, time
-from movement_logic import stop
+from game_logic import stop
 
 
 COMMAND_STRUCT_FORMAT = '<hhhHBH'

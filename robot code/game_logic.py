@@ -19,11 +19,11 @@ def stop():
     return [0, 0, 0, 0]
 
 def linear_velocity(values):
-    return int(values[0] * math.cos(math.radians(values[1]) - math.radians(values[3])))
+    return int(values[0] * math.cos(math.radians(values[1]) - math.radians(values[2])))
 
 def move_omni(speed, angle): #generate movement vector with direction and speed
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])[speed,angle,90]) + [0]
+    return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])) + [0]
 
 def rotate_omni(speed): # generate rotation vector with speed
     return[speed,speed,speed,0]
@@ -47,35 +47,12 @@ def set_speed(target_speeds,speed):
     for i in range(len(speed)):
         target_speeds[i] = speed [i]
 
-def main(nearest_ball, speeds, state):# main function of movement controller
-    robot_speed = 100 # robots speed
-    sleep(3)
-#    while True:
-#        set_speed(speeds, thrower(800)) 
-#        print(speeds[0],speeds[1],speeds[2],speeds[3])
-    
-    # pid con1stants
-    #Kp = 0.8
-    #Ki = 0.9
-    #Kd = 0.6
 
-    last_ball = 0
-    stop_counter = 0
-    l_time = time()
-
-    while True:
-        while (state != 2):
-            pass
-
-        tme = time()
-        delta = tme - l_time
-        l_time = tme
-        #print(delta)
 def main(nearest_ball, speeds, state):# main function of movement controller
     robot_speed = 100 # robots speed
     sleep(3)
     #while True:
-    #    set_speed(speeds, thrower(900)) 
+    #    set_speed(speeds, thrower(800)) 
     #    print(speeds[0],speeds[1],speeds[2],speeds[3])
     
     # pid constants
@@ -100,7 +77,7 @@ def main(nearest_ball, speeds, state):# main function of movement controller
         if (state.value != 1):
             continue
 
-        print(nearest_ball[0], nearest_ball[1])
+        #print(nearest_ball[0], nearest_ball[1])
         if nearest_ball[0] != 0: # failsafe
             if nearest_ball[1] < 500:
                 set_speed(speeds, stop())
