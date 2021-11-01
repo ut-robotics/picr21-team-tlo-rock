@@ -10,9 +10,9 @@ from pynput import keyboard
 def on_press(key):
     global running, state, manual_inputs
 
-    keymap = ['u', 'i', 'o', 'j', 'k', 'l', 'n']
+    keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
-    print('{0} pressed'.format(key))
+    #print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
@@ -31,7 +31,7 @@ def on_press(key):
 def on_release(key):
     global manual_inputs, state
 
-    keymap = ['u', 'i', 'o', 'j', 'k', 'l', 'n']
+    keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     if state.value == 2:
         for index, value in enumerate(keymap):
