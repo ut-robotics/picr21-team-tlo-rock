@@ -9,7 +9,6 @@ from pynput import keyboard
 
 def on_press(key):
     global running, state, manual_inputs
-
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     #print('{0} pressed'.format(key))
@@ -30,7 +29,6 @@ def on_press(key):
 
 def on_release(key):
     global manual_inputs, state
-
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     if state.value == 2:

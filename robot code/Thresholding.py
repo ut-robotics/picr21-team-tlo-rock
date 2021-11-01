@@ -188,16 +188,8 @@ if __name__ == '__main__':
             #save the threshold into a file
             if cv2.waitKey(1) & 0xFF == ord('s'):
                 #Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)
-                if threshold_mode == 0:
-                    savefile('green.txt')
-                if threshold_mode == 1:
-                    savefile('black.txt')
-                if threshold_mode == 2:
-                    savefile('white.txt')
-                if threshold_mode == 3:
-                    savefile('pink.txt')
-                if threshold_mode == 4:
-                    savefile('blue.txt')
+                savemap = ['green.txt', 'black.txt', 'white.txt', 'pink.txt', 'blue.txt']
+                savefile(savemap[threshold_mode])
 
             # Quit the program when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
