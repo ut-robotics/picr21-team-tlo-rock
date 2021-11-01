@@ -9,6 +9,8 @@ from pynput import keyboard
 
 def on_press(key):
     global running, state, manual_inputs
+    keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
+
     #print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
@@ -21,44 +23,18 @@ def on_press(key):
         state.value = 1
         print('Switching to logic controller!')
     elif state.value == 2:
-        if key == keyboard.KeyCode.from_char('u'):
-            manual_inputs[0] = 1
-        elif key == keyboard.KeyCode.from_char('i'):
-            manual_inputs[1] = 1
-        elif key == keyboard.KeyCode.from_char('o'):
-            manual_inputs[2] = 1
-        elif key == keyboard.KeyCode.from_char('j'):
-            manual_inputs[3] = 1
-        elif key == keyboard.KeyCode.from_char('l'):
-            manual_inputs[4] = 1
-        elif key == keyboard.KeyCode.from_char('k'):
-            manual_inputs[5] = 1
-        elif key == keyboard.KeyCode.from_char('n'):
-            manual_inputs[6] = 1
-            manual_inputs[0] = 0
-            manual_inputs[1] = 0
-            manual_inputs[2] = 0
-            manual_inputs[3] = 0
-            manual_inputs[4] = 0
-            manual_inputs[5] = 0
+        for index, value in enumerate(keymap):
+            if key == keyboard.KeyCode.from_char(value):
+                manual_inputs[index] = 1
 
 def on_release(key):
     global manual_inputs, state
+    keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
+
     if state.value == 2:
-        if key == keyboard.KeyCode.from_char('u'):
-            manual_inputs[0] = 0
-        elif key == keyboard.KeyCode.from_char('i'):
-            manual_inputs[1] = 0
-        elif key == keyboard.KeyCode.from_char('o'):
-            manual_inputs[2] = 0
-        elif key == keyboard.KeyCode.from_char('j'):
-            manual_inputs[3] = 0
-        elif key == keyboard.KeyCode.from_char('l'):
-            manual_inputs[4] = 0
-        elif key == keyboard.KeyCode.from_char('k'):
-            manual_inputs[5] = 0
-        elif key == keyboard.KeyCode.from_char('n'):
-            manual_inputs[6] = 0
+        for index, value in enumerate(keymap):
+            if key == keyboard.KeyCode.from_char(value):
+                manual_inputs[index] = 0
     
 
 if __name__ == '__main__':

@@ -39,13 +39,13 @@ def main(target_speeds, state, running):# main function of movement controller
             
     run = True
 
-    last_time = time()
+    #last_time = time()
     while run:
             sleep(0.001)
-            tme = time()
-            delta = min(tme - last_time, 1000 / max_speed_change) # delta cant be large enough to make the robots wheels overspin (failsafe)
+            #tme = time()
+            #delta = min(tme - last_time, 1000 / max_speed_change) # delta cant be large enough to make the robots wheels overspin (failsafe)
             #print("delta", delta)
-            last_time = tme
+            #last_time = tme
             
             if running.value == 0:
                 break
@@ -55,7 +55,7 @@ def main(target_speeds, state, running):# main function of movement controller
             
             if state.value in {1,2}:
                 speeds = target_speeds[0:3]
-                
+            '''   
                 mx = 0 # suurim kiiruste erinevus
                 for i, v in enumerate(speeds):
                     speeds[i] = v-prev_speeds[i]
@@ -69,8 +69,9 @@ def main(target_speeds, state, running):# main function of movement controller
                         changerate = max_speed_change * delta / mx
 
                     prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
+                    '''
 
-                    send_ms(ser, prev_speeds + [target_speeds[3]])
+            send_ms(ser, speeds + [target_speeds[3]])
 
     if ser != None:
         ser.close()
