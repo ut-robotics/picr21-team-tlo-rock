@@ -76,7 +76,8 @@ def main(target_speeds, state, running):# main function of movement controller
                     prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
                     '''
 
-            send_motorspeeds(ser, *(speeds + [target_speeds[3]]))
+            ms = send_motorspeeds(ser, *(speeds + [target_speeds[3]]))
+            #print(ms)
 
     if ser != None:
         ser.close()
