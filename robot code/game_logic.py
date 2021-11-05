@@ -52,7 +52,7 @@ def main(nearest_ball, speeds, state):# main function of movement controller
     robot_speed = 100 # robots speed
     sleep(3)
     #while True:
-    #    set_speed(speeds, thrower(800)) 
+    #    set_speed(speeds, thrower(550)) 
     #    print(speeds[0],speeds[1],speeds[2],speeds[3])
     
     # pid constants
@@ -60,38 +60,29 @@ def main(nearest_ball, speeds, state):# main function of movement controller
     #Ki = 0.9
     #Kd = 0.6
 
-    last_ball = 0
-    stop_counter = 0
-    l_time = time()
-
-    
 
     while True:
-
-        tme = time()
-        delta = tme - l_time
-        l_time = tme
-
-        sleep(0.01)
-        #print("delta", delta)
+        #print(nearest_ball[1])
         if (state.value != 1):
             continue
 
         #print(nearest_ball[0], nearest_ball[1])
         if nearest_ball[0] != 0: # failsafe
-            if nearest_ball[1] < 500:
-                set_speed(speeds, stop())
+            error = (nearest_ball[0]-424)/4.24
+            if nearest_ball[1] < 550:
+                movement_vector = rotate_omni(int(math.floor(10)))
+                movement_vector = rectify_speed(movement_vector,error*0.3)
+                set_speed(speeds, movement_vector)
                 pass
             else:
-                error = (nearest_ball[0]-320)/3.2
                 #print(int(math.floor(error ** 1.05 * 0.1)))
-                movement_vector = rotate_omni(int(math.floor(error * 0.9)))
+                movement_vector = rotate_omni(int(math.floor(error * 0.04)))
                 movement_vector = combine_moves(movement_vector, move_omni(25,0))
-                speed = 80
-                if nearest_ball[1] < 800:
-                    speed = 25
+                speed = 40
+                if nearest_ball[1] < 1000:
+                    speed = 20
                 movement_vector = rectify_speed(movement_vector,speed)
                 set_speed(speeds, movement_vector)
         
-        #set_speed(speeds, rotate_omni(10))
-    
+        else:
+            set_speed(speeds, rotate_omni(10))

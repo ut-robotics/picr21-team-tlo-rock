@@ -7,8 +7,11 @@ import movement_controller as mc
 import manual_control as man
 from pynput import keyboard
 
+def getARunningStateWithManualInputs():
+    return running, state, manual_inputs
+
 def on_press(key):
-    global running, state, manual_inputs
+    running, state, manual_inputs = getARunningStateWithManualInputs()
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     #print('{0} pressed'.format(key))
@@ -16,19 +19,19 @@ def on_press(key):
         # Stop program and listener
         running.value = 0
         return False
-    elif key == keyboard.KeyCode.from_char('m'):
+    elif state.value == 1 and key == keyboard.KeyCode.from_char('m'):
         state.value = 2
         print('Switching to manual control!')
-    elif key == keyboard.KeyCode.from_char('b'):
+    elif state.value == 2 and key == keyboard.KeyCode.from_char('m'):
         state.value = 1
-        print('Switching to logic controller!')
+        print('Switching to automatic mode!')
     elif state.value == 2:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 1
 
 def on_release(key):
-    global manual_inputs, state
+    running, state, manual_inputs = getARunningStateWithManualInputs()
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     if state.value == 2:
@@ -78,4 +81,5 @@ if __name__ == '__main__':
     #print('logic killed')
     movement_controller_process.kill()
     #print('moving killed')
+    print("Closing down!")
     print("Closing down!")

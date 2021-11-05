@@ -2,6 +2,7 @@ import serial
 import struct
 from time import sleep, time
 from game_logic import stop
+from serial.tools import list_ports
 
 
 COMMAND_STRUCT_FORMAT = '<hhhHBH'
@@ -28,14 +29,18 @@ def main(target_speeds, state, running):# main function of movement controller
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
 
     #TODO use this: serial.tools.list_ports.comports instead of whats below
-    for i in range (100):
-        try:
-            port=f'/dev/ttyACM{i}'
-            ser = serial.Serial(port, baudrate=115200, timeout=3)
-            break
-        except Exception as e:
-            print (e)
-        
+    ports = list_ports.comports()
+
+    for port, desc, hwid in sorted(ports):
+        print("{}: {}".format(port, desc))
+        if desc == "STM32 Virtual ComPort":
+            print("connecting...")
+            try:
+                ser = serial.Serial(port, baudrate=115200, timeout=3)
+                print("connected")
+                break
+            except:
+                print("connection attempt failed")    
             
     run = True
 
@@ -71,7 +76,8 @@ def main(target_speeds, state, running):# main function of movement controller
                     prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
                     '''
 
-            send_ms(ser, speeds + [target_speeds[3]])
+            ms = send_motorspeeds(ser, *(speeds + [target_speeds[3]]))
+            #print(ms)
 
     if ser != None:
         ser.close()
