@@ -4,7 +4,7 @@ import numpy as np
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
-    #640 x 480
+    #848 x 480
     # get the rows and collumns to keep from the matrix
     lowrow = max(0, x-size)
     lowcol = max(0, y-size)
@@ -121,13 +121,14 @@ def operate_camera(keypointX, keypointZ):
             keypoints = detector.detect(thresholded)
            
             i = 0
-            tempKeypointX = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            tempKeypointY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            tempKeypointZ = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            MAX_KEYPOINT_COUNT = 11
+            tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+            tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+            tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
             
             #printing the coordinates
             for punkt in keypoints:
-                if i <= 10:
+                if i < MAX_KEYPOINT_COUNT:
                     point_x = int(round(punkt.pt[0]))
                     point_y = int(round(punkt.pt[1]))
                     point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
@@ -139,7 +140,7 @@ def operate_camera(keypointX, keypointZ):
             
             #print(tempKeypointX)
             #print("-----")
-            for i in range(11):
+            for i in range(MAX_KEYPOINT_COUNT):
                 keypointX[i] = tempKeypointX[i]
                 keypointZ[i] = tempKeypointZ[i]
                 #print(keypointX[i], keypointZ[i])

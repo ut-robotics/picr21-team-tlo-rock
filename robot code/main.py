@@ -31,7 +31,7 @@ def on_press(key):
                 manual_inputs[index] = 1
 
 def on_release(key):
-    running, state, manual_inputs = getARunningStateWithManualInputs()
+    _ , state, manual_inputs = getARunningStateWithManualInputs()
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     if state.value == 2:
