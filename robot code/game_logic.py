@@ -3,6 +3,7 @@ import serial
 import struct
 import math
 from time import sleep, time
+from enums import *
 
 #helpers
 
@@ -65,7 +66,7 @@ def main(nearest_ball, speeds, state):# main function of movement controller
 
     while True:
         #print(nearest_ball[1])
-        if (state.value != 1):
+        if (state.value != State.stopped):
             continue
 
         #print(nearest_ball[0], nearest_ball[1])

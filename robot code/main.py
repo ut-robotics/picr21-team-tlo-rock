@@ -6,6 +6,7 @@ import game_logic as gl
 import movement_controller as mc
 import manual_control as man
 from pynput import keyboard
+from enums import *
 
 def getARunningStateWithManualInputs():
     return running, state, manual_inputs
@@ -19,13 +20,13 @@ def on_press(key):
         # Stop program and listener
         running.value = 0
         return False
-    elif state.value == 1 and key == keyboard.KeyCode.from_char('m'):
-        state.value = 2
+    elif state.value == State.automatic and key == keyboard.KeyCode.from_char('m'):
+        state.value = State.remote
         print('Switching to manual control!')
-    elif state.value == 2 and key == keyboard.KeyCode.from_char('m'):
-        state.value = 1
+    elif state.value == State.remote and key == keyboard.KeyCode.from_char('m'):
+        state.value = State.automatic
         print('Switching to automatic mode!')
-    elif state.value == 2:
+    elif state.value == State.remote:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 1
