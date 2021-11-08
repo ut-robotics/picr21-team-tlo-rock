@@ -1,9 +1,10 @@
 import game_logic as ml
+from enums import *
 
 def manualdrive(inputarray, control_state, speeds):
     while True:
         #print(control_state.value)
-        if control_state.value == 2:
+        if control_state.value == State.remote._value_:
             #inputarray-u, i, o, j, l, k, n
             
             if inputarray[6]:

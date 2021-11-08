@@ -3,6 +3,7 @@ import struct
 from time import sleep, time
 from game_logic import stop
 from serial.tools import list_ports
+from enums import *
 
 
 COMMAND_STRUCT_FORMAT = '<hhhHBH'
@@ -28,7 +29,7 @@ def main(target_speeds, state, running):# main function of movement controller
     #TODO use this: serial.tools.list_ports.comports instead of whats below
     ports = list_ports.comports()
 
-    for port, desc, hwid in sorted(ports):
+    for port, desc, _ in sorted(ports):
         print("{}: {}".format(port, desc))
         if desc == "STM32 Virtual ComPort":
             print("connecting...")
@@ -52,10 +53,10 @@ def main(target_speeds, state, running):# main function of movement controller
             if running.value == 0:
                 break
 
-            if state.value == 0:
+            if state.value == State.stopped._value_:
                 send_motorspeeds(ser, *stop())
             
-            if state.value in {1,2}:
+            if state.value in {State.automatic._value_,State.remote._value_}:
                 speeds = target_speeds[0:3]
                 '''   
                 mx = 0 # suurim kiiruste erinevus

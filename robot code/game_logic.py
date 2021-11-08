@@ -26,7 +26,7 @@ def move_omni(speed, angle): #generate movement vector with direction and speed
     
     WHEEL_ANGLES = [210, 330, 90]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    return [linear_velocity(speed, angle, wheel_angle) for wheel_angle in WHEEL_ANGLES] + [0]
+    return [linear_velocity([speed, angle, wheel_angle]) for wheel_angle in WHEEL_ANGLES] + [0]
     #return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])) + [0]
 
 def rotate_omni(speed): # generate rotation vector with speed
@@ -66,7 +66,7 @@ def main(nearest_ball, speeds, state):# main function of movement controller
 
     while True:
         #print(nearest_ball[1])
-        if (state.value != State.stopped):
+        if (state.value != State.stopped._value_):
             continue
 
         #print(nearest_ball[0], nearest_ball[1])
