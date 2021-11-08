@@ -4,7 +4,7 @@ import numpy as np
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
-    #640 x 480
+    #848 x 480
     # get the rows and collumns to keep from the matrix
     lowrow = max(0, x-size)
     lowcol = max(0, y-size)
@@ -121,9 +121,10 @@ def operate_camera(keypointX, keypointZ):
             keypoints = detector.detect(thresholded)
            
             i = 0
-            tempKeypointX = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            tempKeypointY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            tempKeypointZ = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            MAX_KEYPOINT_COUNT = 11
+            tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+            tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+            tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
             
             #printing the coordinates
             for punkt in keypoints:
