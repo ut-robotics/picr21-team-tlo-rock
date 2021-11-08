@@ -101,8 +101,8 @@ if __name__ == '__main__':
     colorizer.set_option(rs.option.visual_preset, 2)
 
     #camera product line is D400
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    config.enable_stream(rs.stream.depth, 960, 540, rs.format.z16, 60)
+    config.enable_stream(rs.stream.color, 960, 540, rs.format.bgr8, 60)
 
     # Start streaming
     pipeline_profile = pipeline.start(config)
