@@ -1,6 +1,6 @@
 import serial
 import struct
-from time import sleep, time
+from time import sleep
 from game_logic import stop
 from serial.tools import list_ports
 from enums import *
