@@ -5,6 +5,7 @@ import Localization as loc
 import game_logic as gl
 import movement_controller as mc
 import manual_control as man
+import numpy as np
 from pynput import keyboard
 
 def getARunningStateWithManualInputs():
@@ -42,13 +43,13 @@ def on_release(key):
 
 if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
-    camKeypointX = mp.Array('i', range(11))
-    camKeypointZ = mp.Array('i', range(11))
-    nearest_ball = mp.Array('i', range(2))
-    speeds = mp.Array('i', [i-i for i in range(4)])
+    camKeypointX = mp.Array('i', np.zeros(11, dtype=int))
+    camKeypointZ = mp.Array('i', np.zeros(11, dtype=int))
+    nearest_ball = mp.Array('i', np.zeros(2, dtype=int))
+    speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', 1)
     state = mp.Value('i', 1)
-    manual_inputs = mp.Array('i', [i-i for i in range(7)])
+    manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
