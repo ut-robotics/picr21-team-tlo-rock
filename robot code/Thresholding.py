@@ -100,9 +100,13 @@ if __name__ == '__main__':
     colorizer = rs.colorizer()
     colorizer.set_option(rs.option.visual_preset, 2)
 
+    cam_res_width = 848
+    cam_res_height = 480
+    cam_fps = 60
+
     #camera product line is D400
-    config.enable_stream(rs.stream.depth, 960, 540, rs.format.z16, 60)
-    config.enable_stream(rs.stream.color, 960, 540, rs.format.bgr8, 60)
+    config.enable_stream(rs.stream.depth, cam_res_width, cam_res_height, rs.format.z16, cam_fps)
+    config.enable_stream(rs.stream.color, cam_res_width, cam_res_height, rs.format.bgr8, cam_fps)
 
     # Start streaming
     pipeline_profile = pipeline.start(config)
@@ -146,10 +150,8 @@ if __name__ == '__main__':
             color_image = np.asanyarray(color_frame.get_data())
 
             #This will be sent to processing
-            color_image = cv2.normalize(color_image, np.zeros((640, 480)), 0, 255, cv2.NORM_MINMAX)
+            color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-
-            height, width = (480, 640)
 
             #___________________HSV LEGACY________________________________________________
             # Colour detection limits
@@ -159,7 +161,7 @@ if __name__ == '__main__':
             # Our operations on the frame come here
             thresholded = cv2.inRange(color_frame, lowerLimits, upperLimits)
             thresholded = cv2.bitwise_not(thresholded)
-            thresholded = cv2.rectangle(thresholded, (0, 0), (width-1, height-1), (255, 165, 0), 2)
+            thresholded = cv2.rectangle(thresholded, (0, 0), (cam_res_width-1, cam_res_height-1), (255, 165, 0), 2)
             outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded)
 
             #detecting the blobs
@@ -188,16 +190,8 @@ if __name__ == '__main__':
             #save the threshold into a file
             if cv2.waitKey(1) & 0xFF == ord('s'):
                 #Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)
-                if threshold_mode == 0:
-                    savefile('green.txt')
-                if threshold_mode == 1:
-                    savefile('black.txt')
-                if threshold_mode == 2:
-                    savefile('white.txt')
-                if threshold_mode == 3:
-                    savefile('pink.txt')
-                if threshold_mode == 4:
-                    savefile('blue.txt')
+                savemap = ['green.txt', 'black.txt', 'white.txt', 'pink.txt', 'blue.txt']
+                savefile(savemap[threshold_mode])
 
             # Quit the program when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):

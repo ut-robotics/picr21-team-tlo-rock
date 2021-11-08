@@ -2,63 +2,42 @@
 import multiprocessing as mp
 import Camera as cam
 import Localization as loc
-import movement_logic as ml
+import game_logic as gl
 import movement_controller as mc
 import manual_control as man
 from pynput import keyboard
 
+def getARunningStateWithManualInputs():
+    return running, state, manual_inputs
+
 def on_press(key):
-    global running, state, manual_inputs
-    print('{0} pressed'.format(key))
+    running, state, manual_inputs = getARunningStateWithManualInputs()
+    keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
+
+    #print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
         return False
-    elif key == keyboard.KeyCode.from_char('m'):
+    elif state.value == 1 and key == keyboard.KeyCode.from_char('m'):
         state.value = 2
         print('Switching to manual control!')
-    elif key == keyboard.KeyCode.from_char('b'):
+    elif state.value == 2 and key == keyboard.KeyCode.from_char('m'):
         state.value = 1
-        print('Switching to logic controller!')
+        print('Switching to automatic mode!')
     elif state.value == 2:
-        if key == keyboard.KeyCode.from_char('u'):
-            manual_inputs[0] = 1
-        elif key == keyboard.KeyCode.from_char('i'):
-            manual_inputs[1] = 1
-        elif key == keyboard.KeyCode.from_char('o'):
-            manual_inputs[2] = 1
-        elif key == keyboard.KeyCode.from_char('j'):
-            manual_inputs[3] = 1
-        elif key == keyboard.KeyCode.from_char('l'):
-            manual_inputs[4] = 1
-        elif key == keyboard.KeyCode.from_char('k'):
-            manual_inputs[5] = 1
-        elif key == keyboard.KeyCode.from_char('n'):
-            manual_inputs[6] = 1
-            manual_inputs[0] = 0
-            manual_inputs[1] = 0
-            manual_inputs[2] = 0
-            manual_inputs[3] = 0
-            manual_inputs[4] = 0
-            manual_inputs[5] = 0
+        for index, value in enumerate(keymap):
+            if key == keyboard.KeyCode.from_char(value):
+                manual_inputs[index] = 1
 
 def on_release(key):
-    global manual_inputs, state
+    _ , state, manual_inputs = getARunningStateWithManualInputs()
+    keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
+
     if state.value == 2:
-        if key == keyboard.KeyCode.from_char('u'):
-            manual_inputs[0] = 0
-        elif key == keyboard.KeyCode.from_char('i'):
-            manual_inputs[1] = 0
-        elif key == keyboard.KeyCode.from_char('o'):
-            manual_inputs[2] = 0
-        elif key == keyboard.KeyCode.from_char('j'):
-            manual_inputs[3] = 0
-        elif key == keyboard.KeyCode.from_char('l'):
-            manual_inputs[4] = 0
-        elif key == keyboard.KeyCode.from_char('k'):
-            manual_inputs[5] = 0
-        elif key == keyboard.KeyCode.from_char('n'):
-            manual_inputs[6] = 0
+        for index, value in enumerate(keymap):
+            if key == keyboard.KeyCode.from_char(value):
+                manual_inputs[index] = 0
     
 
 if __name__ == '__main__':
@@ -74,13 +53,13 @@ if __name__ == '__main__':
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
     localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball))
-    movement_logic_process = mp.Process(target=ml.main, args=(nearest_ball, speeds))
+    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
 
     camera_process.start()
     localization_process.start()
-    movement_logic_process.start()
+    game_logic_process.start()
     movement_controller_process.start()
     manual_override_process.start()
 
@@ -97,9 +76,10 @@ if __name__ == '__main__':
     #print('cam killed')
     localization_process.kill()
     #print('loc killed')
-    movement_logic_process.kill()
+    game_logic_process.kill()
     manual_override_process.kill()
     #print('logic killed')
     movement_controller_process.kill()
     #print('moving killed')
+    print("Closing down!")
     print("Closing down!")
