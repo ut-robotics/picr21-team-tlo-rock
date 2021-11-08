@@ -120,12 +120,12 @@ def operate_camera(keypointX, keypointZ):
             #detecting the blobs
             keypoints = detector.detect(thresholded)
            
-            i = 0
             MAX_KEYPOINT_COUNT = 11
             tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
             tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
             tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
             
+            i = 0 
             #printing the coordinates
             for punkt in keypoints:
                 if i < MAX_KEYPOINT_COUNT:

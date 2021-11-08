@@ -7,12 +7,10 @@ import movement_controller as mc
 import manual_control as man
 import numpy as np
 from pynput import keyboard
+from functools import partial
 
-def getARunningStateWithManualInputs():
-    return running, state, manual_inputs
-
-def on_press(key):
-    running, state, manual_inputs = getARunningStateWithManualInputs()
+def on_press(context, key):
+    running, state, manual_inputs = context
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     #print('{0} pressed'.format(key))
@@ -31,8 +29,8 @@ def on_press(key):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 1
 
-def on_release(key):
-    _ , state, manual_inputs = getARunningStateWithManualInputs()
+def on_release(context, key):
+    state, manual_inputs = context
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
     if state.value == 2:
@@ -67,7 +65,8 @@ if __name__ == '__main__':
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     #mingi callbacki/muutuja jälgimise alusel cleanup ja sulgemine
     # Pynputiga keyboard inputide jälgimine
-    listener = keyboard.Listener(on_press=on_press, on_release=on_release, suppressed = True)
+    listener = keyboard.Listener(on_press=partial(on_press, (running, state, manual_inputs)), 
+                                on_release=partial(on_release, (state, manual_inputs)), suppressed = True)
     listener.start()
 
     while running.value != -1:
@@ -82,5 +81,4 @@ if __name__ == '__main__':
     #print('logic killed')
     movement_controller_process.kill()
     #print('moving killed')
-    print("Closing down!")
     print("Closing down!")
