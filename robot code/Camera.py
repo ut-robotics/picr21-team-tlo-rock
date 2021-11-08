@@ -128,7 +128,7 @@ def operate_camera(keypointX, keypointZ):
             
             #printing the coordinates
             for punkt in keypoints:
-                if i <= 10:
+                if i < MAX_KEYPOINT_COUNT:
                     point_x = int(round(punkt.pt[0]))
                     point_y = int(round(punkt.pt[1]))
                     point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
@@ -140,7 +140,7 @@ def operate_camera(keypointX, keypointZ):
             
             #print(tempKeypointX)
             #print("-----")
-            for i in range(11):
+            for i in range(MAX_KEYPOINT_COUNT):
                 keypointX[i] = tempKeypointX[i]
                 keypointZ[i] = tempKeypointZ[i]
                 #print(keypointX[i], keypointZ[i])
