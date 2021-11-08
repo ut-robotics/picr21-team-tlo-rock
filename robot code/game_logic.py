@@ -22,8 +22,11 @@ def linear_velocity(values):
     return int(values[0] * math.cos(math.radians(values[1]) - math.radians(values[2])))
 
 def move_omni(speed, angle): #generate movement vector with direction and speed
+    
+    WHEEL_ANGLES = [210, 330, 90]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])) + [0]
+    return [linear_velocity(speed, angle, wheel_angle) for wheel_angle in WHEEL_ANGLES] + [0]
+    #return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])) + [0]
 
 def rotate_omni(speed): # generate rotation vector with speed
     return[speed,speed,speed,0]
@@ -49,7 +52,6 @@ def set_speed(target_speeds,speed):
 
 
 def main(nearest_ball, speeds, state):# main function of movement controller
-    robot_speed = 100 # robots speed
     sleep(3)
     #while True:
     #    set_speed(speeds, thrower(550)) 
