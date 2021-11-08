@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
-    #640 x 480
+    #848 x 480
     # get the rows and collumns to keep from the matrix
     lowrow = max(0, x-size)
     lowcol = max(0, y-size)
