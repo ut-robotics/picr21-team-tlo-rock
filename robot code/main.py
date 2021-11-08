@@ -18,12 +18,6 @@ def on_press(context, key):
         # Stop program and listener
         running.value = 0
         return False
-    elif state.value == 1 and key == keyboard.KeyCode.from_char('m'):
-        state.value = 2
-        print('Switching to manual control!')
-    elif state.value == 2 and key == keyboard.KeyCode.from_char('m'):
-        state.value = 1
-        print('Switching to automatic mode!')
     elif state.value == 2:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
@@ -37,6 +31,12 @@ def on_release(context, key):
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 0
+    elif state.value == 1 and key == keyboard.KeyCode.from_char('m'):
+        state.value = 2
+        print('Switching to manual control!')
+    elif state.value == 2 and key == keyboard.KeyCode.from_char('m'):
+        state.value = 1
+        print('Switching to automatic mode!')
     
 
 if __name__ == '__main__':
