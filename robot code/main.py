@@ -8,6 +8,7 @@ import manual_control as man
 import numpy as np
 from pynput import keyboard
 from functools import partial
+from enums import *
 
 def on_press(context, key):
     running, state, manual_inputs = context
@@ -18,7 +19,7 @@ def on_press(context, key):
         # Stop program and listener
         running.value = 0
         return False
-    elif state.value == 2:
+    elif state.value == State.remote:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 1
@@ -27,15 +28,16 @@ def on_release(context, key):
     state, manual_inputs = context
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
-    if state.value == 2:
+    if state.value == State.remote:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 0
-    elif state.value == 1 and key == keyboard.KeyCode.from_char('m'):
-        state.value = 2
+    
+    if state.value == State.automatic and key == keyboard.KeyCode.from_char('m'):
+        state.value = State.remote
         print('Switching to manual control!')
-    elif state.value == 2 and key == keyboard.KeyCode.from_char('m'):
-        state.value = 1
+    elif state.value == State.remote and key == keyboard.KeyCode.from_char('m'):
+        state.value = State.automatic
         print('Switching to automatic mode!')
     
 

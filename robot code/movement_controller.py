@@ -11,9 +11,6 @@ FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
 
 
 #helpers
-def send_ms(ser,speeds): #unpacks motorspeeds
-    return send_motorspeeds(ser,speeds[0],speeds[1],speeds[2],speeds[3]) #returns motor data
-
 def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
     ser.write(struct.pack(COMMAND_STRUCT_FORMAT, m1, m2, m3, thrower, 0, 0xAAAA))
     data = ser.read(FEEDBACK_STRUCT_SIZE)
@@ -56,11 +53,11 @@ def main(target_speeds, state, running):# main function of movement controller
                 break
 
             if state.value == 0:
-                send_ms(ser, stop())
+                send_motorspeeds(ser, *stop())
             
             if state.value in {1,2}:
                 speeds = target_speeds[0:3]
-            '''   
+                '''   
                 mx = 0 # suurim kiiruste erinevus
                 for i, v in enumerate(speeds):
                     speeds[i] = v-prev_speeds[i]
@@ -74,10 +71,9 @@ def main(target_speeds, state, running):# main function of movement controller
                         changerate = max_speed_change * delta / mx
 
                     prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
-                    '''
+                '''
 
-            ms = send_motorspeeds(ser, *(speeds + [target_speeds[3]]))
-            #print(ms)
+                ms = send_motorspeeds(ser, *(speeds + [target_speeds[3]]))
 
     if ser != None:
         ser.close()
