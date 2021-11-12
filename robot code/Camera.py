@@ -32,7 +32,7 @@ def operate_camera(keypointX, keypointZ):
             Trackbar_values.append(int(line.strip()))
 
         defaults.close()
-        lH, lS, lV, hH, hS, hV = Trackbar_values
+        lH, lS, lV, hH, hS, hV, mode = Trackbar_values
 
     except:
         # Global variables for the trackbar value if no base file exists
@@ -42,6 +42,7 @@ def operate_camera(keypointX, keypointZ):
         hH = 74
         hS = 151
         hV = 193
+        mode = 0
 
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
