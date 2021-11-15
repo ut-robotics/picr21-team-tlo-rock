@@ -14,7 +14,7 @@ def on_press(context, key):
     running, state, manual_inputs = context
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
-    print('{0} pressed'.format(key))
+    #print('{0} pressed'.format(key))
     if key == keyboard.KeyCode.from_char('q'):
         # Stop program and listener
         running.value = 0
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     manual_override_process.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
-    #mingi callbacki/muutuja jälgimise alusel cleanup ja sulgemine
-    # Pynputiga keyboard inputide jälgimine
+    # Roboti kasutaja sisendite võimaldamine
+    # Pynputiga keyboard input-ide jälgimine
     listener = keyboard.Listener(on_press=partial(on_press, (running, state, manual_inputs)), 
                                 on_release=partial(on_release, (state, manual_inputs)))
     listener.start()
