@@ -1,6 +1,7 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
+from functools import partial
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
     #848 x 480
@@ -23,8 +24,8 @@ def get_average_of_subarray(array, x, y, size):
     return np.max(array)
 
 def savefile(filename):
+    global Trackbar_values
     save = open(filename, mode = 'w', encoding = 'UTF-8')
-    Trackbar_values = [lH, lS, lV, hH, hS, hV]
     for value in Trackbar_values:
         save.write(str(value) + '\n')
     save.close()
@@ -37,62 +38,24 @@ if __name__ == '__main__':
         Trackbar_values = []
         for line in defaults:
             Trackbar_values.append(int(line.strip()))
-
         defaults.close()
-        lH, lS, lV, hH, hS, hV = Trackbar_values
 
     except:
         # Global variables for the trackbar value if no base file exists
-        lH = 29
-        lS = 24
-        lV = 69
-        hH = 74
-        hS = 151
-        hV = 193
-
-    threshold_mode = 5
+        Trackbar_values = [29, 24, 69, 74, 171, 193, 5]
 
     # A callback function for a trackbar
     # It is triggered every time the trackbar slider is used
-    def updateValueH(new_value):
-        # Make sure to write the new value into the global variable
-        global lH
-        lH = new_value
-    def updateValueS(new_value):
-        # Make sure to write the new value into the global variable
-        global lS
-        lS = new_value
-    def updateValueV(new_value):
-        # Make sure to write the new value into the global variable
-        global lV
-        lV = new_value
-    def updateValuehH(new_value):
-        # Make sure to write the new value into the global variable
-        global hH
-        hH = new_value
-    def updateValuehS(new_value):
-        # Make sure to write the new value into the global variable
-        global hS
-        hS = new_value
-    def updateValuehV(new_value):
-        # Make sure to write the new value into the global variable
-        global hV
-        hV = new_value
-    def updateValueTM(new_value):
-        # Make sure to write the new value into the global variable
-        global threshold_mode
-        threshold_mode = new_value
-
-    # Attach a trackbar to a window
+    def updateValue(value_index, new_value):
+        Trackbar_values[value_index] = new_value
+    
+    trackbar_names = ['lH', 'lS', 'lV', 'hH', 'hS', 'hV', 'Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)']
+    trackbar_limits = [179, 255, 255, 179, 255, 255, 5]
     cv2.namedWindow("Trackbars")
-    cv2.createTrackbar("H", "Trackbars", lH, 179, updateValueH)
-    cv2.createTrackbar("S", "Trackbars", lS, 255, updateValueS)
-    cv2.createTrackbar("V", "Trackbars", lV, 255, updateValueV)
-    cv2.createTrackbar("hH", "Trackbars", hH, 179, updateValuehH)
-    cv2.createTrackbar("hS", "Trackbars", hS, 255, updateValuehS)
-    cv2.createTrackbar("hV", "Trackbars", hV, 255, updateValuehV)
-    cv2.createTrackbar("Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)", "Trackbars", threshold_mode, 5, updateValueTM)
 
+    for index, name in enumerate(trackbar_names):
+        cv2.createTrackbar(name, "Trackbars", Trackbar_values[index], trackbar_limits[index], partial(updateValue, index))
+        
     #___________________________________OPERATING CAMERA_________________________________
     # Configure depth and color streams
     pipeline = rs.pipeline()
@@ -127,7 +90,6 @@ if __name__ == '__main__':
     blobparams = cv2.SimpleBlobDetector_Params()
 
     blobparams.filterByArea = True
-    #blobparams.maxArea = 7000000
     blobparams.minArea = 400
     blobparams.filterByCircularity = False
     blobparams.filterByInertia = False
@@ -155,8 +117,8 @@ if __name__ == '__main__':
 
             #___________________HSV LEGACY________________________________________________
             # Colour detection limits
-            lowerLimits = np.array([lH, lS, lV])
-            upperLimits = np.array([hH, hS, hV])
+            lowerLimits = np.array(Trackbar_values[0:3])
+            upperLimits = np.array(Trackbar_values[3:6])
 
             # Our operations on the frame come here
             thresholded = cv2.inRange(color_frame, lowerLimits, upperLimits)
@@ -190,13 +152,13 @@ if __name__ == '__main__':
             #save the threshold into a file
             if cv2.waitKey(1) & 0xFF == ord('s'):
                 #Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)
-                savemap = ['green.txt', 'black.txt', 'white.txt', 'pink.txt', 'blue.txt']
-                savefile(savemap[threshold_mode])
+                savemap = ['green.txt', 'black.txt', 'white.txt', 'pink.txt', 'blue.txt', 'trackbar_defaults.txt']
+                savefile(savemap[Trackbar_values[6]])
 
             # Quit the program when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-
+            
     finally:
         savefile('trackbar_defaults.txt')
 
