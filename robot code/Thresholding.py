@@ -55,47 +55,7 @@ if __name__ == '__main__':
 
     for index, name in enumerate(trackbar_names):
         cv2.createTrackbar(name, "Trackbars", Trackbar_values[index], trackbar_limits[index], partial(updateValue, index))
-
-    '''
-    def updateValueH(new_value):
-        # Make sure to write the new value into the global variable
-        global lH
-        lH = new_value
-    def updateValueS(new_value):
-        # Make sure to write the new value into the global variable
-        global lS
-        lS = new_value
-    def updateValueV(new_value):
-        # Make sure to write the new value into the global variable
-        global lV
-        lV = new_value
-    def updateValuehH(new_value):
-        # Make sure to write the new value into the global variable
-        global hH
-        hH = new_value
-    def updateValuehS(new_value):
-        # Make sure to write the new value into the global variable
-        global hS
-        hS = new_value
-    def updateValuehV(new_value):
-        # Make sure to write the new value into the global variable
-        global hV
-        hV = new_value
-    def updateValueTM(new_value):
-        # Make sure to write the new value into the global variable
-        global threshold_mode
-        threshold_mode = new_value
-
-    # Attach a trackbar to a window
-    cv2.namedWindow("Trackbars")
-    cv2.createTrackbar("H", "Trackbars", lH, 179, updateValueH)
-    cv2.createTrackbar("S", "Trackbars", lS, 255, updateValueS)
-    cv2.createTrackbar("V", "Trackbars", lV, 255, updateValueV)
-    cv2.createTrackbar("hH", "Trackbars", hH, 179, updateValuehH)
-    cv2.createTrackbar("hS", "Trackbars", hS, 255, updateValuehS)
-    cv2.createTrackbar("hV", "Trackbars", hV, 255, updateValuehV)
-    cv2.createTrackbar("Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)", "Trackbars", threshold_mode, 5, updateValueTM)
-    '''
+        
     #___________________________________OPERATING CAMERA_________________________________
     # Configure depth and color streams
     pipeline = rs.pipeline()
@@ -130,7 +90,6 @@ if __name__ == '__main__':
     blobparams = cv2.SimpleBlobDetector_Params()
 
     blobparams.filterByArea = True
-    #blobparams.maxArea = 7000000
     blobparams.minArea = 400
     blobparams.filterByCircularity = False
     blobparams.filterByInertia = False
@@ -199,7 +158,7 @@ if __name__ == '__main__':
             # Quit the program when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-
+            
     finally:
         savefile('trackbar_defaults.txt')
 

@@ -27,22 +27,14 @@ def operate_camera(keypointX, keypointZ):
     #__________________________HSV LEGACY____________________________________________
     try:
         defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
-        Trackbar_values = []
+        Trackbar_values_green = []
         for line in defaults:
-            Trackbar_values.append(int(line.strip()))
-
+            Trackbar_values_green.append(int(line.strip()))
         defaults.close()
-        lH, lS, lV, hH, hS, hV, mode = Trackbar_values
 
     except:
         # Global variables for the trackbar value if no base file exists
-        lH = 29
-        lS = 24
-        lV = 69
-        hH = 74
-        hS = 151
-        hV = 193
-        mode = 0
+        Trackbar_values_green = [22, 16, 56, 98, 173, 158, 0]
 
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
@@ -109,17 +101,17 @@ def operate_camera(keypointX, keypointZ):
 
             #___________________HSV LEGACY________________________________________________
             # Colour detection limits
-            lowerLimits = np.array([lH, lS, lV])
-            upperLimits = np.array([hH, hS, hV])
+            lowerLimits_green = np.array(Trackbar_values_green[0:3])
+            upperLimits_green = np.array(Trackbar_values_green[3:6])
 
             # Our operations on the frame come here
-            thresholded = cv2.inRange(color_frame, lowerLimits, upperLimits)
-            thresholded = cv2.bitwise_not(thresholded)
-            thresholded = cv2.rectangle(thresholded, (0, 0), (cam_res_width-1, cam_res_height-1), (255, 255, 255), 2)
-            outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded)
+            thresholded_green = cv2.inRange(color_frame, lowerLimits_green, upperLimits_green)
+            thresholded_green = cv2.bitwise_not(thresholded_green)
+            thresholded_green = cv2.rectangle(thresholded_green, (0, 0), (cam_res_width-1, cam_res_height-1), (255, 255, 255), 2)
+            outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded_green)
 
             #detecting the blobs
-            keypoints = detector.detect(thresholded)
+            keypoints = detector.detect(thresholded_green)
            
             MAX_KEYPOINT_COUNT = 11
             tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
