@@ -46,9 +46,11 @@ def main(target_speeds, state, running):# main function of movement controller
 
     last_time = time()
     while run:
+
             sleep(0.0001)
             tme = time()
             delta = tme - last_time
+            
             #print("delta", delta)
             last_time = tme
             
@@ -66,8 +68,7 @@ def main(target_speeds, state, running):# main function of movement controller
                 for i, v in enumerate(n_speeds):
                     if (tmp :=abs(v-c_speeds[i])) > mx:
                         mx = tmp
-                if mx != 0:
-                    
+                if mx != 0:                
                     if mx > max_speed_change:
                         changerate = mx/(max_speed_change*min(delta,1))
                     else:
