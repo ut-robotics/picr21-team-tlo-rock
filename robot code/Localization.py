@@ -1,5 +1,4 @@
 import time
-
 def find_nearest_ball(keypointsX, keypointsZ):
     temp_ball = [0, 0]
     closest_index = 0
