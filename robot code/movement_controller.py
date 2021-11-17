@@ -1,6 +1,7 @@
+from math import floor
 import serial
 import struct
-from time import sleep
+from time import sleep, time
 from game_logic import stop
 from serial.tools import list_ports
 from enums import *
@@ -20,13 +21,12 @@ def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to mot
 
 def main(target_speeds, state, running):# main function of movement controller
 
-    max_speed_change =  100 #how much wheel speed can change in a second
+    max_speed_change = 10 #how much wheel speed can change in a second
 
     ser = None    #create serial connection
-    prev_speeds = [0,0,0]
+    c_speeds = [0,0,0]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
 
-    #TODO use this: serial.tools.list_ports.comports instead of whats below
     ports = list_ports.comports()
 
     for port, desc, _ in sorted(ports):
@@ -41,14 +41,15 @@ def main(target_speeds, state, running):# main function of movement controller
                 print("connection attempt failed")    
             
     run = True
+    changerate = 0
 
-    #last_time = time()
+    last_time = time()
     while run:
-            sleep(0.001)
-            #tme = time()
-            #delta = min(tme - last_time, 1000 / max_speed_change) # delta cant be large enough to make the robots wheels overspin (failsafe)
+            sleep(0.0001)
+            tme = time()
+            delta = tme - last_time
             #print("delta", delta)
-            #last_time = tme
+            last_time = tme
             
             if running.value == 0:
                 break
@@ -57,24 +58,24 @@ def main(target_speeds, state, running):# main function of movement controller
                 send_motorspeeds(ser, *stop())
             
             if state.value in {State.automatic._value_,State.remote._value_}:
-                speeds = target_speeds[0:3]
-                '''   
-                mx = 0 # suurim kiiruste erinevus
-                for i, v in enumerate(speeds):
-                    speeds[i] = v-prev_speeds[i]
-                    if abs(v-prev_speeds[i]) > mx:
-                        mx = abs(i)
-                    
-                    #mx - maximum change
-                    if mx == 0:
-                        changerate = 0
+                n_speeds = target_speeds[0:3]
+                   
+                mx = -1
+                for i, v in enumerate(n_speeds):
+                    if (tmp :=abs(v-c_speeds[i])) > mx:
+                        mx = tmp
+                if mx != 0:
+                    print(mx)
+                    if mx > max_speed_change:
+                        changerate = mx/(max_speed_change*min(delta,1))
                     else:
-                        changerate = max_speed_change * delta / mx
+                        changerate = 1
+                    for i, v in enumerate(c_speeds):
+                        c_speeds[i] += int((n_speeds[i]-v)//changerate)  
+                             
+                print(c_speeds)
 
-                    prev_speeds = [int(v+speeds[i]*changerate) for i,v in enumerate(prev_speeds)]
-                '''
-
-                ms = send_motorspeeds(ser, *(speeds + [target_speeds[3]]))
+                ms = send_motorspeeds(ser, *(c_speeds + [target_speeds[3]]))
 
     if ser != None:
         ser.close()
