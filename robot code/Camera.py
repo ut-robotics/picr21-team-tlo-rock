@@ -131,14 +131,17 @@ def operate_camera(ballKeypointX, ballKeypointZ):
             color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
             color_image = cv2.rectangle(color_image, (380,0), (480,30), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+            outimage = color_frame.copy()
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
             ballKeypointX, ballKeypointY, ballKeypointZ = getKeyPoints(Trackbar_values_green, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
                                                         MAX_KEYPOINT_COUNT, depth_image, depth_scale)
+            for i in range(MAX_KEYPOINT_COUNT):
+                cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             
-            #cv2.imshow('cap', outimage)
+            cv2.imshow('cap', outimage)
             #cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
