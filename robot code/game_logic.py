@@ -62,7 +62,6 @@ def main(nearest_ball, speeds, state, noball):# main function of movement contro
 
 
     while True:
-        print(noball.value)
         #print(nearest_ball[1])
         if (state.value != State.stopped._value_):
             continue
