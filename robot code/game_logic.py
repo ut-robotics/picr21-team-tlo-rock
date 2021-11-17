@@ -49,7 +49,7 @@ def set_speed(target_speeds,speed):
         target_speeds[i] = speed [i]
 
 
-def main(nearest_ball, speeds, state):# main function of movement controller
+def main(nearest_ball, speeds, state, noball):# main function of movement controller
     sleep(3)
     #while True:
     #    set_speed(speeds, thrower(550)) 
@@ -62,6 +62,7 @@ def main(nearest_ball, speeds, state):# main function of movement controller
 
 
     while True:
+        print(noball.value)
         #print(nearest_ball[1])
         if (state.value != State.stopped._value_):
             continue
