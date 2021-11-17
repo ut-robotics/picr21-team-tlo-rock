@@ -21,10 +21,11 @@ def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to mot
 
 def main(target_speeds, state, running):# main function of movement controller
 
-    max_speed_change = 10 #how much wheel speed can change in a second
+    max_speed_change = 80 #how much wheel speed can change in a second
 
     ser = None    #create serial connection
     c_speeds = [0,0,0]
+    i_speeds = [0,0,0]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
 
     ports = list_ports.comports()
@@ -59,23 +60,26 @@ def main(target_speeds, state, running):# main function of movement controller
             
             if state.value in {State.automatic._value_,State.remote._value_}:
                 n_speeds = target_speeds[0:3]
+                #print(n_speeds, c_speeds)
                    
                 mx = -1
                 for i, v in enumerate(n_speeds):
                     if (tmp :=abs(v-c_speeds[i])) > mx:
                         mx = tmp
                 if mx != 0:
-                    print(mx)
+                    
                     if mx > max_speed_change:
                         changerate = mx/(max_speed_change*min(delta,1))
                     else:
                         changerate = 1
                     for i, v in enumerate(c_speeds):
-                        c_speeds[i] += int((n_speeds[i]-v)//changerate)  
+                        c_speeds[i] += (n_speeds[i]-v)/changerate  
+                        i_speeds = [round(i) for i in c_speeds]
                              
-                print(c_speeds)
+                #print(c_speeds)
 
-                ms = send_motorspeeds(ser, *(c_speeds + [target_speeds[3]]))
+                ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]))
+                #print(ms)
 
     if ser != None:
         ser.close()
