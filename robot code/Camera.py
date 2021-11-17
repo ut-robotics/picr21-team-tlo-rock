@@ -56,18 +56,23 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
     output = [tempKeypointX.copy(), tempKeypointY.copy(), tempKeypointZ.copy()]
     return output
 
-def operate_camera(ballKeypointX, ballKeypointZ):
-    #__________________________HSV LEGACY____________________________________________
+def fetchTrackbarValues(filename):
     try:
-        defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
-        Trackbar_values_green = []
+        defaults = open(filename, mode = 'r', encoding = 'UTF-8')
+        trackbarValues = []
         for line in defaults:
-            Trackbar_values_green.append(int(line.strip()))
+            trackbarValues.append(int(line.strip()))
         defaults.close()
+        return trackbarValues.copy()
 
     except:
-        # Global variables for the trackbar value if no base file exists
-        Trackbar_values_green = [22, 16, 56, 98, 173, 158, 0]
+        print("Failed loading", filename)
+
+def operate_camera(ballKeypointX, ballKeypointZ):
+    #________________________LOADING IN THE FILTERS__________________________________________
+    colourLimitsGreen = fetchTrackbarValues('green.txt')
+    colourLimitsBlue = fetchTrackbarValues('blue.txt')
+    colourLimitsPink = fetchTrackbarValues('pink.txt')
 
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
@@ -135,7 +140,7 @@ def operate_camera(ballKeypointX, ballKeypointZ):
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
-            ballKeypointX, ballKeypointY, ballKeypointZ = getKeyPoints(Trackbar_values_green, color_frame, 
+            ballKeypointX, ballKeypointY, ballKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
                                                         MAX_KEYPOINT_COUNT, depth_image, depth_scale)
             for i in range(MAX_KEYPOINT_COUNT):
