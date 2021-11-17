@@ -1,5 +1,3 @@
-import time
-
 def find_nearest_ball(keypointsX, keypointsZ):
     temp_ball = [0, 0]
     closest_index = 0
@@ -15,16 +13,9 @@ def find_nearest_ball(keypointsX, keypointsZ):
     
     return temp_ball
 
-def localize(BALLkeypointsX, BALLkeypointsZ, nearest_ball, noball):
-    last_time = time.time()
+def localize(BALLkeypointsX, BALLkeypointsZ, nearest_ball):
     while True:
-        current_time = time.time()
-        delta = current_time-last_time
-        last_time = current_time
         function_output = find_nearest_ball(BALLkeypointsX, BALLkeypointsZ)
         if function_output != None:
             nearest_ball[0] = function_output[0]
             nearest_ball[1] = function_output[1]
-            noball.value = 0
-        else:
-            noball.value += delta
