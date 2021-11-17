@@ -50,7 +50,7 @@ if __name__ == '__main__':
     speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', State.automatic._value_)
     state = mp.Value('i', 1)
-    noball = mp.Value('f', 0) #float noball is the time since last ball was detected
+    noball = mp.Value('f', 0) #float noball is the time since last ball was detected 
     manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
