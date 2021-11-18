@@ -100,9 +100,9 @@ def main(nearest_ball, speeds, state, noball):# main function of movement contro
             #if noball.value > 0.5:
             #    gs = GameState.searching._value_
             print(nearest_ball[0],nearest_ball[1])
-            # distance from robot between 360 and 400 avg 380
+            # distance from robot tgt 130
             # side to side tgt 424,425
-            movement_vector = combine_moves(move_omni(nearest_ball[0]-380,0), rotate_omni(int(nearest_ball[1]-424*-0.1)))
-            print(movement_vector)
+            movement_vector = combine_moves(move_omni(nearest_ball[0]-130*0.1,0), rotate_omni(int(nearest_ball[1]-424*-0.1)))
+            #print(movement_vector)
             #set_speed(speeds,movement_vector)
             
