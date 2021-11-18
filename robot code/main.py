@@ -49,7 +49,7 @@ if __name__ == '__main__':
     ballKeyPointZ = mp.Array('i', np.zeros(11, dtype=int))
     pinkBasketCoords = mp.Array('i', np.zeros(3, dtype=int))
     blueBasketCoords = mp.Array('i', np.zeros(3, dtype=int))
-    nearest_ball = mp.Array('i', np.zeros(2, dtype=int))
+    nearest_ball = mp.Array('i', np.zeros(3, dtype=int))
     speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', State.automatic._value_)
     state = mp.Value('i', 1)

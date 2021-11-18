@@ -25,6 +25,7 @@ def localize(BALLkeypointsX, BALLkeypointsY, BALLkeypointsZ, nearest_ball, nobal
         if function_output != None:
             nearest_ball[0] = function_output[0]
             nearest_ball[1] = function_output[1]
+            nearest_ball[2] = function_output[2]
             noball.value = 0
         else:
             noball.value += delta
