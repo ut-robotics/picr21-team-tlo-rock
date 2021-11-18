@@ -36,10 +36,14 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
 
     #detecting the blobs
     keypoints = detector.detect(thresholded_image)
-
-    tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-    tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-    tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+    if MAX_KEYPOINT_COUNT > 1:
+        tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+        tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+        tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+    else:
+        tempKeypointX = [0]
+        tempKeypointY = [0]
+        tempKeypointZ = [0]
 
     i = 0 
     #printing the coordinates
