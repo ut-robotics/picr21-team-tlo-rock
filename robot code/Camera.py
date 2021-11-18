@@ -68,7 +68,7 @@ def fetchTrackbarValues(filename):
     except:
         print("Failed loading", filename)
 
-def operate_camera(ballKeypointX, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
+def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
     #________________________LOADING IN THE FILTERS__________________________________________
     colourLimitsGreen = fetchTrackbarValues('green.txt')
     colourLimitsBlue = fetchTrackbarValues('blue.txt')
