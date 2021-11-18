@@ -60,29 +60,49 @@ def main(nearest_ball, speeds, state, noball):# main function of movement contro
     #Ki = 0.9
     #Kd = 0.6
 
+    gs = GameState.orbit._value_
+
 
     while True:
-        #print(nearest_ball[1])
-        if (state.value != State.stopped._value_):
+        if (state.value == State.stopped._value_):
             continue
-
-        #print(nearest_ball[0], nearest_ball[1])
-        if nearest_ball[0] != 0: # failsafe
-            error = (nearest_ball[0]-424)/4.24
-            if nearest_ball[1] < 550:
-                movement_vector = rotate_omni(int(math.floor(10)))
-                movement_vector = rectify_speed(movement_vector,error*0.3)
-                set_speed(speeds, movement_vector)
-                pass
-            else:
-                #print(int(math.floor(error ** 1.05 * 0.1)))
-                movement_vector = rotate_omni(int(math.floor(error * 0.04)))
-                movement_vector = combine_moves(movement_vector, move_omni(25,0))
-                speed = 40
-                if nearest_ball[1] < 1000:
-                    speed = 20
-                movement_vector = rectify_speed(movement_vector,speed)
-                set_speed(speeds, movement_vector)
-        
-        else:
+        if  gs == GameState.searching._value_:
+            if noball.value == 0:
+                gs = GameState.moveto._value_
             set_speed(speeds, rotate_omni(10))
+        if gs == GameState.moveto:
+
+            if noball.value > 0.5:
+                gs = GameState.searching._value_
+
+            #print(nearest_ball[0], nearest_ball[1])
+            if nearest_ball[0] != 0: # failsafe
+                error = (nearest_ball[0]-424)/4.24
+                if nearest_ball[1] < 550:
+                    movement_vector = rotate_omni(int(math.floor(10)))
+                    movement_vector = rectify_speed(movement_vector,error*0.3)
+                    set_speed(speeds, movement_vector)
+                    pass
+                else:
+                    #print(int(math.floor(error ** 1.05 * 0.1)))
+                    movement_vector = rotate_omni(int(math.floor(error * 0.04)))
+                    movement_vector = combine_moves(movement_vector, move_omni(25,0))
+                    speed = 40
+                    if nearest_ball[1] < 1000:
+                        speed = 20
+                    movement_vector = rectify_speed(movement_vector,speed)
+                    set_speed(speeds, movement_vector)
+            
+            else:
+                set_speed(speeds, rotate_omni(10))
+        
+        if gs == GameState.orbit._value_:
+            #if noball.value > 0.5:
+            #    gs = GameState.searching._value_
+            print(nearest_ball[0],nearest_ball[1])
+            # distance from robot between 360 and 400 avg 380
+            # side to side tgt 424,425
+            movement_vector = combine_moves(move_omni(nearest_ball[0]-380,0), rotate_omni(int(nearest_ball[1]-424*-0.1)))
+            print(movement_vector)
+            #set_speed(speeds,movement_vector)
+            
