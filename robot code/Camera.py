@@ -144,13 +144,19 @@ def operate_camera(ballKeypointX, ballKeypointZ, pinkBasketCoords, blueBasketCoo
                                                         cam_res_width, cam_res_height, detector, 
                                                         MAX_KEYPOINT_COUNT, depth_image, depth_scale)
 
-            pinkBasketCoords[0], pinkBasketCoords[1], pinkBasketCoords[2] = getKeyPoints(colourLimitsPink, color_frame, 
-                                                                            cam_res_width, cam_res_height, detector, 
-                                                                            1, depth_image, depth_scale)
+            pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
+                                cam_res_width, cam_res_height, detector, 
+                                1, depth_image, depth_scale)
+            pinkBasketCoords[0] = pinkx[0]
+            pinkBasketCoords[1] = pinky[0]
+            pinkBasketCoords[2] = pinkz[0]
             
-            blueBasketCoords[0], blueBasketCoords[1], blueBasketCoords[2] = getKeyPoints(colourLimitsBlue, color_frame, 
-                                                                            cam_res_width, cam_res_height, detector, 
-                                                                            1, depth_image, depth_scale)
+            bluex, bluey, bluez = getKeyPoints(colourLimitsBlue, color_frame, 
+                                            cam_res_width, cam_res_height, detector, 
+                                            1, depth_image, depth_scale)
+            blueBasketCoords[0] = bluex[0]
+            blueBasketCoords[1] = bluey[0]
+            blueBasketCoords[2] = bluez[0]
 
             for i in range(MAX_KEYPOINT_COUNT):
                 cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
