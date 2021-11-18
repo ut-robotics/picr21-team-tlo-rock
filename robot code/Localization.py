@@ -5,7 +5,7 @@ def find_nearest_ball(keypointsX, keypointsY, keypointsZ):
 
     for i in range(11):
         #print(keypointsX[i], keypointsZ[i]) 
-        if (keypointsZ[i] <= keypointsZ[closest_index]) and (keypointsZ[i] != 0):
+        if (keypointsZ[i] <= keypointsZ[closest_index]) and (keypointsY[i] != 0):
             closest_index = i
             temp_ball[0] = keypointsX[closest_index]
             temp_ball[1] = keypointsY[closest_index]
