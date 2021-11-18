@@ -151,6 +151,8 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
             pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
                                 cam_res_width, cam_res_height, detector, 
                                 1, depth_image, depth_scale)
+            print(getKeyPoints(colourLimitsPink, color_frame,cam_res_width, cam_res_height, detector, 1, depth_image, depth_scale))
+            
             pinkBasketCoords[0] = pinkx[0]
             pinkBasketCoords[1] = pinky[0]
             pinkBasketCoords[2] = pinkz[0]

@@ -27,6 +27,7 @@ def move_omni(speed, angle): #generate movement vector with direction and speed
     #return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])) + [0]
 
 def rotate_omni(speed): # generate rotation vector with speed
+    speed = int(speed)
     return[speed,speed,speed,0]
 
 def thrower(speed): # generate rotation vector with speed
@@ -49,7 +50,7 @@ def set_speed(target_speeds,speed):
         target_speeds[i] = speed [i]
 
 
-def main(nearest_ball, speeds, state, noball):# main function of movement controller 
+def main(nearest_ball, speeds, state, noball, pink, blue):# main function of movement controller 
     sleep(3)
     #while True:
     #    set_speed(speeds, thrower(550)) 
@@ -97,12 +98,17 @@ def main(nearest_ball, speeds, state, noball):# main function of movement contro
                 set_speed(speeds, rotate_omni(10))
         
         if gs == GameState.orbit._value_:
+            #print("pink", pink[0],pink[1],pink[2])
+            #print ("blue", blue[0],blue[1],blue[2])
             #if noball.value > 0.5:
             #    gs = GameState.searching._value_
-            print(nearest_ball[0],nearest_ball[1])
+            #print(nearest_ball[0],nearest_ball[1])
             # distance from robot tgt 130
             # side to side tgt 424,425
-            movement_vector = combine_moves(move_omni(nearest_ball[0]-130*0.1,0), rotate_omni(int(nearest_ball[1]-424*-0.1)))
+            movement_vector = move_omni(max(min((nearest_ball[1]-130)*0.2,5),-5),0)
+            movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424)*0.1, 5),-5)))
+            movement_vector = combine_moves(movement_vector, move_omni(5,90))
+            #movement_vector = rectify_speed(movement_vector, 20)
             #print(movement_vector)
-            #set_speed(speeds,movement_vector)
+            set_speed(speeds,movement_vector)
             
