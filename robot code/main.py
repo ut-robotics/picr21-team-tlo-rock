@@ -46,6 +46,8 @@ if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
     camKeypointX = mp.Array('i', np.zeros(11, dtype=int))
     camKeypointZ = mp.Array('i', np.zeros(11, dtype=int))
+    pinkBasketCoords = mp.Array('i', np.zeros(3, dtype=int))
+    blueBasketCoords = mp.Array('i', np.zeros(3, dtype=int))
     nearest_ball = mp.Array('i', np.zeros(2, dtype=int))
     speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', State.automatic._value_)
@@ -54,7 +56,7 @@ if __name__ == '__main__':
     manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
-    camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ))
+    camera_process = mp.Process(target=cam.operate_camera, args=(camKeypointX, camKeypointZ, pinkBasketCoords, blueBasketCoords))
     localization_process = mp.Process(target=loc.localize, args=(camKeypointX, camKeypointZ, nearest_ball, noball))
     game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state, noball))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
