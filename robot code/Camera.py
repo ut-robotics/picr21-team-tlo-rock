@@ -121,17 +121,6 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
     blobparams.minArea = 400
     basketdetector = cv2.SimpleBlobDetector_create(blobparams)
 
-    #detector object
-    basketblobparams = cv2.SimpleBlobDetector_Params()
-
-    basketblobparams.filterByArea = True
-    basketblobparams.maxArea = 700000
-    basketblobparams.minArea = 200
-    basketblobparams.filterByInertia = False
-    basketblobparams.filterByConvexity = False
-
-    basketdetector = cv2.SimpleBlobDetector_create(basketblobparams)
-
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
@@ -154,6 +143,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
             color_image = cv2.rectangle(color_image, (380,0), (480,30), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             outimage = color_frame.copy()
+            
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
@@ -168,9 +158,11 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
             pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
                                 cam_res_width, cam_res_height, basketdetector, 
                                 1, depth_image, depth_scale)
-            print(getKeyPoints(colourLimitsPink, color_frame,cam_res_width, cam_res_height, detector, 1, depth_image, depth_scale))
-            
             pinkBasketCoords[0] = pinkx[0]
+            while (color_frame[pinky[0]][pinkx[0]][2] < 165): #bgr
+                pinky[0] -= 1
+                if pinky[0] <= 0:
+                    break
             pinkBasketCoords[1] = pinky[0]
             pinkBasketCoords[2] = pinkz[0]
             
@@ -178,6 +170,10 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
                                             cam_res_width, cam_res_height, basketdetector, 
                                             1, depth_image, depth_scale)
             blueBasketCoords[0] = bluex[0]
+            while (color_frame[bluey[0]][bluex[0]][2] < 165): #bgr
+                bluey[0] -= 1
+                if bluey[0] <= 0:
+                    break
             blueBasketCoords[1] = bluey[0]
             blueBasketCoords[2] = bluez[0]
 

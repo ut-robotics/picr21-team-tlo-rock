@@ -63,6 +63,8 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
 
     gs = GameState.orbit._value_
 
+    target = "pink"
+    tgt = [0,0,0]
 
     while True:
         if (state.value == State.stopped._value_):
@@ -100,6 +102,10 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
         if gs == GameState.orbit._value_:
             #print("pink", pink[0],pink[1],pink[2])
             #print ("blue", blue[0],blue[1],blue[2])
+            if target == "pink":
+                tgt = [pink[0], pink[1], pink[2]]
+            if target == "blue":
+                tgt = [blue[0], blue[1], blue[2]]
             #if noball.value > 0.5:
             #    gs = GameState.searching._value_
             #print(nearest_ball[0],nearest_ball[1])
@@ -107,7 +113,13 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
             # side to side tgt 424,425
             movement_vector = move_omni(max(min((nearest_ball[1]-130)*0.2,5),-5),0)
             movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424)*0.1, 5),-5)))
-            movement_vector = combine_moves(movement_vector, move_omni(5,90))
+            if tgt[0] ==424:
+                pass
+            elif tgt[0] > 424:
+                movement_vector = combine_moves(movement_vector, move_omni(5,90))
+            elif tgt[0] < 424:
+                movement_vector = combine_moves(movement_vector, move_omni(-5,90))
+            
             #movement_vector = rectify_speed(movement_vector, 20)
             #print(movement_vector)
             set_speed(speeds,movement_vector)
