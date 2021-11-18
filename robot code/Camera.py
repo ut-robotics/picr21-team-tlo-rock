@@ -121,17 +121,6 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
     blobparams.minArea = 400
     basketdetector = cv2.SimpleBlobDetector_create(blobparams)
 
-    #detector object
-    basketblobparams = cv2.SimpleBlobDetector_Params()
-
-    basketblobparams.filterByArea = True
-    basketblobparams.maxArea = 700000
-    basketblobparams.minArea = 200
-    basketblobparams.filterByInertia = False
-    basketblobparams.filterByConvexity = False
-
-    basketdetector = cv2.SimpleBlobDetector_create(basketblobparams)
-
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
