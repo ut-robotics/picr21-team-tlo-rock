@@ -118,6 +118,8 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
     blobparams.filterByConvexity = False
 
     detector = cv2.SimpleBlobDetector_create(blobparams)
+    blobparams.minArea = 400
+    basketdetector = cv2.SimpleBlobDetector_create(blobparams)
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
@@ -153,14 +155,14 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
                 ballKeypointZ[i] = funcBallKeypointZ[i]
 
             pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
-                                cam_res_width, cam_res_height, detector, 
+                                cam_res_width, cam_res_height, basketdetector, 
                                 1, depth_image, depth_scale)
             pinkBasketCoords[0] = pinkx[0]
             pinkBasketCoords[1] = pinky[0]
             pinkBasketCoords[2] = pinkz[0]
             
             bluex, bluey, bluez = getKeyPoints(colourLimitsBlue, color_frame, 
-                                            cam_res_width, cam_res_height, detector, 
+                                            cam_res_width, cam_res_height, basketdetector, 
                                             1, depth_image, depth_scale)
             blueBasketCoords[0] = bluex[0]
             blueBasketCoords[1] = bluey[0]
