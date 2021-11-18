@@ -68,7 +68,7 @@ def fetchTrackbarValues(filename):
     except:
         print("Failed loading", filename)
 
-def operate_camera(ballKeypointX, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
+def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
     #________________________LOADING IN THE FILTERS__________________________________________
     colourLimitsGreen = fetchTrackbarValues('green.txt')
     colourLimitsBlue = fetchTrackbarValues('blue.txt')
@@ -140,9 +140,13 @@ def operate_camera(ballKeypointX, ballKeypointZ, pinkBasketCoords, blueBasketCoo
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
-            ballKeypointX, ballKeypointY, ballKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
+            funcBallKeypointX, funcBallKeypointY, funcBallKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
                                                         MAX_KEYPOINT_COUNT, depth_image, depth_scale)
+            for i in range(MAX_KEYPOINT_COUNT):
+                ballKeypointX[i] = funcBallKeypointX[i]
+                ballKeypointY[i] = funcBallKeypointY[i]
+                ballKeypointZ[i] = funcBallKeypointZ[i]
 
             pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
                                 cam_res_width, cam_res_height, detector, 
