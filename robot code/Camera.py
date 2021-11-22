@@ -36,10 +36,14 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
 
     #detecting the blobs
     keypoints = detector.detect(thresholded_image)
-
-    tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-    tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-    tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+    if MAX_KEYPOINT_COUNT > 1:
+        tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+        tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+        tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+    else:
+        tempKeypointX = [0]
+        tempKeypointY = [0]
+        tempKeypointZ = [0]
 
     i = 0 
     #printing the coordinates
@@ -56,18 +60,23 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
     output = [tempKeypointX.copy(), tempKeypointY.copy(), tempKeypointZ.copy()]
     return output
 
-def operate_camera(ballKeypointX, ballKeypointZ):
-    #__________________________HSV LEGACY____________________________________________
+def fetchTrackbarValues(filename):
     try:
-        defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
-        Trackbar_values_green = []
+        defaults = open(filename, mode = 'r', encoding = 'UTF-8')
+        trackbarValues = []
         for line in defaults:
-            Trackbar_values_green.append(int(line.strip()))
+            trackbarValues.append(int(line.strip()))
         defaults.close()
+        return trackbarValues.copy()
 
     except:
-        # Global variables for the trackbar value if no base file exists
-        Trackbar_values_green = [22, 16, 56, 98, 173, 158, 0]
+        print("Failed loading", filename)
+
+def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
+    #________________________LOADING IN THE FILTERS__________________________________________
+    colourLimitsGreen = fetchTrackbarValues('green.txt')
+    colourLimitsBlue = fetchTrackbarValues('blue.txt')
+    colourLimitsPink = fetchTrackbarValues('pink.txt')
 
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
@@ -109,6 +118,8 @@ def operate_camera(ballKeypointX, ballKeypointZ):
     blobparams.filterByConvexity = False
 
     detector = cv2.SimpleBlobDetector_create(blobparams)
+    blobparams.minArea = 400
+    basketdetector = cv2.SimpleBlobDetector_create(blobparams)
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
@@ -132,16 +143,45 @@ def operate_camera(ballKeypointX, ballKeypointZ):
             color_image = cv2.rectangle(color_image, (380,0), (480,30), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             outimage = color_frame.copy()
+            
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
-            ballKeypointX, ballKeypointY, ballKeypointZ = getKeyPoints(Trackbar_values_green, color_frame, 
+            funcBallKeypointX, funcBallKeypointY, funcBallKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
                                                         MAX_KEYPOINT_COUNT, depth_image, depth_scale)
             for i in range(MAX_KEYPOINT_COUNT):
-                cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                ballKeypointX[i] = funcBallKeypointX[i]
+                ballKeypointY[i] = funcBallKeypointY[i]
+                ballKeypointZ[i] = funcBallKeypointZ[i]
+
+            pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
+                                cam_res_width, cam_res_height, basketdetector, 
+                                1, depth_image, depth_scale)
+            pinkBasketCoords[0] = pinkx[0]
+            while (color_frame[pinky[0]][pinkx[0]][2] < 165): #bgr
+                pinky[0] -= 1
+                if pinky[0] <= 0:
+                    break
+            pinkBasketCoords[1] = pinky[0]
+            pinkBasketCoords[2] = pinkz[0]
             
+            bluex, bluey, bluez = getKeyPoints(colourLimitsBlue, color_frame, 
+                                            cam_res_width, cam_res_height, basketdetector, 
+                                            1, depth_image, depth_scale)
+            blueBasketCoords[0] = bluex[0]
+            while (color_frame[bluey[0]][bluex[0]][2] < 165): #bgr
+                bluey[0] -= 1
+                if bluey[0] <= 0:
+                    break
+            blueBasketCoords[1] = bluey[0]
+            blueBasketCoords[2] = bluez[0]
+
+            for i in range(MAX_KEYPOINT_COUNT):
+                cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            cv2.putText(outimage, str(blueBasketCoords[0])+ ', ' + str(blueBasketCoords[1]) + ', ' + str(blueBasketCoords[2]) , (blueBasketCoords[0], blueBasketCoords[1]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow('cap', outimage)
+            
             #cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     

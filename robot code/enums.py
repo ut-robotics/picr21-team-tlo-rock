@@ -7,3 +7,4 @@ class GameState(IntEnum):
     searching = 0
     moveto = 1
     orbit = 2
+    launch = 3
