@@ -143,6 +143,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
             color_image = cv2.rectangle(color_image, (380,0), (480,30), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             outimage = color_frame.copy()
+            
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
@@ -158,6 +159,10 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
                                 cam_res_width, cam_res_height, basketdetector, 
                                 1, depth_image, depth_scale)
             pinkBasketCoords[0] = pinkx[0]
+            while (color_frame[pinky[0]][pinkx[0]][2] < 165): #bgr
+                pinky[0] -= 1
+                if pinky[0] <= 0:
+                    break
             pinkBasketCoords[1] = pinky[0]
             pinkBasketCoords[2] = pinkz[0]
             
@@ -165,13 +170,18 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
                                             cam_res_width, cam_res_height, basketdetector, 
                                             1, depth_image, depth_scale)
             blueBasketCoords[0] = bluex[0]
+            while (color_frame[bluey[0]][bluex[0]][2] < 165): #bgr
+                bluey[0] -= 1
+                if bluey[0] <= 0:
+                    break
             blueBasketCoords[1] = bluey[0]
             blueBasketCoords[2] = bluez[0]
 
             for i in range(MAX_KEYPOINT_COUNT):
                 cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            
+            cv2.putText(outimage, str(blueBasketCoords[0])+ ', ' + str(blueBasketCoords[1]) + ', ' + str(blueBasketCoords[2]) , (blueBasketCoords[0], blueBasketCoords[1]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow('cap', outimage)
+            
             #cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
