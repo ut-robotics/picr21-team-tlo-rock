@@ -1,0 +1,4 @@
+Record=TopLevelDocument|FileName=motor_MCU.SchDoc|SheetNumber=1
+Record=SheetSymbol|SourceDocument=motor_MCU.SchDoc|Designator=MOTOR_DRIVE_1|SchDesignator=MOTOR_DRIVE_1|FileName=motor_DRV.SchDoc|SheetNumber=2|SymbolType=Normal|RawFileName=motor_DRV.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=motor_MCU.SchDoc|Designator=MOTOR_DRIVE_2|SchDesignator=MOTOR_DRIVE_2|FileName=motor_DRV.SchDoc|SheetNumber=2|SymbolType=Normal|RawFileName=motor_DRV.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=motor_MCU.SchDoc|Designator=MOTOR_DRIVE_3|SchDesignator=MOTOR_DRIVE_3|FileName=motor_DRV.SchDoc|SheetNumber=2|SymbolType=Normal|RawFileName=motor_DRV.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
