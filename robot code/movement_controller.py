@@ -80,7 +80,7 @@ def main(target_speeds, state, running):# main function of movement controller
                 #print(c_speeds)
 
                 ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]))
-                #print(ms)
+                print(ms)
 
     if ser != None:
         ser.close()

@@ -8,3 +8,6 @@ class GameState(IntEnum):
     moveto = 1
     orbit = 2
     launch = 3
+class Side(IntEnum):
+    pink = 0
+    blue = 1

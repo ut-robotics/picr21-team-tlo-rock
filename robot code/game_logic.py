@@ -50,7 +50,7 @@ def set_speed(target_speeds,speed):
         target_speeds[i] = speed [i]
 
 
-def main(nearest_ball, speeds, state, noball, pink, blue):# main function of movement controller 
+def main(nearest_ball, speeds, state, noball, basket):# main function of movement controller 
     sleep(0.5)
     #while True:
     #    set_speed(speeds, thrower(550)) 
@@ -65,8 +65,6 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
 
     gs = GameState.searching._value_
 
-    target = "blue"
-    #target = "pink"
     tgt = [0,0,0]
 
     last_time = time()
@@ -75,7 +73,7 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
         delta = current_time-last_time
         last_time = current_time
 
-        if (state.value == State.stopped._value_):
+        if (state.value != State.automatic):
             continue
         if  gs == GameState.searching._value_:
             if noball.value == 0:
@@ -110,10 +108,7 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
                 gs = GameState.moveto._value_
             #print("pink", pink[0],pink[1],pink[2])
             #print ("blue", blue[0],blue[1],blue[2])
-            if target == "pink":
-                tgt = [pink[0], pink[1], pink[2]]
-            if target == "blue":
-                tgt = [blue[0], blue[1], blue[2]]
+            tgt = [basket[0], basket[1], basket[2]]
             #if noball.value > 0.5:
             #    gs = GameState.searching._value_
             #print(nearest_ball[0],nearest_ball[1])

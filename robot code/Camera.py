@@ -1,6 +1,7 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
+from enums import *
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
@@ -72,9 +73,15 @@ def fetchTrackbarValues(filename):
     except:
         print("Failed loading", filename)
 
-def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
+def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, BasketCoords):
     #________________________LOADING IN THE FILTERS__________________________________________
     colourLimitsGreen = fetchTrackbarValues('green.txt')
+
+    if (attacking == Side.pink):
+        colourLimitsBasket = fetchTrackbarValues('pink.txt')
+    else:
+        colourLimitsBasket = fetchTrackbarValues('blue.txt')
+
     colourLimitsBlue = fetchTrackbarValues('blue.txt')
     colourLimitsPink = fetchTrackbarValues('pink.txt')
 
@@ -155,31 +162,17 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
                 ballKeypointY[i] = funcBallKeypointY[i]
                 ballKeypointZ[i] = funcBallKeypointZ[i]
 
-            pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
+            basketx, baskety, basketz = getKeyPoints(colourLimitsBasket, color_frame, 
                                 cam_res_width, cam_res_height, basketdetector, 
                                 1, depth_image, depth_scale)
-            pinkBasketCoords[0] = pinkx[0]
-            while (color_frame[pinky[0]][pinkx[0]][2] < 165): #bgr
-                pinky[0] -= 1
-                if pinky[0] <= 0:
+            BasketCoords[0] = basketx[0]
+            while (color_frame[baskety[0]][basketx[0]][2] < 165): #bgr
+                baskety[0] -= 1
+                if baskety[0] <= 0:
                     break
-            pinkBasketCoords[1] = pinky[0]
-            pinkBasketCoords[2] = pinkz[0]
+            BasketCoords[1] = baskety[0]
+            BasketCoords[2] = basketz[0]
             
-            bluex, bluey, bluez = getKeyPoints(colourLimitsBlue, color_frame, 
-                                            cam_res_width, cam_res_height, basketdetector, 
-                                            1, depth_image, depth_scale)
-            blueBasketCoords[0] = bluex[0]
-            while (color_frame[bluey[0]][bluex[0]][2] < 165): #bgr
-                bluey[0] -= 1
-                if bluey[0] <= 0:
-                    break
-            blueBasketCoords[1] = bluey[0]
-            blueBasketCoords[2] = bluez[0]
-
-            for i in range(MAX_KEYPOINT_COUNT):
-                cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.putText(outimage, str(blueBasketCoords[0])+ ', ' + str(blueBasketCoords[1]) + ', ' + str(blueBasketCoords[2]) , (blueBasketCoords[0], blueBasketCoords[1]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow('cap', outimage)
             
             #cv2.imshow('dist', depth_image)
