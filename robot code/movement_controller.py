@@ -57,10 +57,10 @@ def main(target_speeds, state, running):# main function of movement controller
             if running.value == 0:
                 break
 
-            if state.value == State.stopped._value_:
+            if state.value == State.stopped:
                 send_motorspeeds(ser, *stop())
             
-            if state.value in {State.automatic._value_,State.remote._value_}:
+            if state.value in {State.automatic,State.remote}:
                 n_speeds = target_speeds[0:3]
                 #print(n_speeds, c_speeds)
                    
