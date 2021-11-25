@@ -4,7 +4,7 @@ from enums import *
 def manualdrive(inputarray, control_state, speeds):
     while True:
         #print(control_state.value)
-        if control_state.value == State.remote._value_:
+        if control_state.value == State.remote:
             #inputarray-u, i, o, j, l, k, n
             
             if inputarray[6]:

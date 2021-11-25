@@ -63,7 +63,7 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
 
     launchdelay = 0
 
-    gs = GameState.searching._value_
+    gs = GameState.searching
 
     target = "blue"
     #target = "pink"
@@ -75,23 +75,23 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
         delta = current_time-last_time
         last_time = current_time
 
-        if (state.value == State.stopped._value_):
+        if (state.value == State.stopped):
             continue
-        if  gs == GameState.searching._value_:
+        if  gs == GameState.searching:
             if noball.value == 0:
-                gs = GameState.moveto._value_
+                gs = GameState.moveto
             set_speed(speeds, rotate_omni(10))
         if gs == GameState.moveto:
 
             if noball.value > 0.5:
-                gs = GameState.searching._value_
+                gs = GameState.searching
 
             #print(nearest_ball[0], nearest_ball[1])
             if nearest_ball[0] != 0: # failsafe
                 error = (nearest_ball[0]-424)/4.24
                 
                 if nearest_ball[1] < 200:
-                    gs = GameState.orbit._value_
+                    gs = GameState.orbit
                 else:
                     #print(int(math.floor(error ** 1.05 * 0.1)))
                     movement_vector = rotate_omni(int(math.floor(error * 0.04)))
@@ -105,9 +105,9 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
             else:
                 set_speed(speeds, rotate_omni(10))
         
-        if gs == GameState.orbit._value_:
+        if gs == GameState.orbit:
             if nearest_ball[1] > 300 or noball.value > 0.5:
-                gs = GameState.moveto._value_
+                gs = GameState.moveto
             #print("pink", pink[0],pink[1],pink[2])
             #print ("blue", blue[0],blue[1],blue[2])
             if target == "pink":
@@ -115,7 +115,7 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
             if target == "blue":
                 tgt = [blue[0], blue[1], blue[2]]
             #if noball.value > 0.5:
-            #    gs = GameState.searching._value_
+            #    gs = GameState.searching
             #print(nearest_ball[0],nearest_ball[1])
             # distance from robot tgt 130
             # side to side tgt 424,425
@@ -126,7 +126,7 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
             if abs(tgt[0] - 424) < 60:
                 spd = 2
             if abs(tgt[0] - 424) < 2:
-                gs = GameState.launch._value_
+                gs = GameState.launch
             elif tgt[0] > 424:
                 movement_vector = combine_moves(movement_vector, move_omni(spd,90))
             elif tgt[0] < 424:
@@ -135,13 +135,13 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
             #movement_vector = rectify_speed(movement_vector, 20)
             #print(movement_vector)
             set_speed(speeds,movement_vector)
-        if gs == GameState.launch._value_:
+        if gs == GameState.launch:
             if launchdelay < 1:
                 set_speed(speeds,stop())
                 launchdelay+= delta
                 print(tgt)
                 if abs(tgt[0] - 424) > 3:
-                    gs = GameState.orbit._value_
+                    gs = GameState.orbit
                     launchdelay = 0
             else:
                 launchdelay = 0
@@ -152,7 +152,7 @@ def main(nearest_ball, speeds, state, noball, pink, blue):# main function of mov
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
                 set_speed(speeds,movement_vector)
                 sleep(3)
-                gs = GameState.searching._value_
+                gs = GameState.searching
 
 
 
