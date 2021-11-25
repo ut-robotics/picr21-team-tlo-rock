@@ -19,7 +19,7 @@ def on_press(context, key):
         # Stop program and listener
         running.value = 0
         return False
-    elif state.value == State.remote._value_:
+    elif state.value == State.remote:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 1
@@ -28,17 +28,17 @@ def on_release(context, key):
     state, manual_inputs = context
     keymap = ['u', 'i', 'o', 'j', 'l', 'k', 'n']
 
-    if state.value == State.remote._value_:
+    if state.value == State.remote:
         for index, value in enumerate(keymap):
             if key == keyboard.KeyCode.from_char(value):
                 manual_inputs[index] = 0
 
-    if state.value == State.automatic._value_ and key == keyboard.KeyCode.from_char('m'):
-        state.value = State.remote._value_
+    if state.value == State.automatic and key == keyboard.KeyCode.from_char('m'):
+        state.value = State.remote
         print('Switching to manual control!')
 
-    elif state.value == State.remote._value_ and key == keyboard.KeyCode.from_char('m'):
-        state.value = State.automatic._value_
+    elif state.value == State.remote and key == keyboard.KeyCode.from_char('m'):
+        state.value = State.automatic
         print('Switching to automatic mode!')
     
 

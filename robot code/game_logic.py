@@ -63,7 +63,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
 
     launchdelay = 0
 
-    gs = GameState.searching._value_
+    gs = GameState.searching
 
     tgt = [0,0,0]
 
@@ -75,14 +75,14 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
 
         if (state.value != State.automatic):
             continue
-        if  gs == GameState.searching._value_:
+        if  gs == GameState.searching:
             if noball.value == 0:
-                gs = GameState.moveto._value_
+                gs = GameState.moveto
             set_speed(speeds, rotate_omni(10))
         if gs == GameState.moveto:
 
             if noball.value > 0.5:
-                gs = GameState.searching._value_
+                gs = GameState.searching
 
             #print(nearest_ball[0], nearest_ball[1])
             if nearest_ball[0] != 0: # failsafe
@@ -110,7 +110,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
             tgt = [basket[0], basket[1], basket[2]]
             #print("basket",basket[0],basket[1],basket[2])
             #if noball.value > 0.5:
-            #    gs = GameState.searching._value_
+            #    gs = GameState.searching
             #print(nearest_ball[0],nearest_ball[1])
             # distance from robot tgt 130
             # side to side tgt 424,425

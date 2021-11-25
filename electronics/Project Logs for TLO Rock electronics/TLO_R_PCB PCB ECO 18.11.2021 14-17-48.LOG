@@ -1,0 +1,897 @@
+Added Component: Designator=C1(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Added Component: Designator=C2(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C3(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C4(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Added Component: Designator=C5(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Added Component: Designator=C6(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C7(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Added Component: Designator=C8(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Added Component: Designator=C9(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C10_MOTOR_DRIVE_1(CAPC2012X135N)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BuyPart"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=1982998"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "GRM21BR60G107ME15K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C10_MOTOR_DRIVE_2(CAPC2012X135N)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BuyPart"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=1982998"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "GRM21BR60G107ME15K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C10_MOTOR_DRIVE_3(CAPC2012X135N)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BuyPart"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=1982998"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "GRM21BR60G107ME15K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C10(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C11_MOTOR_DRIVE_1(CAPC2012X135N)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BuyPart"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=1982998"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "GRM21BR60G107ME15K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C11_MOTOR_DRIVE_2(CAPC2012X135N)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BuyPart"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=1982998"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "GRM21BR60G107ME15K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C11_MOTOR_DRIVE_3(CAPC2012X135N)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BuyPart"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=1982998"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "GRM21BR60G107ME15K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/GRM21BR60G107ME15K/Murata/view-part/1982998/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C11(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C12_MOTOR_DRIVE_1(CAPPRD500W60D800H1500)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/EEUFR1E471YB/Panasonic/view-part/5797024/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "EEUFR1E471YB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "RADIAL-2 Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/EEUFR1E471YB/Panasonic/view-part/5797024/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C12_MOTOR_DRIVE_2(CAPPRD500W60D800H1500)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/EEUFR1E471YB/Panasonic/view-part/5797024/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "EEUFR1E471YB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "RADIAL-2 Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/EEUFR1E471YB/Panasonic/view-part/5797024/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C12_MOTOR_DRIVE_3(CAPPRD500W60D800H1500)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/EEUFR1E471YB/Panasonic/view-part/5797024/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "EEUFR1E471YB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "RADIAL-2 Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/EEUFR1E471YB/Panasonic/view-part/5797024/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C12(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C13(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C14(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C15(1608[0603])
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=D1(3.2X1.6X1.1)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "SM LED; 2 Flat Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "3.2X1.6X1.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=D2(3.2X1.6X1.1)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "SM LED; 2 Flat Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "3.2X1.6X1.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=D3(3.2X1.6X1.1)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "SM LED; 2 Flat Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "3.2X1.6X1.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=D?_MOTOR_DRIVE_1(3.2X1.6X1.1)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "SM LED; 2 Flat Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "3.2X1.6X1.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=D?_MOTOR_DRIVE_2(3.2X1.6X1.1)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "SM LED; 2 Flat Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "3.2X1.6X1.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=D?_MOTOR_DRIVE_3(3.2X1.6X1.1)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "SM LED; 2 Flat Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "3.2X1.6X1.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=J1(FCI_10118193-0001LF)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "10118193-0001LF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/10118193-0001LF/Amphenol%20FCI/view-part/2758989/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2(FTSH-105-01-XXX-DV-K)
+Add component (AddParameter): Name = "CREATED"; Value = "November 30, 2016 - Wendy Xin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MANUFACTURER"; Value = "SAMTEC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MODIFIED"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PCB DECAL"; Value = "FTSH-105-01-XXX-DV-K"; VariantName = "[No Variations]"
+Added Component: Designator=J3(TE_7-215079-4)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "7-215079-4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/7-215079-4/TE%20Connectivity%20AMP%20Connectors/view-part/453401/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J4(TE_7-215079-4)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "7-215079-4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/7-215079-4/TE%20Connectivity%20AMP%20Connectors/view-part/453401/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J5(TE_7-215079-4)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "7-215079-4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/7-215079-4/TE%20Connectivity%20AMP%20Connectors/view-part/453401/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J6(TE_7-215079-4)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "7-215079-4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/7-215079-4/TE%20Connectivity%20AMP%20Connectors/view-part/453401/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=P1(PCBComponent_1)
+Added Component: Designator=P2(PCBComponent_1)
+Added Component: Designator=P3(PCBComponent_1)
+Added Component: Designator=P4(PCBComponent_1)
+Added Component: Designator=P5(PCBComponent_1)
+Added Component: Designator=P6(PCBComponent_1)
+Added Component: Designator=P7(PCBComponent_1)
+Added Component: Designator=P8(PCBComponent_1)
+Added Component: Designator=Q1(TO127P600X120-5N)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "TO, Flat Index; 3 In-Line, Axial Leads; Body Dia. 4.6mm; Lead Dia. 0.5 mm (max)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "E3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "1995/1996"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=R1(CAPC2012X135N)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.4 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1K"; VariantName = "[No Variations]"
+Added Component: Designator=R2(CAPC2012X135N)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.4 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "13K"; VariantName = "[No Variations]"
+Added Component: Designator=R3(CAPC2012X135N)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.4 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1K"; VariantName = "[No Variations]"
+Added Component: Designator=R4(CAPC2012X135N)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.4 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R5(CAPC2012X135N)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.4 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "2K49"; VariantName = "[No Variations]"
+Added Component: Designator=R10_MOTOR_DRIVE_1(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R10_MOTOR_DRIVE_2(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R10_MOTOR_DRIVE_3(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R11_MOTOR_DRIVE_1(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R11_MOTOR_DRIVE_2(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R11_MOTOR_DRIVE_3(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R12_MOTOR_DRIVE_1(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R12_MOTOR_DRIVE_2(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R12_MOTOR_DRIVE_3(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R13_MOTOR_DRIVE_1(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R13_MOTOR_DRIVE_2(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R13_MOTOR_DRIVE_3(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Component: Designator=R14_MOTOR_DRIVE_1(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "2K2"; VariantName = "[No Variations]"
+Added Component: Designator=R14_MOTOR_DRIVE_2(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "2K2"; VariantName = "[No Variations]"
+Added Component: Designator=R14_MOTOR_DRIVE_3(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "2K2"; VariantName = "[No Variations]"
+Added Component: Designator=R15_MOTOR_DRIVE_1(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4K7"; VariantName = "[No Variations]"
+Added Component: Designator=R15_MOTOR_DRIVE_2(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4K7"; VariantName = "[No Variations]"
+Added Component: Designator=R15_MOTOR_DRIVE_3(J1-0603)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "J1-0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4K7"; VariantName = "[No Variations]"
+Added Component: Designator=U1(SOT23-5)
+Added Component: Designator=U2(LQFP32_7X7_STM)
+Add component (AddParameter): Name = "Built_By"; Value = "EMA_Cory"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Copyright"; Value = "Copyright (C) 2018 Accelerated Designs. All rights reserved"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://www.st.com/resource/en/datasheet/stm32g441kb.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "STM32G441KBT3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RefDes"; Value = "RefDes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SourceLibrary"; Value = "Add_to_database_2020-11-05"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Type"; Value = "DEV"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Vendor"; Value = "STMicroelectronics"; VariantName = "[No Variations]"
+Added Component: Designator=U3(SOT23-5)
+Added Component: Designator=U4(TSSOP5)
+Added Component: Designator=U5(SOIC127P1030X265-16N)
+Added Component: Designator=U6(SOIC127P1030X265-16N)
+Added Component: Designator=U7(SOIC127P1030X265-16N)
+Added Component: Designator=U10_MOTOR_DRIVE_1(IC_DRV8873SPWPRQ1)
+Added Component: Designator=U10_MOTOR_DRIVE_2(IC_DRV8873SPWPRQ1)
+Added Component: Designator=U10_MOTOR_DRIVE_3(IC_DRV8873SPWPRQ1)
+Added Pin To Net: NetName=+3V3 Pin=C1-2
+Added Pin To Net: NetName=+3V3 Pin=C2-2
+Added Pin To Net: NetName=+3V3 Pin=C3-2
+Added Pin To Net: NetName=+3V3 Pin=C5-2
+Added Pin To Net: NetName=+3V3 Pin=C10-2
+Added Pin To Net: NetName=+3V3 Pin=C11-2
+Added Pin To Net: NetName=+3V3 Pin=C12-2
+Added Pin To Net: NetName=+3V3 Pin=D1-1
+Added Pin To Net: NetName=+3V3 Pin=J2-1
+Added Pin To Net: NetName=+3V3 Pin=J4-2
+Added Pin To Net: NetName=+3V3 Pin=J5-2
+Added Pin To Net: NetName=+3V3 Pin=J6-2
+Added Pin To Net: NetName=+3V3 Pin=U2-1
+Added Pin To Net: NetName=+3V3 Pin=U2-15
+Added Pin To Net: NetName=+3V3 Pin=U2-17
+Added Pin To Net: NetName=+3V3 Pin=U3-5
+Added Pin To Net: NetName=+3V3 Pin=U5-1
+Added Pin To Net: NetName=+3V3 Pin=U6-1
+Added Pin To Net: NetName=+3V3 Pin=U7-16
+Added Net: Name=+3V3
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C8-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C9-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C10_MOTOR_DRIVE_1-1
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C10_MOTOR_DRIVE_2-1
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C10_MOTOR_DRIVE_3-1
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C13-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C14-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=C15-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=D2-1
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=R15_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=R15_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=R15_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U4-5
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U5-16
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U6-16
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U7-1
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U10_MOTOR_DRIVE_1-24
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U10_MOTOR_DRIVE_2-24
+Added Pin To Net: NetName=+5_MOTOR_DRIVE_1 Pin=U10_MOTOR_DRIVE_3-24
+Added Net: Name=+5_MOTOR_DRIVE_1
+Added Pin To Net: NetName=+5V_USB Pin=C4-2
+Added Pin To Net: NetName=+5V_USB Pin=J1-1
+Added Pin To Net: NetName=+5V_USB Pin=U1-5
+Added Pin To Net: NetName=+5V_USB Pin=U3-1
+Added Pin To Net: NetName=+5V_USB Pin=U3-1
+Added Pin To Net: NetName=+5V_USB Pin=U3-3
+Added Net: Name=+5V_USB
+Added Pin To Net: NetName=DRV_OFF_MOTOR_DRIVE_1 Pin=U6-11
+Added Pin To Net: NetName=DRV_OFF_MOTOR_DRIVE_1 Pin=U10_MOTOR_DRIVE_1-5
+Added Pin To Net: NetName=DRV_OFF_MOTOR_DRIVE_1 Pin=U10_MOTOR_DRIVE_2-5
+Added Pin To Net: NetName=DRV_OFF_MOTOR_DRIVE_1 Pin=U10_MOTOR_DRIVE_3-5
+Added Net: Name=DRV_OFF_MOTOR_DRIVE_1
+Added Pin To Net: NetName=DRV_OFF Pin=U2-25
+Added Pin To Net: NetName=DRV_OFF Pin=U6-6
+Added Net: Name=DRV_OFF
+Added Pin To Net: NetName=GNDB Pin=C7-1
+Added Pin To Net: NetName=GNDB Pin=C8-1
+Added Pin To Net: NetName=GNDB Pin=C9-1
+Added Pin To Net: NetName=GNDB Pin=C10-1
+Added Pin To Net: NetName=GNDB Pin=C10_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=GNDB Pin=C10_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=GNDB Pin=C10_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=GNDB Pin=C11-1
+Added Pin To Net: NetName=GNDB Pin=C11_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=GNDB Pin=C11_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=GNDB Pin=C11_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=GNDB Pin=C12_MOTOR_DRIVE_1-N
+Added Pin To Net: NetName=GNDB Pin=C12_MOTOR_DRIVE_2-N
+Added Pin To Net: NetName=GNDB Pin=C12_MOTOR_DRIVE_3-N
+Added Pin To Net: NetName=GNDB Pin=C13-1
+Added Pin To Net: NetName=GNDB Pin=C14-1
+Added Pin To Net: NetName=GNDB Pin=C15-1
+Added Pin To Net: NetName=GNDB Pin=P2-1
+Added Pin To Net: NetName=GNDB Pin=Q1-2
+Added Pin To Net: NetName=GNDB Pin=R5-1
+Added Pin To Net: NetName=GNDB Pin=R10_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=GNDB Pin=R10_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=GNDB Pin=R10_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=GNDB Pin=R11_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=GNDB Pin=R11_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=GNDB Pin=R11_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=GNDB Pin=R12_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=GNDB Pin=R12_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=GNDB Pin=R12_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=GNDB Pin=R13_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=GNDB Pin=R13_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=GNDB Pin=R13_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=GNDB Pin=R14_MOTOR_DRIVE_1-1
+Added Pin To Net: NetName=GNDB Pin=R14_MOTOR_DRIVE_2-1
+Added Pin To Net: NetName=GNDB Pin=R14_MOTOR_DRIVE_3-1
+Added Pin To Net: NetName=GNDB Pin=U4-2
+Added Pin To Net: NetName=GNDB Pin=U5-9
+Added Pin To Net: NetName=GNDB Pin=U5-15
+Added Pin To Net: NetName=GNDB Pin=U6-9
+Added Pin To Net: NetName=GNDB Pin=U6-15
+Added Pin To Net: NetName=GNDB Pin=U7-2
+Added Pin To Net: NetName=GNDB Pin=U7-8
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_1-12
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_1-13
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_1-14
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_1-15
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_1-16
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_1-17
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_2-12
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_2-13
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_2-14
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_2-15
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_2-16
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_2-17
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_3-12
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_3-13
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_3-14
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_3-15
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_3-16
+Added Pin To Net: NetName=GNDB Pin=U10_MOTOR_DRIVE_3-17
+Added Net: Name=GNDB
+Added Pin To Net: NetName=GND Pin=C1-1
+Added Pin To Net: NetName=GND Pin=C2-1
+Added Pin To Net: NetName=GND Pin=C3-1
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=GND Pin=C12-1
+Added Pin To Net: NetName=GND Pin=J1-5
+Added Pin To Net: NetName=GND Pin=J1-S1
+Added Pin To Net: NetName=GND Pin=J1-S2
+Added Pin To Net: NetName=GND Pin=J1-S3
+Added Pin To Net: NetName=GND Pin=J1-S4
+Added Pin To Net: NetName=GND Pin=J1-S5
+Added Pin To Net: NetName=GND Pin=J1-S6
+Added Pin To Net: NetName=GND Pin=J2-3
+Added Pin To Net: NetName=GND Pin=J2-5
+Added Pin To Net: NetName=GND Pin=J2-9
+Added Pin To Net: NetName=GND Pin=J3-1
+Added Pin To Net: NetName=GND Pin=J4-1
+Added Pin To Net: NetName=GND Pin=J5-1
+Added Pin To Net: NetName=GND Pin=J6-1
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=GND Pin=U1-2
+Added Pin To Net: NetName=GND Pin=U2-14
+Added Pin To Net: NetName=GND Pin=U2-16
+Added Pin To Net: NetName=GND Pin=U2-32
+Added Pin To Net: NetName=GND Pin=U3-2
+Added Pin To Net: NetName=GND Pin=U5-2
+Added Pin To Net: NetName=GND Pin=U5-8
+Added Pin To Net: NetName=GND Pin=U6-2
+Added Pin To Net: NetName=GND Pin=U6-8
+Added Pin To Net: NetName=GND Pin=U7-9
+Added Pin To Net: NetName=GND Pin=U7-15
+Added Net: Name=GND
+Added Pin To Net: NetName=M1_ENC_A Pin=J4-3
+Added Pin To Net: NetName=M1_ENC_A Pin=U2-12
+Added Net: Name=M1_ENC_A
+Added Pin To Net: NetName=M1_ENC_B Pin=J4-4
+Added Pin To Net: NetName=M1_ENC_B Pin=U2-18
+Added Net: Name=M1_ENC_B
+Added Pin To Net: NetName=M1_PWM_1B Pin=U5-14
+Added Pin To Net: NetName=M1_PWM_1B Pin=U10_MOTOR_DRIVE_1-4
+Added Net: Name=M1_PWM_1B
+Added Pin To Net: NetName=M1_PWM_1 Pin=U2-5
+Added Pin To Net: NetName=M1_PWM_1 Pin=U5-3
+Added Net: Name=M1_PWM_1
+Added Pin To Net: NetName=M1_PWM_2B Pin=U5-13
+Added Pin To Net: NetName=M1_PWM_2B Pin=U10_MOTOR_DRIVE_1-3
+Added Net: Name=M1_PWM_2B
+Added Pin To Net: NetName=M1_PWM_2 Pin=U2-6
+Added Pin To Net: NetName=M1_PWM_2 Pin=U5-4
+Added Net: Name=M1_PWM_2
+Added Pin To Net: NetName=M2_ENC_A Pin=J5-3
+Added Pin To Net: NetName=M2_ENC_A Pin=U2-19
+Added Net: Name=M2_ENC_A
+Added Pin To Net: NetName=M2_ENC_B Pin=J5-4
+Added Pin To Net: NetName=M2_ENC_B Pin=U2-20
+Added Net: Name=M2_ENC_B
+Added Pin To Net: NetName=M2_PWM_1B Pin=U5-12
+Added Pin To Net: NetName=M2_PWM_1B Pin=U10_MOTOR_DRIVE_2-4
+Added Net: Name=M2_PWM_1B
+Added Pin To Net: NetName=M2_PWM_1 Pin=U2-7
+Added Pin To Net: NetName=M2_PWM_1 Pin=U5-5
+Added Net: Name=M2_PWM_1
+Added Pin To Net: NetName=M2_PWM_2B Pin=U5-11
+Added Pin To Net: NetName=M2_PWM_2B Pin=U10_MOTOR_DRIVE_2-3
+Added Net: Name=M2_PWM_2B
+Added Pin To Net: NetName=M2_PWM_2 Pin=U2-8
+Added Pin To Net: NetName=M2_PWM_2 Pin=U5-6
+Added Net: Name=M2_PWM_2
+Added Pin To Net: NetName=M3_ENC_A Pin=J6-3
+Added Pin To Net: NetName=M3_ENC_A Pin=U2-21
+Added Net: Name=M3_ENC_A
+Added Pin To Net: NetName=M3_ENC_B Pin=J6-4
+Added Pin To Net: NetName=M3_ENC_B Pin=U2-22
+Added Net: Name=M3_ENC_B
+Added Pin To Net: NetName=M3_PWM_1B Pin=U6-14
+Added Pin To Net: NetName=M3_PWM_1B Pin=U10_MOTOR_DRIVE_3-4
+Added Net: Name=M3_PWM_1B
+Added Pin To Net: NetName=M3_PWM_1 Pin=U2-9
+Added Pin To Net: NetName=M3_PWM_1 Pin=U6-3
+Added Net: Name=M3_PWM_1
+Added Pin To Net: NetName=M3_PWM_2B Pin=U6-13
+Added Pin To Net: NetName=M3_PWM_2B Pin=U10_MOTOR_DRIVE_3-3
+Added Net: Name=M3_PWM_2B
+Added Pin To Net: NetName=M3_PWM_2 Pin=U2-10
+Added Pin To Net: NetName=M3_PWM_2 Pin=U6-4
+Added Net: Name=M3_PWM_2
+Added Pin To Net: NetName=M_BAT_MON_B Pin=R4-1
+Added Pin To Net: NetName=M_BAT_MON_B Pin=R5-2
+Added Pin To Net: NetName=M_BAT_MON_B Pin=U7-3
+Added Net: Name=M_BAT_MON_B
+Added Pin To Net: NetName=M_BAT_MON Pin=U2-27
+Added Pin To Net: NetName=M_BAT_MON Pin=U7-14
+Added Net: Name=M_BAT_MON
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=R1-2
+Added Net: Name=NetD1_2
+Added Pin To Net: NetName=NetD2_2 Pin=D2-2
+Added Pin To Net: NetName=NetD2_2 Pin=R2-2
+Added Net: Name=NetD2_2
+Added Pin To Net: NetName=NetD3_1 Pin=D3-1
+Added Pin To Net: NetName=NetD3_1 Pin=U2-2
+Added Net: Name=NetD3_1
+Added Pin To Net: NetName=NetD3_2 Pin=D3-2
+Added Pin To Net: NetName=NetD3_2 Pin=R3-2
+Added Net: Name=NetD3_2
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_1_1 Pin=D?_MOTOR_DRIVE_1-1
+Added Net: Name=NetD?_MOTOR_DRIVE_1_1
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_1_2 Pin=D?_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_1_2 Pin=R15_MOTOR_DRIVE_1-1
+Added Net: Name=NetD?_MOTOR_DRIVE_1_2
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_2_1 Pin=D?_MOTOR_DRIVE_2-1
+Added Net: Name=NetD?_MOTOR_DRIVE_2_1
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_2_2 Pin=D?_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_2_2 Pin=R15_MOTOR_DRIVE_2-1
+Added Net: Name=NetD?_MOTOR_DRIVE_2_2
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_3_1 Pin=D?_MOTOR_DRIVE_3-1
+Added Net: Name=NetD?_MOTOR_DRIVE_3_1
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_3_2 Pin=D?_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=NetD?_MOTOR_DRIVE_3_2 Pin=R15_MOTOR_DRIVE_3-1
+Added Net: Name=NetD?_MOTOR_DRIVE_3_2
+Added Pin To Net: NetName=NetP1_1 Pin=P1-1
+Added Pin To Net: NetName=NetP1_1 Pin=Q1-1
+Added Net: Name=NetP1_1
+Added Pin To Net: NetName=NetP3_1 Pin=P3-1
+Added Pin To Net: NetName=NetP3_1 Pin=U10_MOTOR_DRIVE_1-9
+Added Pin To Net: NetName=NetP3_1 Pin=U10_MOTOR_DRIVE_1-10
+Added Pin To Net: NetName=NetP3_1 Pin=U10_MOTOR_DRIVE_1-11
+Added Net: Name=NetP3_1
+Added Pin To Net: NetName=NetP4_1 Pin=P4-1
+Added Pin To Net: NetName=NetP4_1 Pin=U10_MOTOR_DRIVE_1-18
+Added Pin To Net: NetName=NetP4_1 Pin=U10_MOTOR_DRIVE_1-19
+Added Pin To Net: NetName=NetP4_1 Pin=U10_MOTOR_DRIVE_1-20
+Added Net: Name=NetP4_1
+Added Pin To Net: NetName=NetP5_1 Pin=P5-1
+Added Pin To Net: NetName=NetP5_1 Pin=U10_MOTOR_DRIVE_2-9
+Added Pin To Net: NetName=NetP5_1 Pin=U10_MOTOR_DRIVE_2-10
+Added Pin To Net: NetName=NetP5_1 Pin=U10_MOTOR_DRIVE_2-11
+Added Net: Name=NetP5_1
+Added Pin To Net: NetName=NetP6_1 Pin=P6-1
+Added Pin To Net: NetName=NetP6_1 Pin=U10_MOTOR_DRIVE_2-18
+Added Pin To Net: NetName=NetP6_1 Pin=U10_MOTOR_DRIVE_2-19
+Added Pin To Net: NetName=NetP6_1 Pin=U10_MOTOR_DRIVE_2-20
+Added Net: Name=NetP6_1
+Added Pin To Net: NetName=NetP7_1 Pin=P7-1
+Added Pin To Net: NetName=NetP7_1 Pin=U10_MOTOR_DRIVE_3-9
+Added Pin To Net: NetName=NetP7_1 Pin=U10_MOTOR_DRIVE_3-10
+Added Pin To Net: NetName=NetP7_1 Pin=U10_MOTOR_DRIVE_3-11
+Added Net: Name=NetP7_1
+Added Pin To Net: NetName=NetP8_1 Pin=P8-1
+Added Pin To Net: NetName=NetP8_1 Pin=U10_MOTOR_DRIVE_3-18
+Added Pin To Net: NetName=NetP8_1 Pin=U10_MOTOR_DRIVE_3-19
+Added Pin To Net: NetName=NetP8_1 Pin=U10_MOTOR_DRIVE_3-20
+Added Net: Name=NetP8_1
+Added Pin To Net: NetName=NetR1_1 Pin=R1-1
+Added Pin To Net: NetName=NetR1_1 Pin=U3-4
+Added Net: Name=NetR1_1
+Added Pin To Net: NetName=NetR2_1 Pin=R2-1
+Added Pin To Net: NetName=NetR2_1 Pin=U4-4
+Added Net: Name=NetR2_1
+Added Pin To Net: NetName=NetR10_MOTOR_DRIVE_1_1 Pin=R10_MOTOR_DRIVE_1-1
+Added Pin To Net: NetName=NetR10_MOTOR_DRIVE_1_1 Pin=U10_MOTOR_DRIVE_1-1
+Added Net: Name=NetR10_MOTOR_DRIVE_1_1
+Added Pin To Net: NetName=NetR10_MOTOR_DRIVE_2_1 Pin=R10_MOTOR_DRIVE_2-1
+Added Pin To Net: NetName=NetR10_MOTOR_DRIVE_2_1 Pin=U10_MOTOR_DRIVE_2-1
+Added Net: Name=NetR10_MOTOR_DRIVE_2_1
+Added Pin To Net: NetName=NetR10_MOTOR_DRIVE_3_1 Pin=R10_MOTOR_DRIVE_3-1
+Added Pin To Net: NetName=NetR10_MOTOR_DRIVE_3_1 Pin=U10_MOTOR_DRIVE_3-1
+Added Net: Name=NetR10_MOTOR_DRIVE_3_1
+Added Pin To Net: NetName=NetR11_MOTOR_DRIVE_1_1 Pin=R11_MOTOR_DRIVE_1-1
+Added Pin To Net: NetName=NetR11_MOTOR_DRIVE_1_1 Pin=U10_MOTOR_DRIVE_1-2
+Added Net: Name=NetR11_MOTOR_DRIVE_1_1
+Added Pin To Net: NetName=NetR11_MOTOR_DRIVE_2_1 Pin=R11_MOTOR_DRIVE_2-1
+Added Pin To Net: NetName=NetR11_MOTOR_DRIVE_2_1 Pin=U10_MOTOR_DRIVE_2-2
+Added Net: Name=NetR11_MOTOR_DRIVE_2_1
+Added Pin To Net: NetName=NetR11_MOTOR_DRIVE_3_1 Pin=R11_MOTOR_DRIVE_3-1
+Added Pin To Net: NetName=NetR11_MOTOR_DRIVE_3_1 Pin=U10_MOTOR_DRIVE_3-2
+Added Net: Name=NetR11_MOTOR_DRIVE_3_1
+Added Pin To Net: NetName=NetR12_MOTOR_DRIVE_1_1 Pin=R12_MOTOR_DRIVE_1-1
+Added Net: Name=NetR12_MOTOR_DRIVE_1_1
+Added Pin To Net: NetName=NetR12_MOTOR_DRIVE_2_1 Pin=R12_MOTOR_DRIVE_2-1
+Added Net: Name=NetR12_MOTOR_DRIVE_2_1
+Added Pin To Net: NetName=NetR12_MOTOR_DRIVE_3_1 Pin=R12_MOTOR_DRIVE_3-1
+Added Net: Name=NetR12_MOTOR_DRIVE_3_1
+Added Pin To Net: NetName=NetR13_MOTOR_DRIVE_1_1 Pin=R13_MOTOR_DRIVE_1-1
+Added Net: Name=NetR13_MOTOR_DRIVE_1_1
+Added Pin To Net: NetName=NetR13_MOTOR_DRIVE_2_1 Pin=R13_MOTOR_DRIVE_2-1
+Added Net: Name=NetR13_MOTOR_DRIVE_2_1
+Added Pin To Net: NetName=NetR13_MOTOR_DRIVE_3_1 Pin=R13_MOTOR_DRIVE_3-1
+Added Net: Name=NetR13_MOTOR_DRIVE_3_1
+Added Pin To Net: NetName=NetR14_MOTOR_DRIVE_1_2 Pin=R14_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=NetR14_MOTOR_DRIVE_1_2 Pin=U10_MOTOR_DRIVE_1-25
+Added Net: Name=NetR14_MOTOR_DRIVE_1_2
+Added Pin To Net: NetName=NetR14_MOTOR_DRIVE_2_2 Pin=R14_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=NetR14_MOTOR_DRIVE_2_2 Pin=U10_MOTOR_DRIVE_2-25
+Added Net: Name=NetR14_MOTOR_DRIVE_2_2
+Added Pin To Net: NetName=NetR14_MOTOR_DRIVE_3_2 Pin=R14_MOTOR_DRIVE_3-2
+Added Pin To Net: NetName=NetR14_MOTOR_DRIVE_3_2 Pin=U10_MOTOR_DRIVE_3-25
+Added Net: Name=NetR14_MOTOR_DRIVE_3_2
+Added Pin To Net: NetName=NRST Pin=C6-2
+Added Pin To Net: NetName=NRST Pin=J2-10
+Added Pin To Net: NetName=NRST Pin=U2-4
+Added Net: Name=NRST
+Added Pin To Net: NetName=SWCLK Pin=J2-4
+Added Pin To Net: NetName=SWCLK Pin=U2-26
+Added Net: Name=SWCLK
+Added Pin To Net: NetName=SWDIO Pin=J2-2
+Added Pin To Net: NetName=SWDIO Pin=U2-13
+Added Net: Name=SWDIO
+Added Pin To Net: NetName=TRW_PWM_B Pin=J3-2
+Added Pin To Net: NetName=TRW_PWM_B Pin=U6-12
+Added Net: Name=TRW_PWM_B
+Added Pin To Net: NetName=TRW_PWM Pin=U2-11
+Added Pin To Net: NetName=TRW_PWM Pin=U6-5
+Added Net: Name=TRW_PWM
+Added Pin To Net: NetName=USB_D+ Pin=J1-3
+Added Pin To Net: NetName=USB_D+ Pin=U1-3
+Added Pin To Net: NetName=USB_D+ Pin=U2-23
+Added Net: Name=USB_D+
+Added Pin To Net: NetName=USB_D- Pin=J1-2
+Added Pin To Net: NetName=USB_D- Pin=U1-4
+Added Pin To Net: NetName=USB_D- Pin=U2-24
+Added Net: Name=USB_D-
+Added Pin To Net: NetName=V_BATT Pin=C7-2
+Added Pin To Net: NetName=V_BATT Pin=C11_MOTOR_DRIVE_1-1
+Added Pin To Net: NetName=V_BATT Pin=C11_MOTOR_DRIVE_2-1
+Added Pin To Net: NetName=V_BATT Pin=C11_MOTOR_DRIVE_3-1
+Added Pin To Net: NetName=V_BATT Pin=C12_MOTOR_DRIVE_1-P
+Added Pin To Net: NetName=V_BATT Pin=C12_MOTOR_DRIVE_2-P
+Added Pin To Net: NetName=V_BATT Pin=C12_MOTOR_DRIVE_3-P
+Added Pin To Net: NetName=V_BATT Pin=Q1-3
+Added Pin To Net: NetName=V_BATT Pin=R4-2
+Added Pin To Net: NetName=V_BATT Pin=U4-1
+Added Pin To Net: NetName=V_BATT Pin=U4-3
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_1-6
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_1-7
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_1-8
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_1-21
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_1-22
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_1-23
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_2-6
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_2-7
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_2-8
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_2-21
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_2-22
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_2-23
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_3-6
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_3-7
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_3-8
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_3-21
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_3-22
+Added Pin To Net: NetName=V_BATT Pin=U10_MOTOR_DRIVE_3-23
+Added Net: Name=V_BATT
+Added Class: Name=MOTOR_DRIVE_1
+Added Class: Name=MOTOR_DRIVE_2
+Added Class: Name=MOTOR_DRIVE_3
+Added Class: Name=motor_MCU
+Added Class: Name=motor_DRV
+Added Room: Name=MOTOR_DRIVE_1
+Added Room: Name=MOTOR_DRIVE_2
+Added Room: Name=MOTOR_DRIVE_3
+Added Room: Name=motor_MCU
