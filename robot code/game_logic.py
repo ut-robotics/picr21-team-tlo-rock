@@ -89,65 +89,72 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
                 error = (nearest_ball[0]-424)/4.24
                 
                 if nearest_ball[1] < 200:
-                    gs = GameState.orbit._value_
+                    gs = GameState.orbit
                 else:
                     #print(int(math.floor(error ** 1.05 * 0.1)))
                     movement_vector = rotate_omni(int(math.floor(error * 0.04)))
                     movement_vector = combine_moves(movement_vector, move_omni(25,0))
-                    speed = 40
+                    speed = 50
                     if nearest_ball[1] < 1000:
-                        speed = 20
+                        speed = 30
                     movement_vector = rectify_speed(movement_vector,speed)
                     set_speed(speeds, movement_vector)
             
             else:
                 set_speed(speeds, rotate_omni(10))
         
-        if gs == GameState.orbit._value_:
+        if gs == GameState.orbit:
             if nearest_ball[1] > 300 or noball.value > 0.5:
-                gs = GameState.moveto._value_
-            #print("pink", pink[0],pink[1],pink[2])
-            #print ("blue", blue[0],blue[1],blue[2])
+                gs = GameState.moveto
+            
             tgt = [basket[0], basket[1], basket[2]]
+            #print("basket",basket[0],basket[1],basket[2])
             #if noball.value > 0.5:
             #    gs = GameState.searching._value_
             #print(nearest_ball[0],nearest_ball[1])
             # distance from robot tgt 130
             # side to side tgt 424,425
-            movement_vector = move_omni(max(min((nearest_ball[1]-130)*0.2,5),-5),0)
-            movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424)*0.1, 5),-5)))
-            #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
-            spd = 7
+
+            spd = 20
+            if abs(tgt[0] - 424) < 424:
+                spd = 5
             if abs(tgt[0] - 424) < 60:
-                spd = 2
-            if abs(tgt[0] - 424) < 2:
+                spd = 3
+
+            movement_vector = move_omni(max(min((nearest_ball[1]-160)*0.18,spd),-spd),0)
+            movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424)*0.04, spd),-spd)))
+            movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424), 3),-3)))
+            #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
+            if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
                 gs = GameState.launch._value_
             elif tgt[0] > 424:
-                movement_vector = combine_moves(movement_vector, move_omni(spd,90))
+                movement_vector = combine_moves(movement_vector, move_omni(spd, 90))
+                combine_moves(movement_vector, rotate_omni(-5))
             elif tgt[0] < 424:
-                movement_vector = combine_moves(movement_vector, move_omni(-spd,90))
+                movement_vector = combine_moves(movement_vector, move_omni(-spd, 90))
+                combine_moves(movement_vector, rotate_omni(5))
             
             #movement_vector = rectify_speed(movement_vector, 20)
             #print(movement_vector)
             set_speed(speeds,movement_vector)
-        if gs == GameState.launch._value_:
+        if gs == GameState.launch:
             if launchdelay < 1:
                 set_speed(speeds,stop())
                 launchdelay+= delta
                 print(tgt)
-                if abs(tgt[0] - 424) > 3:
-                    gs = GameState.orbit._value_
+                if abs(tgt[0] - 424 > 3 and abs(nearest_ball[0]-424) > 2 and abs(nearest_ball[1]-160) < 2):
+                    gs = GameState.orbit
                     launchdelay = 0
             else:
                 launchdelay = 0
                 movement_vector = move_omni(5,0)
                 #print(int(0.05*(tgt[1]-350)**2+560)) # 0.05\left(x-350\right)^{2}\ +560
-                movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+560)))
+                movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+570)))
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
                 set_speed(speeds,movement_vector)
                 sleep(3)
-                gs = GameState.searching._value_
+                gs = GameState.searching
 
 
 

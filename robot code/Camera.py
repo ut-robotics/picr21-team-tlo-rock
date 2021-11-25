@@ -2,6 +2,7 @@ import pyrealsense2 as rs
 import cv2
 import numpy as np
 from enums import *
+import math
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
@@ -21,8 +22,9 @@ def get_average_of_subarray(array, x, y, size):
     if (array.size==0):
         return -1
     #return average/median of values in array
+    return max(np.average(array), np.median(array))
     #return np.median(array)
-    return np.max(array)
+    #return np.max(array)
 
 #Function for finding keypoints of one colour
 def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image, depth_scale):
@@ -52,7 +54,8 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
         if i < MAX_KEYPOINT_COUNT:
             point_x = int(round(punkt.pt[0]))
             point_y = int(round(punkt.pt[1]))
-            point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
+            point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
+            #print(point_depth)
             tempKeypointX[i] = point_x
             tempKeypointY[i] = point_y
             tempKeypointZ[i] = point_depth
@@ -82,9 +85,6 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     else:
         colourLimitsBasket = fetchTrackbarValues('blue.txt')
 
-    colourLimitsBlue = fetchTrackbarValues('blue.txt')
-    colourLimitsPink = fetchTrackbarValues('pink.txt')
-
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
     pipeline = rs.pipeline()
@@ -112,7 +112,10 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
+    #if depth_sensor.supports(rs.option.depth_units):
+        #depth_sensor.set_option(rs.option.depth_units, 0.00005)
     depth_scale = depth_sensor.get_depth_scale()*1000
+    #print(depth_scale)
 
     #________________________BLOB DETECTION PARAMETERS______________________________
     #detector object
@@ -131,7 +134,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
-        #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
+        cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
         while True:
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
@@ -175,7 +178,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
             
             cv2.imshow('cap', outimage)
             
-            #cv2.imshow('dist', depth_image)
+            cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
     except Exception as e:
