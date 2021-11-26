@@ -126,7 +126,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
             movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424), 3),-3)))
             #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
             if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
-                gs = GameState.launch._value_
+                gs = GameState.launch
             elif tgt[0] > 424:
                 movement_vector = combine_moves(movement_vector, move_omni(spd, 90))
                 combine_moves(movement_vector, rotate_omni(-5))
@@ -140,7 +140,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
         if gs == GameState.launch:
             if launchdelay < 1:
                 set_speed(speeds,stop())
-                launchdelay+= delta
+                launchdelay += delta
                 print(tgt)
                 if abs(tgt[0] - 424 > 3 and abs(nearest_ball[0]-424) > 2 and abs(nearest_ball[1]-160) < 2):
                     gs = GameState.orbit

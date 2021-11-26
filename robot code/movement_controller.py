@@ -46,8 +46,7 @@ def main(target_speeds, state, running):# main function of movement controller
 
     last_time = time()
     while run:
-
-            sleep(0.0001)
+            sleep(0.01)
             tme = time()
             delta = tme - last_time
             
@@ -60,7 +59,7 @@ def main(target_speeds, state, running):# main function of movement controller
             if state.value == State.stopped:
                 send_motorspeeds(ser, *stop())
             
-            if state.value in {State.automatic,State.remote}:
+            if state.value in {State.automatic,State.remote, State.calibration}:
                 n_speeds = target_speeds[0:3]
                 #print(n_speeds, c_speeds)
                    

@@ -79,8 +79,7 @@ def fetchTrackbarValues(filename):
 def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, BasketCoords):
     #________________________LOADING IN THE FILTERS__________________________________________
     colourLimitsGreen = fetchTrackbarValues('green.txt')
-
-    if (attacking == Side.pink):
+    if (attacking.value == Side.pink):
         colourLimitsBasket = fetchTrackbarValues('pink.txt')
     else:
         colourLimitsBasket = fetchTrackbarValues('blue.txt')
