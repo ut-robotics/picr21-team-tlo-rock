@@ -19,7 +19,7 @@ def main( speeds, state, basket, input):
         
         sleep(0.01)
         if state.value != State.calibration:
-            pass
+            continue
         tgt = [basket[0], basket[1], basket[2]]
         spd = 20
 
@@ -64,7 +64,7 @@ def main( speeds, state, basket, input):
             tdrec = tgt[2]
             tlcrec = tgt[1]
             tsrec = ts
-        if input[6] != 0 and snap_lock:
+        if input[2] != 0 and snap_lock:
             print("snap")
             file_object = open('shootingdata.txt', 'a')
             file_object.write((str(tsrec)+ " " +str(tdrec)+ " " +str(tlcrec)+"\n"))
@@ -75,5 +75,6 @@ def main( speeds, state, basket, input):
 
         movement_vector = combine_moves(movement_vector, thrower(ts))
         #print(movement_vector)
-        set_speed(speeds,movement_vector)
+        if input[6] != 0:
+            set_speed(speeds,movement_vector)
             
