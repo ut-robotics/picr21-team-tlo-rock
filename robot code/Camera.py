@@ -54,7 +54,8 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
         if i < MAX_KEYPOINT_COUNT:
             point_x = int(round(punkt.pt[0]))
             point_y = int(round(punkt.pt[1]))
-            point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
+            #point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
+            point_depth = depth_image.GetDistance(point_x,point_y)
             #print(point_depth)
             tempKeypointX[i] = point_x
             tempKeypointY[i] = point_y

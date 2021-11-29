@@ -10,6 +10,10 @@ def main( speeds, state, basket, input):
     thrower_lock = True
     snap_lock = True
 
+    tdrec = 0
+    tlcrec = 0
+    tsrec = 0
+
     while True:
         movement_vector = [0,0,0,0]
         
@@ -22,16 +26,19 @@ def main( speeds, state, basket, input):
         spd = min(max(int((abs(tgt[0] - 424)/424) * 10),1),10)
 
         #print(tgt[0] - 424, spd)
-        if abs(tgt[0] - 424) <= 5:
+        if abs(tgt[0] - 424) <= 2:
             movement_vector = [0,0,0,0]
             pass
         
         if (tgt[0] - 424 > 0):
             #movement_vector = rotate_omni(spd)
+            movement_vector = combine_moves(move_omni(spd, 90), movement_vector)
             pass
         if (tgt[0] - 424 < 0):
             #movement_vector = rotate_omni(-spd)
+            movement_vector = combine_moves(move_omni(-spd, 90), movement_vector)
             pass
+        movement_vector = combine_moves(move_omni(5, 0), movement_vector)
         #print(input[1])
         if input[5] != 0:
             ts -= 1
@@ -53,10 +60,14 @@ def main( speeds, state, basket, input):
             thrower_lock = False
         if input[4] == 0 and input[3] == 0 and not thrower_lock:
             thrower_lock = True
+        if input[0] != 0:
+            tdrec = tgt[2]
+            tlcrec = tgt[1]
+            tsrec = ts
         if input[6] != 0 and snap_lock:
             print("snap")
             file_object = open('shootingdata.txt', 'a')
-            file_object.write((str(basket[1])+ " " +str(ts)+"\n"))
+            file_object.write((str(tsrec)+ " " +str(tdrec)+ " " +str(tlcrec)+"\n"))
             file_object.close()
             snap_lock = False
         if input[6] == 0:
