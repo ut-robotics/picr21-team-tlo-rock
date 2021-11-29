@@ -23,10 +23,9 @@ def get_average_of_subarray(array, x, y, size):
     #return np.median(array)
     return np.max(array)
 
-def savefile(filename):
-    global Trackbar_values
+def savefile(filename, values):
     save = open(filename, mode = 'w', encoding = 'UTF-8')
-    for value in Trackbar_values:
+    for value in values:
         save.write(str(value) + '\n')
     save.close()
     print('Values saved to file', filename)
@@ -34,7 +33,7 @@ def savefile(filename):
 if __name__ == '__main__':
     #__________________________HSV LEGACY____________________________________________
     try:
-        defaults = open('trackbar_defaults.txt', mode = 'r', encoding = 'UTF-8')
+        defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
         Trackbar_values = []
         for line in defaults:
             Trackbar_values.append(int(line.strip()))
@@ -90,7 +89,8 @@ if __name__ == '__main__':
     blobparams = cv2.SimpleBlobDetector_Params()
 
     blobparams.filterByArea = True
-    blobparams.minArea = 400
+    blobparams.minArea = 30
+    blobparams.maxArea = 70000000
     blobparams.filterByCircularity = False
     blobparams.filterByInertia = False
     
@@ -123,7 +123,7 @@ if __name__ == '__main__':
             # Our operations on the frame come here
             thresholded = cv2.inRange(color_frame, lowerLimits, upperLimits)
             thresholded = cv2.bitwise_not(thresholded)
-            thresholded = cv2.rectangle(thresholded, (0, 0), (cam_res_width-1, cam_res_height-1), (255, 165, 0), 2)
+            thresholded = cv2.rectangle(thresholded, (0, 0), (cam_res_width-2, cam_res_height-2), (255, 255, 255), 2)
             outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded)
 
             #detecting the blobs
@@ -153,14 +153,14 @@ if __name__ == '__main__':
             if cv2.waitKey(1) & 0xFF == ord('s'):
                 #Mode(0-green, 1-black, 2-white, 3-pink, 4-blue)
                 savemap = ['green.txt', 'black.txt', 'white.txt', 'pink.txt', 'blue.txt', 'trackbar_defaults.txt']
-                savefile(savemap[Trackbar_values[6]])
+                savefile(savemap[Trackbar_values[6]], Trackbar_values)
 
             # Quit the program when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             
     finally:
-        savefile('trackbar_defaults.txt')
+        savefile('trackbar_defaults.txt', Trackbar_values)
 
         # When everything done, release the capture
         print('closing program')

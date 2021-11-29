@@ -1,6 +1,8 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
+from enums import *
+import math
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
@@ -20,21 +22,67 @@ def get_average_of_subarray(array, x, y, size):
     if (array.size==0):
         return -1
     #return average/median of values in array
+    return max(np.average(array), np.median(array))
     #return np.median(array)
-    return np.max(array)
+    #return np.max(array)
 
-def operate_camera(keypointX, keypointZ):
-    #__________________________HSV LEGACY____________________________________________
+#Function for finding keypoints of one colour
+def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image, depth_scale):
+    # Colour detection limits
+    lowerLimits = np.array(Trackbar_values[0:3])
+    upperLimits = np.array(Trackbar_values[3:6])
+
+    # Our operations on the frame come here
+    thresholded_image = cv2.inRange(color_frame, lowerLimits, upperLimits)
+    thresholded_image = cv2.bitwise_not(thresholded_image)
+    thresholded_image = cv2.rectangle(thresholded_image, (0, 0), (FRAME_WIDTH-1, FRAME_HEIGHT-1), (255, 255, 255), 2)
+
+    #detecting the blobs
+    keypoints = detector.detect(thresholded_image)
+    if MAX_KEYPOINT_COUNT > 1:
+        tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+        tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+        tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
+    else:
+        tempKeypointX = [0]
+        tempKeypointY = [0]
+        tempKeypointZ = [0]
+
+    i = 0 
+    #printing the coordinates
+    for punkt in keypoints:
+        if i < MAX_KEYPOINT_COUNT:
+            point_x = int(round(punkt.pt[0]))
+            point_y = int(round(punkt.pt[1]))
+            point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
+            #print(point_depth)
+            tempKeypointX[i] = point_x
+            tempKeypointY[i] = point_y
+            tempKeypointZ[i] = point_depth
+            i += 1
+
+    output = [tempKeypointX.copy(), tempKeypointY.copy(), tempKeypointZ.copy()]
+    return output
+
+def fetchTrackbarValues(filename):
     try:
-        defaults = open('green.txt', mode = 'r', encoding = 'UTF-8')
-        Trackbar_values_green = []
+        defaults = open(filename, mode = 'r', encoding = 'UTF-8')
+        trackbarValues = []
         for line in defaults:
-            Trackbar_values_green.append(int(line.strip()))
+            trackbarValues.append(int(line.strip()))
         defaults.close()
+        return trackbarValues.copy()
 
     except:
-        # Global variables for the trackbar value if no base file exists
-        Trackbar_values_green = [22, 16, 56, 98, 173, 158, 0]
+        print("Failed loading", filename)
+
+def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, BasketCoords):
+    #________________________LOADING IN THE FILTERS__________________________________________
+    colourLimitsGreen = fetchTrackbarValues('green.txt')
+    if (attacking.value == Side.pink):
+        colourLimitsBasket = fetchTrackbarValues('pink.txt')
+    else:
+        colourLimitsBasket = fetchTrackbarValues('blue.txt')
 
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
@@ -63,7 +111,10 @@ def operate_camera(keypointX, keypointZ):
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
+    #if depth_sensor.supports(rs.option.depth_units):
+        #depth_sensor.set_option(rs.option.depth_units, 0.00005)
     depth_scale = depth_sensor.get_depth_scale()*1000
+    #print(depth_scale)
 
     #________________________BLOB DETECTION PARAMETERS______________________________
     #detector object
@@ -76,11 +127,13 @@ def operate_camera(keypointX, keypointZ):
     blobparams.filterByConvexity = False
 
     detector = cv2.SimpleBlobDetector_create(blobparams)
+    blobparams.minArea = 400
+    basketdetector = cv2.SimpleBlobDetector_create(blobparams)
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
-        #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
+        cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
         while True:
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
@@ -98,48 +151,33 @@ def operate_camera(keypointX, keypointZ):
             color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
             color_image = cv2.rectangle(color_image, (380,0), (480,30), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+            outimage = color_frame.copy()
+            
 
-            #___________________HSV LEGACY________________________________________________
-            # Colour detection limits
-            lowerLimits_green = np.array(Trackbar_values_green[0:3])
-            upperLimits_green = np.array(Trackbar_values_green[3:6])
-
-            # Our operations on the frame come here
-            thresholded_green = cv2.inRange(color_frame, lowerLimits_green, upperLimits_green)
-            thresholded_green = cv2.bitwise_not(thresholded_green)
-            thresholded_green = cv2.rectangle(thresholded_green, (0, 0), (cam_res_width-1, cam_res_height-1), (255, 255, 255), 2)
-            outimage = cv2.bitwise_and(color_frame, color_frame, mask = thresholded_green)
-
-            #detecting the blobs
-            keypoints = detector.detect(thresholded_green)
-           
+            #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
-            tempKeypointX = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-            tempKeypointY = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-            tempKeypointZ = np.zeros(MAX_KEYPOINT_COUNT, dtype=int)
-            
-            i = 0 
-            #printing the coordinates
-            for punkt in keypoints:
-                if i < MAX_KEYPOINT_COUNT:
-                    point_x = int(round(punkt.pt[0]))
-                    point_y = int(round(punkt.pt[1]))
-                    point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
-                    tempKeypointX[i] = point_x
-                    tempKeypointY[i] = point_y
-                    tempKeypointZ[i] = point_depth
-                    cv2.putText(outimage, str(point_x)+ ', ' + str(point_y) + ', ' + str(point_depth) , (point_x, point_y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-                    i += 1
-            
-            #print(tempKeypointX)
-            #print("-----")
+            funcBallKeypointX, funcBallKeypointY, funcBallKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
+                                                        cam_res_width, cam_res_height, detector, 
+                                                        MAX_KEYPOINT_COUNT, depth_image, depth_scale)
             for i in range(MAX_KEYPOINT_COUNT):
-                keypointX[i] = tempKeypointX[i]
-                keypointZ[i] = tempKeypointZ[i]
-                #print(keypointX[i], keypointZ[i])
+                ballKeypointX[i] = funcBallKeypointX[i]
+                ballKeypointY[i] = funcBallKeypointY[i]
+                ballKeypointZ[i] = funcBallKeypointZ[i]
+
+            basketx, baskety, basketz = getKeyPoints(colourLimitsBasket, color_frame, 
+                                cam_res_width, cam_res_height, basketdetector, 
+                                1, depth_image, depth_scale)
+            BasketCoords[0] = basketx[0]
+            while (color_frame[baskety[0]][basketx[0]][2] < 165): #bgr
+                baskety[0] -= 1
+                if baskety[0] <= 0:
+                    break
+            BasketCoords[1] = baskety[0]
+            BasketCoords[2] = basketz[0]
             
             cv2.imshow('cap', outimage)
-            #cv2.imshow('dist', depth_image)
+            
+            cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
     except Exception as e:
