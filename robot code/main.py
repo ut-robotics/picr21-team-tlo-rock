@@ -51,7 +51,7 @@ if __name__ == '__main__':
     BasketCoords = mp.Array('i', np.zeros(3, dtype=int))
     nearest_ball = mp.Array('i', np.zeros(3, dtype=int))
     speeds = mp.Array('i', np.zeros(4, dtype=int))
-    running = mp.Value('i', State.automatic._value_)
+    running = mp.Value('i', State.automatic)
     state = mp.Value('i', State.calibration)
     attacking = mp.Value('i', Side.pink)
     noball = mp.Value('f', 0) #float noball is the time since last ball was detected 
