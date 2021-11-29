@@ -142,7 +142,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
             if launchdelay < 1:
                 set_speed(speeds,stop())
                 launchdelay += delta
-                print(tgt)
+                #print(tgt)
                 if abs(tgt[0] - 424 > 3 and abs(nearest_ball[0]-424) > 2 and abs(nearest_ball[1]-160) < 2):
                     gs = GameState.orbit
                     launchdelay = 0
