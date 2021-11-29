@@ -42,6 +42,14 @@ def on_release(context, key):
         state.value = State.automatic
         print('Switching to automatic mode!')
     
+    if state.value == State.calibration and key == keyboard.KeyCode.from_char('c'):
+        state.value = State.remote
+        print('Switching to manual control!')
+
+    elif state.value == State.remote and key == keyboard.KeyCode.from_char('c'):
+        state.value = State.calibration
+        print('Switching to calibration mode!')
+    
 
 if __name__ == '__main__':
     #______________________________MUUTUJATE LOOMISE PLOKK_________________________________
@@ -52,7 +60,7 @@ if __name__ == '__main__':
     nearest_ball = mp.Array('i', np.zeros(3, dtype=int))
     speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', State.automatic)
-    state = mp.Value('i', State.remote)
+    state = mp.Value('i', State.calibration)
     attacking = mp.Value('i', Side.pink)
     noball = mp.Value('f', 0) #float noball is the time since last ball was detected 
     manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
