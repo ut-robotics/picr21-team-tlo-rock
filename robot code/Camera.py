@@ -55,7 +55,7 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
             point_x = int(round(punkt.pt[0]))
             point_y = int(round(punkt.pt[1]))
             #point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
-            point_depth = depth_image.GetDistance(point_x,point_y)
+            point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
             #print(point_depth)
             tempKeypointX[i] = point_x
             tempKeypointY[i] = point_y
@@ -145,7 +145,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
                 continue
             
             # Convert images to numpy arrays
-            depth_image = np.asanyarray(depth_frame.get_data())
+            #depth_image = np.asanyarray(depth_frame.get_data())
             color_image = np.asanyarray(color_frame.get_data())
 
             #This will be sent to processing
@@ -159,7 +159,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
             MAX_KEYPOINT_COUNT = 11
             funcBallKeypointX, funcBallKeypointY, funcBallKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
-                                                        MAX_KEYPOINT_COUNT, depth_image, depth_scale)
+                                                        MAX_KEYPOINT_COUNT, depth_frame, depth_scale)
             for i in range(MAX_KEYPOINT_COUNT):
                 ballKeypointX[i] = funcBallKeypointX[i]
                 ballKeypointY[i] = funcBallKeypointY[i]
@@ -167,7 +167,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
 
             basketx, baskety, basketz = getKeyPoints(colourLimitsBasket, color_frame, 
                                 cam_res_width, cam_res_height, basketdetector, 
-                                1, depth_image, depth_scale)
+                                1, depth_frame, depth_scale)
             BasketCoords[0] = basketx[0]
             while (color_frame[baskety[0]][basketx[0]][2] < 165): #bgr
                 baskety[0] -= 1
@@ -175,10 +175,10 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
                     break
             BasketCoords[1] = baskety[0]
             BasketCoords[2] = basketz[0]
-            
+            print(BasketCoords[2])
             cv2.imshow('cap', outimage)
             
-            cv2.imshow('dist', depth_image)
+            #cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
     except Exception as e:

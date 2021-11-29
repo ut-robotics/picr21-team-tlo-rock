@@ -19,7 +19,7 @@ def main( speeds, state, basket, input):
         
         sleep(0.01)
         if state.value != State.calibration:
-            pass
+            continue
         tgt = [basket[0], basket[1], basket[2]]
         spd = 20
 
@@ -43,20 +43,20 @@ def main( speeds, state, basket, input):
         if input[5] != 0:
             ts -= 1
             ts = max(0, ts)
-            print(ts)
+            #print(ts)
         if input[1] != 0:
             ts += 1
             ts = min(2048, ts)
-            print(ts)
+            #print(ts)
         if input[3] != 0 and thrower_lock:
             ts -= 1
             ts = max(0, ts)
-            print(ts)
+            #print(ts)
             thrower_lock = False
         if input[4] != 0 and thrower_lock:
             ts += 1
             ts = min(2048, ts)
-            print(ts)
+            #print(ts)
             thrower_lock = False
         if input[4] == 0 and input[3] == 0 and not thrower_lock:
             thrower_lock = True
