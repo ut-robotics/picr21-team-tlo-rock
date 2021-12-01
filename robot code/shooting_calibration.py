@@ -61,6 +61,7 @@ def main( speeds, state, basket, input):
         if input[4] == 0 and input[3] == 0 and not thrower_lock:
             thrower_lock = True
         if input[0] != 0:
+            print("saved")
             tdrec = tgt[2]
             tlcrec = tgt[1]
             tsrec = ts

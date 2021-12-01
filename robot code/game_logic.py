@@ -68,6 +68,8 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
 
     tgt = [0,0,0]
 
+    launch_time = 0
+
     last_time = time()
     while True:
         current_time = time()
@@ -147,15 +149,20 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
                     gs = GameState.orbit
                     launchdelay = 0
             else:
-                launchdelay = 0
                 movement_vector = move_omni(5,0)
                 #print(int(0.05*(tgt[1]-350)**2+560)) # 0.05\left(x-350\right)^{2}\ +560
-                movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+570)))
+                #movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+570)))
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
+                #4.7x-1800
+                movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800)))
                 set_speed(speeds,movement_vector)
-                sleep(3)
-                gs = GameState.searching
+                launch_time += delta
+                
+                if launch_time > 6:
+                    launchdelay = 0
+                    launch_time = 0
+                    gs = GameState.searching
 
 
 
