@@ -155,7 +155,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
                 #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
                 #4.7x-1800
-                movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800)))
+                movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800))) #https://www.desmos.com/calculator/gumsqpcewh
                 set_speed(speeds,movement_vector)
                 launch_time += delta
                 
