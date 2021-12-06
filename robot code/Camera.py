@@ -1,6 +1,8 @@
 import pyrealsense2 as rs
 import cv2
 import numpy as np
+from enums import *
+import math
 
 #__________________________DEPTH AVERAGING HELPER____________________________________________
 def get_average_of_subarray(array, x, y, size):
@@ -20,8 +22,9 @@ def get_average_of_subarray(array, x, y, size):
     if (array.size==0):
         return -1
     #return average/median of values in array
+    return max(np.average(array), np.median(array))
     #return np.median(array)
-    return np.max(array)
+    #return np.max(array)
 
 #Function for finding keypoints of one colour
 def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image, depth_scale):
@@ -51,7 +54,9 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
         if i < MAX_KEYPOINT_COUNT:
             point_x = int(round(punkt.pt[0]))
             point_y = int(round(punkt.pt[1]))
-            point_depth = int(round(get_average_of_subarray(depth_image, point_y, -point_x, 2)*depth_scale, 2))
+            #point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
+            point_depth = depth_image.GetDistance(point_x,point_y)
+            #print(point_depth)
             tempKeypointX[i] = point_x
             tempKeypointY[i] = point_y
             tempKeypointZ[i] = point_depth
@@ -72,11 +77,13 @@ def fetchTrackbarValues(filename):
     except:
         print("Failed loading", filename)
 
-def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords, blueBasketCoords):
+def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, BasketCoords):
     #________________________LOADING IN THE FILTERS__________________________________________
     colourLimitsGreen = fetchTrackbarValues('green.txt')
-    colourLimitsBlue = fetchTrackbarValues('blue.txt')
-    colourLimitsPink = fetchTrackbarValues('pink.txt')
+    if (attacking.value == Side.pink):
+        colourLimitsBasket = fetchTrackbarValues('pink.txt')
+    else:
+        colourLimitsBasket = fetchTrackbarValues('blue.txt')
 
     #___________________________________CAMERA SETUP_________________________________
     # Configure depth and color streams
@@ -105,7 +112,10 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
+    #if depth_sensor.supports(rs.option.depth_units):
+        #depth_sensor.set_option(rs.option.depth_units, 0.00005)
     depth_scale = depth_sensor.get_depth_scale()*1000
+    #print(depth_scale)
 
     #________________________BLOB DETECTION PARAMETERS______________________________
     #detector object
@@ -124,7 +134,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
-        #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
+        cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
         while True:
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
@@ -155,34 +165,20 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, pinkBasketCoords
                 ballKeypointY[i] = funcBallKeypointY[i]
                 ballKeypointZ[i] = funcBallKeypointZ[i]
 
-            pinkx, pinky, pinkz = getKeyPoints(colourLimitsPink, color_frame, 
+            basketx, baskety, basketz = getKeyPoints(colourLimitsBasket, color_frame, 
                                 cam_res_width, cam_res_height, basketdetector, 
                                 1, depth_image, depth_scale)
-            pinkBasketCoords[0] = pinkx[0]
-            while (color_frame[pinky[0]][pinkx[0]][2] < 165): #bgr
-                pinky[0] -= 1
-                if pinky[0] <= 0:
+            BasketCoords[0] = basketx[0]
+            while (color_frame[baskety[0]][basketx[0]][2] < 165): #bgr
+                baskety[0] -= 1
+                if baskety[0] <= 0:
                     break
-            pinkBasketCoords[1] = pinky[0]
-            pinkBasketCoords[2] = pinkz[0]
+            BasketCoords[1] = baskety[0]
+            BasketCoords[2] = basketz[0]
             
-            bluex, bluey, bluez = getKeyPoints(colourLimitsBlue, color_frame, 
-                                            cam_res_width, cam_res_height, basketdetector, 
-                                            1, depth_image, depth_scale)
-            blueBasketCoords[0] = bluex[0]
-            while (color_frame[bluey[0]][bluex[0]][2] < 165): #bgr
-                bluey[0] -= 1
-                if bluey[0] <= 0:
-                    break
-            blueBasketCoords[1] = bluey[0]
-            blueBasketCoords[2] = bluez[0]
-
-            for i in range(MAX_KEYPOINT_COUNT):
-                cv2.putText(outimage, str(ballKeypointX[i])+ ', ' + str(ballKeypointY[i]) + ', ' + str(ballKeypointZ[i]) , (ballKeypointX[i], ballKeypointY[i]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.putText(outimage, str(blueBasketCoords[0])+ ', ' + str(blueBasketCoords[1]) + ', ' + str(blueBasketCoords[2]) , (blueBasketCoords[0], blueBasketCoords[1]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow('cap', outimage)
             
-            #cv2.imshow('dist', depth_image)
+            cv2.imshow('dist', depth_image)
             cv2.waitKey(1)
     
     except Exception as e:
