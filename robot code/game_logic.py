@@ -33,14 +33,20 @@ def rotate_omni(speed): # generate rotation vector with speed
 def thrower(speed): # generate rotation vector with speed
     return[0,0,0,speed]
 
+def minimax(v, min, max):
+    return max(min(v, max),min)
+
 def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the same as given speed but keeps all ratios the same
     obj = object[0:len(object)-1]
     mx = 0
     for i in obj:
-        if abs(i) > mx:
-            mx = abs(i)
+        ai = abs(i)
+        if ai > mx:
+            mx = ai
     if mx == 0:
         return[0,0,0,0]
+    if mx < max_speed:
+        return object
     mx = max_speed/mx
     object = [int(element * mx) for element in object]
     return object # returns the correctedmovement vector
@@ -97,9 +103,9 @@ def orbit(gs, nearest_ball, noball, basket, speeds):
     if abs(tgt[0] - 424) < 60:
         spd = 3
 
-    movement_vector = move_omni(max(min((nearest_ball[1]-160)*0.18,spd),-spd),0)
-    movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424)*0.04, spd),-spd)))
-    movement_vector = combine_moves(movement_vector, rotate_omni(max(min((nearest_ball[0]-424), 3),-3)))
+    movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,spd,-spd),0)
+    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, spd,-spd)))
+    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3)))
     #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
     if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
         gs = GameState.launch
