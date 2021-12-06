@@ -16,14 +16,14 @@ def combine_moves(move1, move2, p1 = 1, p2 = 1):
 def stop():
     return [0, 0, 0, 0]
 
-def linear_velocity(values):
-    return int(values[0] * math.cos(math.radians(values[1]) - math.radians(values[2])))
+def linear_velocity(speed, angle, wheel_angle):
+    return int(speed * math.cos(math.radians(angle) - math.radians(wheel_angle)))
 
 def move_omni(speed, angle): #generate movement vector with direction and speed
     
     WHEEL_ANGLES = [210, 330, 90]
     #linear_velocity = overall_speed * math.cos(direction - math.radians(wheel_angle))
-    return [linear_velocity([speed, angle, wheel_angle]) for wheel_angle in WHEEL_ANGLES] + [0]
+    return [linear_velocity(speed, angle, wheel_angle) for wheel_angle in WHEEL_ANGLES] + [0]
     #return list(map(linear_velocity,[[speed,angle,210],[speed,angle,330],[speed,angle,90]])) + [0]
 
 def rotate_omni(speed): # generate rotation vector with speed
