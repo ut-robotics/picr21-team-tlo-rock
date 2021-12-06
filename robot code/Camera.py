@@ -4,27 +4,18 @@ import numpy as np
 from enums import *
 import math
 
-#__________________________DEPTH AVERAGING HELPER____________________________________________
-def get_average_of_subarray(array, x, y, size):
-    #848 x 480
-    # get the rows and collumns to keep from the matrix
-    lowrow = max(0, x-size)
-    lowcol = max(0, y-size)
-    
-    highrow = min(array.shape[0], x+size+1)
-    highcol = min(array.shape[1], y+size+1)
-
-    # get the submatrix
-    array = array[lowrow:highrow, lowcol:highcol]
-    #print(array)
-    
-    # if matrix has no values return -1
-    if (array.size==0):
-        return -1
-    #return average/median of values in array
-    return max(np.average(array), np.median(array))
-    #return np.median(array)
-    #return np.max(array)
+def checkBallLegitness(frame_yCoords):
+    black = False
+    white = False
+    for colour in reversed(frame_yCoords):
+        if black:
+            if colour[1] < 30:
+                if colour[2] >= 150:
+                    return False
+        else:
+            if colour[2] < 50:
+                black = True
+    return True
 
 #Function for finding keypoints of one colour
 def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image, depth_scale):
@@ -54,12 +45,19 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
         if i < MAX_KEYPOINT_COUNT:
             point_x = int(round(punkt.pt[0]))
             point_y = int(round(punkt.pt[1]))
+
+            frame_yRow = []
+            for i in range(point_x):
+                frame_yRow.append(color_frame[i][point_y])
+            isLegit = checkBallLegitness(frame_yRow)
+
             #point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
             point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
             #print(point_depth)
-            tempKeypointX[i] = point_x
-            tempKeypointY[i] = point_y
-            tempKeypointZ[i] = point_depth
+            if isLegit:
+                tempKeypointX[i] = point_x
+                tempKeypointY[i] = point_y
+                tempKeypointZ[i] = point_depth
             i += 1
 
     output = [tempKeypointX.copy(), tempKeypointY.copy(), tempKeypointZ.copy()]
