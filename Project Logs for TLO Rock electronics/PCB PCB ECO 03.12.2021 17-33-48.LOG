@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=+5V_MOTOR_DRIVE_1 Pin=R15_MOTOR_DRIVE_1-2
+Added Pin To Net: NetName=+5V_MOTOR_DRIVE_1 Pin=R15_MOTOR_DRIVE_2-2
+Added Pin To Net: NetName=+5V_MOTOR_DRIVE_1 Pin=R15_MOTOR_DRIVE_3-2
+Change Net Name : Old Net Name=+5V_MOTOR_DRIVE_1 New Net Name=+5V_DR_MOTOR_DRIVE_1

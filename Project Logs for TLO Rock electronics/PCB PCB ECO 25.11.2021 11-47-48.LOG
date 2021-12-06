@@ -1,0 +1,24 @@
+Added Component: Designator=P1(PCBComponent_1)
+Added Component: Designator=P2(PCBComponent_1)
+Added Component: Designator=P3(PCBComponent_1)
+Added Component: Designator=P4(PCBComponent_1)
+Added Component: Designator=P5(PCBComponent_1)
+Added Component: Designator=P6(PCBComponent_1)
+Added Component: Designator=P7(PCBComponent_1)
+Added Component: Designator=P8(PCBComponent_1)
+Added Pin To Net: NetName=NetP1_1 Pin=P1-1
+Added Pin To Net: NetName=GNDB Pin=P2-1
+Added Pin To Net: NetName=M_OUT_+_MOTOR_DRIVE_1 Pin=P3-1
+Added Pin To Net: NetName=M_OUT_-_MOTOR_DRIVE_1 Pin=P4-1
+Added Pin To Net: NetName=M_OUT_+_MOTOR_DRIVE_2 Pin=P5-1
+Added Pin To Net: NetName=M_OUT_-_MOTOR_DRIVE_2 Pin=P6-1
+Added Pin To Net: NetName=M_OUT_+_MOTOR_DRIVE_3 Pin=P7-1
+Added Pin To Net: NetName=M_OUT_-_MOTOR_DRIVE_3 Pin=P8-1
+Added Member To Class: ClassName=motor_MCU Member=Component P1 BAT+
+Added Member To Class: ClassName=motor_MCU Member=Component P2 BAT-
+Added Member To Class: ClassName=motor_MCU Member=Component P3 M1+
+Added Member To Class: ClassName=motor_MCU Member=Component P4 M1-
+Added Member To Class: ClassName=motor_MCU Member=Component P5 M2+
+Added Member To Class: ClassName=motor_MCU Member=Component P6 M2-
+Added Member To Class: ClassName=motor_MCU Member=Component P7 M3+
+Added Member To Class: ClassName=motor_MCU Member=Component P8 M3-
