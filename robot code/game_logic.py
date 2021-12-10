@@ -33,8 +33,8 @@ def rotate_omni(speed): # generate rotation vector with speed
 def thrower(speed): # generate rotation vector with speed
     return[0,0,0,speed]
 
-def minimax(v, min, max):
-    return max(min(v, max),min)
+def minimax(v, minim, maxim):
+    return max(min(v, maxim),minim)
 
 def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the same as given speed but keeps all ratios the same
     obj = object[0:len(object)-1]
@@ -56,38 +56,42 @@ def set_speed(target_speeds,speed):
         target_speeds[i] = speed [i]
 
 def searching(gs, noball, speeds):
+    #print(noball.value)
     if noball.value == 0:
         gs = GameState.moveto
-    set_speed(speeds, rotate_omni(10))
+        print("moveto")
+        return gs
+    set_speed(speeds, rotate_omni(8))
     return gs
 
 def moveto(gs, noball, nearest_ball, speeds):
-    if noball.value > 0.5:
+    if noball.value > 0.1:
         gs = GameState.searching
+        print("moveto to searching")
+        return gs
 
     #print(nearest_ball[0], nearest_ball[1])
-    if nearest_ball[0] != 0: # failsafe
-        error = (nearest_ball[0]-424)/4.24
-        
-        if nearest_ball[1] < 200:
-            gs = GameState.orbit
-        else:
-            #print(int(math.floor(error ** 1.05 * 0.1)))
-            movement_vector = rotate_omni(int(math.floor(error * 0.04)))
-            movement_vector = combine_moves(movement_vector, move_omni(25,0))
-            speed = 50
-            if nearest_ball[1] < 1000:
-                speed = 30
-            movement_vector = rectify_speed(movement_vector,speed)
-            set_speed(speeds, movement_vector)
-    
+    error = (nearest_ball[0]-424)/4.24
+      
+    if nearest_ball[1] < 280:
+        gs = GameState.orbit
+        print("orbit")
     else:
-        set_speed(speeds, rotate_omni(10))
+        #print(int(math.floor(error ** 1.05 * 0.1)))
+        movement_vector = rotate_omni(int(math.floor(error * 0.04)))
+        movement_vector = combine_moves(movement_vector, move_omni(25,0))
+        speed = 50
+        if nearest_ball[1] < 1000:
+            speed = 30
+        movement_vector = rectify_speed(movement_vector,speed)
+        set_speed(speeds, movement_vector)
     return gs
 
 def orbit(gs, nearest_ball, noball, basket, speeds):
-    if nearest_ball[1] > 300 or noball.value > 0.5:
+    #print("o", nearest_ball[0],nearest_ball[1],nearest_ball[2])
+    if nearest_ball[1] > 300 or noball.value > 0.1:
         gs = GameState.moveto
+        return gs
     
     tgt = [basket[0], basket[1], basket[2]]
     #print("basket",basket[0],basket[1],basket[2])
@@ -103,10 +107,11 @@ def orbit(gs, nearest_ball, noball, basket, speeds):
     if abs(tgt[0] - 424) < 60:
         spd = 3
 
-    movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,spd,-spd),0)
-    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, spd,-spd)))
+    movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,-spd,spd),0)
+    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd)))
     movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3)))
     #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
+    print(movement_vector)
     if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
         gs = GameState.launch
     elif tgt[0] > 424:
@@ -144,6 +149,7 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
             launchdelay = 0
             launch_time = 0
             gs = GameState.searching
+    return gs
 
 def main(nearest_ball, speeds, state, noball, basket):# main function of movement controller 
     sleep(0.5)
@@ -155,7 +161,6 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
     #Kp = 0.8
     #Ki = 0.9
     #Kd = 0.6
-    gls = GameState.searching
 
     launchdelay = 0
 
@@ -173,14 +178,18 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
 
         if (state.value != State.automatic):
             continue
+        #print(nearest_ball[0], nearest_ball[1],nearest_ball[2])
         if  gs == GameState.searching:
-            gs = searching(GameState, noball, speeds)
-        if gs == GameState.moveto:
-            gs = moveto(GameState, noball, nearest_ball, speeds)
-        if gs == GameState.orbit:
+            gs = searching(gs, noball, speeds)
+        elif gs == GameState.moveto:
+            gs = moveto(gs, noball, nearest_ball, speeds)
+        elif gs == GameState.orbit:
             gs = orbit(gs, nearest_ball, noball, basket, speeds)
-        if gs == GameState.launch:
+        elif gs == GameState.launch:
             gs = launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time)
+        else:
+            gs = GameState.searching
+            print("reset")
 
 
 
