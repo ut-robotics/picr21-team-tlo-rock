@@ -47,8 +47,8 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
             point_y = int(round(punkt.pt[1]))
 
             frame_yRow = []
-            for i in range(point_x):
-                frame_yRow.append(color_frame[i][point_y])
+            for j in range(point_x):
+                frame_yRow.append(color_frame[point_y][j])
             isLegit = checkBallLegitness(frame_yRow)
 
             #point_depth = int(round(get_average_of_subarray(depth_image, point_y, point_x, min(int(math.sqrt(punkt.size)/1.5), 1))*depth_scale, 2))
@@ -148,7 +148,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
 
             #This will be sent to processing
             color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
-            color_image = cv2.rectangle(color_image, (380,0), (480,30), (192,150,4), -1)
+            color_image = cv2.rectangle(color_image, (280,0), (580,75), (192,150,4), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             outimage = color_frame.copy()
             
