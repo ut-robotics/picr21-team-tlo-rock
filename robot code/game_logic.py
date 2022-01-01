@@ -159,13 +159,13 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     return gs
 
 def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
-    if launchdelay < 1:
+    if launchdelay[0] < 1:
         set_speed(speeds,stop())
-        launchdelay += delta
+        launchdelay[0] += delta
         #print(tgt)
         if abs(tgt[0] - 424 > 3 and abs(nearest_ball[0]-424) > 2 and abs(nearest_ball[1]-160) < 2):
             gs = GameState.orbit
-            launchdelay = 0
+            launchdelay[0] = 0
     else:
         movement_vector = move_omni(5,0)
         #print(int(0.05*(tgt[1]-350)**2+560)) # 0.05\left(x-350\right)^{2}\ +560
@@ -175,11 +175,11 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
         #4.7x-1800
         movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800))) #https://www.desmos.com/calculator/gumsqpcewh
         set_speed(speeds,movement_vector)
-        launch_time += delta
+        launch_time[0] += delta
         
         if launch_time > 6:
-            launchdelay = 0
-            launch_time = 0
+            launchdelay[0] = 0
+            launch_time[0] = 0
             gs = GameState.searching
     return gs
 
@@ -194,13 +194,13 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
     #Ki = 0.9
     #Kd = 0.6
 
-    launchdelay = 0
+    launchdelay = [0]
 
     gs = GameState.orbit
 
     tgt = [0,0,0]
 
-    launch_time = 0
+    launch_time = [0]
     pids = [[0,0],[0,0],[0,0]]
 
     last_time = time()
