@@ -58,9 +58,8 @@ def set_speed(target_speeds,speed):
 def searching(gs, noball, speeds):
     #print(noball.value)
     if noball.value == 0:
-        gs = GameState.moveto
         print("moveto")
-        return gs
+        return GameState.moveto
     set_speed(speeds, rotate_omni(8))
     return gs
 
