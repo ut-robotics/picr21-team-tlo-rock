@@ -134,10 +134,11 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     # side to side tgt 424,425
 
     spd = 20
-    if abs(tgt[0] - 424) < 424:
-        spd = 5
     if abs(tgt[0] - 424) < 60:
         spd = 3
+    elif abs(tgt[0] - 424) < 424:
+        spd = 5
+    
 
     movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,-spd,spd),0)
     movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd)))
