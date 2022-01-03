@@ -236,6 +236,23 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SEUBVAIG
 
+[Document12]
+DocumentPath=..\c_comp\Ind_Wurth Electronics_744777930\parts\Wurth_Electronics_744777930_0.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=FHRUCQDW
+
 [GeneratedDocument1]
 DocumentPath=Project Outputs for TLO Rock electronics\Design Rule Check - PCB.html
 DItemRevisionGUID=
@@ -1170,10 +1187,16 @@ NetClassManualEnabled=1
 NetClassSeparateForBusSections=0
 
 [LibraryUpdateOptions]
-SelectedOnly=0
+SelectedOnly=1
 UpdateVariants=1
 UpdateToLatestRevision=1
 PartTypes=0
+ComponentLibIdentifierKind0=Library Name And Type
+ComponentLibraryIdentifier0=TPS54227DDA.IntLib
+ComponentDesignItemID0=TPS54227DDA
+ComponentSymbolReference0=TPS54227DDA
+ComponentUpdate0=1
+ComponentIsDeviceSheet0=0
 FullReplace=1
 UpdateDesignatorLock=1
 UpdatePartIDLock=1
@@ -1187,6 +1210,31 @@ RemoveParameters=0
 AddModels=1
 RemoveModels=1
 UpdateCurrentModels=1
+ParameterName0=Availability
+ParameterUpdate0=1
+ParameterName1=Comment
+ParameterUpdate1=1
+ParameterName2=Component Kind
+ParameterUpdate2=1
+ParameterName3=Description
+ParameterUpdate3=1
+ParameterName4=Library Reference
+ParameterUpdate4=1
+ParameterName5=MF
+ParameterUpdate5=1
+ParameterName6=MP
+ParameterUpdate6=1
+ParameterName7=Package
+ParameterUpdate7=1
+ParameterName8=Price
+ParameterUpdate8=1
+ParameterName9=Value
+ParameterUpdate9=1
+ModelTypeGroup0=PCBLIB
+ModelTypeUpdate0=1
+ModelType0=PCBLIB
+ModelName0=VREG_LM5017MR/NOPB
+ModelUpdate0=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0

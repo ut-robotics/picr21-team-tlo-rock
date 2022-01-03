@@ -47,7 +47,7 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=STM32G441KBT3.SchLib
+DocumentPath=SnapEDApcb.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -61,10 +61,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=MGXWNTWG
+DocumentUniqueId=GMIVLSFD
 
 [Document2]
-DocumentPath=STM32G441KBT3.PcbLib
+DocumentPath=SnapEDAsch.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -78,7 +78,11 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=RXJWTUQR
+DocumentUniqueId=JVHTISAB
+
+[SearchPath1]
+Path=C:\Users\Kasutaja\Desktop\AT2021 sügis\Võistlusrobootika projekt\TLO Rock SCH PCB\c_comp\10118193-0001LF1\*.*
+IncludeSubFolders=1
 
 [OutputGroup1]
 Name=Netlist Outputs
