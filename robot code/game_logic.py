@@ -101,14 +101,15 @@ def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
     spd = 20
     
     dif = (basket[0] - nearest_ball[0])/848
-    hdelta = basket[1]/424
+    hdelta = nearest_ball[0]/424-1
     vdelta = (math.sin(((nearest_ball[1])*math.pi)/960)) - 0.6
 
     movment_vector = move_omni(int(pid(vdelta, 3, 0, 1, pids[0])*spd), 0)
     #print(int(pid(vdelta, 3, 0, 2, pids[0])*spd))
-    print(dif)
-    movment_vector = combine_moves(move_omni(int(pid(dif, 8, 0, 0, pids[1])*spd),90),movment_vector)
+    print(dif,hdelta, basket[0] , nearest_ball[0])
+    movment_vector = combine_moves(move_omni(int(pid(dif, 4, 0, 0, pids[1])*spd),90),movment_vector)
     movment_vector = combine_moves(rotate_omni(pid(hdelta, 0.2, 0, 0, pids[2])*spd, [1,1,0]),movment_vector)
+    movment_vector = rectify_speed(movment_vector, 20)
     set_speed(speeds,movment_vector)
     return gs
 
