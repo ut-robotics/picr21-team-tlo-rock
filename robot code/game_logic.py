@@ -65,9 +65,8 @@ def searching(gs, noball, speeds):
 
 def moveto(gs, noball, nearest_ball, speeds):
     if noball.value > 0.1:
-        gs = GameState.searching
         print("moveto to searching")
-        return gs
+        return GameState.searching
 
     #print(nearest_ball[0], nearest_ball[1])
     error = (nearest_ball[0]-424)/4.24
@@ -123,8 +122,7 @@ def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
 def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     #print("o", nearest_ball[0],nearest_ball[1],nearest_ball[2])
     if nearest_ball[1] > 300 or noball.value > 0.1:
-        gs = GameState.moveto
-        return gs
+        return GameState.moveto
     
     tgt = [basket[0], basket[1], basket[2]]
     #print("basket",basket[0],basket[1],basket[2])
@@ -161,9 +159,9 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     return gs
 
 def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
-    if launchdelay[0] < 1:
+    if launchdelay < 1:
         set_speed(speeds,stop())
-        launchdelay[0] += delta
+        launchdelay += delta
         #print(tgt)
     else:
         movement_vector = move_omni(5,0)
@@ -175,13 +173,13 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
         movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800))) #https://www.desmos.com/calculator/gumsqpcewh
         print(tgt[0],tgt[1],tgt[2])
         set_speed(speeds,movement_vector)
-        launch_time[0] += delta
+        launch_time += delta
         
-        if launch_time[0] > 6:
-            launchdelay[0] = 0
-            launch_time[0] = 0
+        if launch_time > 6:
+            launchdelay = 0
+            launch_time = 0
             gs = GameState.searching
-    return gs
+    return gs, launchdelay, launch_time
 
 def main(nearest_ball, speeds, state, noball, basket):# main function of movement controller 
     sleep(0.5)
@@ -194,13 +192,13 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
     #Ki = 0.9
     #Kd = 0.6
 
-    launchdelay = [0]
+    launchdelay = 0
 
     gs = GameState.orbit
 
     tgt = [0,0,0]
 
-    launch_time = [0]
+    launch_time = 0
     pids = [[0,0],[0,0],[0,0]]
 
     last_time = time()
@@ -222,7 +220,7 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
             gs = orbit(gs, nearest_ball, noball, basket, speeds)
             #gs = orbit_a(gs, nearest_ball, noball, basket, speeds, pids)
         elif gs == GameState.launch:
-            gs = launch(gs, launchdelay, speeds, delta, basket, nearest_ball, launch_time)
+            gs, launchdelay, launch_time = launch(gs, launchdelay, speeds, delta, basket, nearest_ball, launch_time)
         else:
             gs = GameState.searching
             print("reset")
