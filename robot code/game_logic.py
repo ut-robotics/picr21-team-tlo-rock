@@ -143,15 +143,13 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd), [1,1,0]))
     #movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3), [1,1,0]))
     #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
-    print(movement_vector)
-    if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
+    #print(movement_vector)
+    if abs(tgt[0] - 424) <= 10 and abs(nearest_ball[0]-424) <= 10:
         gs = GameState.launch
     elif tgt[0] > 424:
         movement_vector = combine_moves(movement_vector, move_omni(spd, 90))
-        combine_moves(movement_vector, rotate_omni(-5))
     elif tgt[0] < 424:
         movement_vector = combine_moves(movement_vector, move_omni(-spd, 90))
-        combine_moves(movement_vector, rotate_omni(5))
     
     #movement_vector = rectify_speed(movement_vector, 20)
     #print(movement_vector)
@@ -164,18 +162,18 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
         launchdelay += delta
         #print(tgt)
     else:
-        movement_vector = move_omni(5,0)
+        movement_vector = move_omni(6,0)
         #print(int(0.05*(tgt[1]-350)**2+560)) # 0.05\left(x-350\right)^{2}\ +560
         #movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+570)))
         #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
         #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
         #4.7x-1800
-        movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800))) #https://www.desmos.com/calculator/gumsqpcewh
-        print(tgt[0],tgt[1],tgt[2])
+        movement_vector = combine_moves(movement_vector, thrower(1000)) #https://www.desmos.com/calculator/gumsqpcewh
+        print(int(4.7*tgt[2]-1800))
         set_speed(speeds,movement_vector)
         launch_time += delta
         
-        if launch_time > 6:
+        if launch_time > 4:
             launchdelay = 0
             launch_time = 0
             gs = GameState.searching
