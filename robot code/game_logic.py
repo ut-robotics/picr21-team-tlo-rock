@@ -143,7 +143,7 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
 
     movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,-spd,spd),0)
     movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd), [1,1,0]))
-    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3), [1,1,0]))
+    #movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3), [1,1,0]))
     #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
     print(movement_vector)
     if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
