@@ -1,8 +1,10 @@
+from asyncio import ALL_COMPLETED
 import pyrealsense2 as rs
 import cv2
 import numpy as np
 from enums import *
 import math
+import time
 from functools import partial
 
 def savefile(filename, values):
@@ -28,6 +30,7 @@ def checkBallLegitness(frame_yCoords):
 #Function for finding keypoints of one colour
 def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image):
     # Colour detection limits
+
     lowerLimits = np.array(Trackbar_values[0:3])
     upperLimits = np.array(Trackbar_values[3:6])
 
@@ -35,7 +38,6 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
     thresholded_image = cv2.inRange(color_frame, lowerLimits, upperLimits)
     thresholded_image = cv2.bitwise_not(thresholded_image)
     thresholded_image = cv2.rectangle(thresholded_image, (0, 0), (FRAME_WIDTH-1, FRAME_HEIGHT-1), (255, 255, 255), 2)
-
     #detecting the blobs
     keypoints = detector.detect(thresholded_image)
     if MAX_KEYPOINT_COUNT > 1:
@@ -59,7 +61,7 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
                 frame_yRow.append(color_frame[point_y][j])
             isLegit = checkBallLegitness(frame_yRow)
 
-            point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
+            point_depth = int(depth_image.get_distance(point_x,point_y)/1000)
             #print(point_depth)
             if isLegit:
                 tempKeypointX[i] = point_x
@@ -141,6 +143,9 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
         cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
 
+        align_to = rs.stream.color
+        align = rs.align(align_to)
+
         while True:
             if (attacking.value == Side.pink):
                 colourLimitsBasket = colourLimitsPink
@@ -150,8 +155,14 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
-            depth_frame = frames.get_depth_frame()
-            color_frame = frames.get_color_frame()
+
+            alligned_frames = align.process(frames)
+            color_frame = alligned_frames.get_color_frame()
+
+            depth_frame = alligned_frames.get_depth_frame()
+
+            #depth_frame = frames.get_depth_frame()
+            #color_frame = frames.get_color_frame()
             if not depth_frame or not color_frame:
                 continue
             
