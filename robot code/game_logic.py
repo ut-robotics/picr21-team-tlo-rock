@@ -55,16 +55,16 @@ def set_speed(target_speeds,speed):
     for i in range(len(speed)):
         target_speeds[i] = speed [i]
 
-def searching(gs, noball, speeds):
-    #print(noball.value)
-    if noball.value == 0:
+def searching(gs, time_of_no_ball, speeds):
+    #print(time_of_no_ball.value)
+    if time_of_no_ball.value == 0:
         print("moveto")
         return GameState.moveto
     set_speed(speeds, rotate_omni(8))
     return gs
 
-def moveto(gs, noball, nearest_ball, speeds):
-    if noball.value > 0.1:
+def moveto(gs, time_of_no_ball, nearest_ball, speeds):
+    if time_of_no_ball.value > 0.1:
         print("moveto to searching")
         return GameState.searching
 
@@ -92,8 +92,8 @@ def pid(x, kp, ki, kd, piddat):
     piddat[1] = x
     return(x * kp + integral * ki + derivative * kd)
 
-def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
-    if nearest_ball[1] > 350 or noball.value > 0.1:
+def orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids):
+    if nearest_ball[1] > 350 or time_of_no_ball.value > 0.1:
         return GameState.moveto
     
     spd = 20
@@ -119,14 +119,14 @@ def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
 
 
 
-def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
+def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     #print("o", nearest_ball[0],nearest_ball[1],nearest_ball[2])
-    if nearest_ball[1] > 300 or noball.value > 0.1:
+    if nearest_ball[1] > 300 or time_of_no_ball.value > 0.1:
         return GameState.moveto
     
     tgt = [basket[0], basket[1], basket[2]]
     #print("basket",basket[0],basket[1],basket[2])
-    #if noball.value > 0.5:
+    #if time_of_no_ball.value > 0.5:
     #    gs = GameState.searching
     #print(nearest_ball[0],nearest_ball[1])
     # distance from robot tgt 130
@@ -179,7 +179,7 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
             gs = GameState.searching
     return gs, launchdelay, launch_time
 
-def main(nearest_ball, speeds, state, noball, basket):# main function of movement controller 
+def main(nearest_ball, speeds, state, time_of_no_ball, basket):# main function of movement controller 
     sleep(0.5)
     #while True:
     #    set_speed(speeds, thrower(550)) 
@@ -205,18 +205,18 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
         delta = current_time-last_time
         last_time = current_time
 
-        #orbit_a(gs, nearest_ball, noball, basket, speeds)
+        #orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds)
 
         if (state.value != State.automatic):
             continue
         #print(nearest_ball[0], nearest_ball[1],nearest_ball[2])
         if  gs == GameState.searching:
-            gs = searching(gs, noball, speeds)
+            gs = searching(gs, time_of_no_ball, speeds)
         elif gs == GameState.moveto:
-            gs = moveto(gs, noball, nearest_ball, speeds)
+            gs = moveto(gs, time_of_no_ball, nearest_ball, speeds)
         elif gs == GameState.orbit:
-            gs = orbit(gs, nearest_ball, noball, basket, speeds)
-            #gs = orbit_a(gs, nearest_ball, noball, basket, speeds, pids)
+            gs = orbit(gs, nearest_ball, time_of_no_ball, basket, speeds)
+            #gs = orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids)
         elif gs == GameState.launch:
             gs, launchdelay, launch_time = launch(gs, launchdelay, speeds, delta, basket, nearest_ball, launch_time)
         else:
