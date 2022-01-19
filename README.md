@@ -5,3 +5,4 @@ Running this code requires installation of the following python libraries:
     cv2
     numpy
     pynput
+    websockets
