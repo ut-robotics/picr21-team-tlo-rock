@@ -4,8 +4,11 @@ import json
 from enums import *
 
 async def refcommClient(robotState, attackingSide):
-    async with websockets.connect("ws://localhost:8765", ping_interval=None) as websocket:
-        robotName = 'TLOROCK'
+    
+    robotName = 'TLOROCK'
+    connectTo = 'ws://localhost:8765'
+
+    async with websockets.connect(connectTo, ping_interval=None) as websocket:
         while True:
             refcomm = await websocket.recv()
             print('Signal recieved...')
