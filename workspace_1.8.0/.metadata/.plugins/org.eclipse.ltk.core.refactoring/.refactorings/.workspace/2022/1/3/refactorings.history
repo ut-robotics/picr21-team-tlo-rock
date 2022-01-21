@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;TLO_Rock_PCB_Firmware&apos;" deleteContents="false" description="Delete resource &apos;TLO_Rock_PCB_Firmware&apos;" element1="/TLO_Rock_PCB_Firmware" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1642758352540"/>
+</session>

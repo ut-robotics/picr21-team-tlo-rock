@@ -1,7 +1,11 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F401CCU6_MPU6050 Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:TLO_Rock_PCB_Firmware Debug
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F401CCU6_MPU6050\ Debug/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F401CCU6_MPU6050\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:TLO_Rock_PCB_Firmware\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:TLO_Rock_PCB_Firmware\ Debug/activeLaunchTarget=null\:---
+org.eclipse.launchbar.core.descriptorType.default\:TLO_Rock_PCB_Firmware\ Debug/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:TLO_Rock_PCB_Firmware\ Debug/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
