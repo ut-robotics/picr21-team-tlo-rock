@@ -140,7 +140,7 @@ def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     
 
     movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,-spd,spd),0)
-    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd), [1,1,0]))
+    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.08, -spd,spd), [1,1,0]))
     #movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3), [1,1,0]))
     #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
     #print(movement_vector)
@@ -168,7 +168,7 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
         #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
         #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
         #4.7x-1800
-        movement_vector = combine_moves(movement_vector, thrower(1000)) #https://www.desmos.com/calculator/gumsqpcewh
+        movement_vector = combine_moves(movement_vector, thrower(int((tgt[2]+1800)/4.7))) #https://www.desmos.com/calculator/gumsqpcewh
         print(int(4.7*tgt[2]-1800))
         set_speed(speeds,movement_vector)
         launch_time += delta

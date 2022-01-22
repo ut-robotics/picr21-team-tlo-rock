@@ -61,7 +61,7 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
                 frame_yRow.append(color_frame[point_y][j])
             isLegit = checkBallLegitness(frame_yRow)
 
-            point_depth = int(depth_image.get_distance(point_x,point_y)/1000)
+            point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
             #print(point_depth)
             if isLegit:
                 tempKeypointX[i] = point_x
@@ -141,7 +141,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
-        cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
+        #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
 
         align_to = rs.stream.color
         align = rs.align(align_to)
@@ -155,19 +155,14 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
-
-            alligned_frames = align.process(frames)
-            color_frame = alligned_frames.get_color_frame()
-
-            depth_frame = alligned_frames.get_depth_frame()
-
-            #depth_frame = frames.get_depth_frame()
-            #color_frame = frames.get_color_frame()
+            frames = align.process(frames)
+            depth_frame = frames.get_depth_frame()
+            color_frame = frames.get_color_frame()
             if not depth_frame or not color_frame:
                 continue
             
             # Convert images to numpy arrays
-            #depth_image = np.asanyarray(depth_frame.get_data())
+            depth_image = np.asanyarray(depth_frame.get_data())
             color_image = np.asanyarray(color_frame.get_data())
 
             #This will be sent to processing
@@ -182,6 +177,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
             funcBallKeypointX, funcBallKeypointY, funcBallKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
                                                         MAX_KEYPOINT_COUNT, depth_frame)
+            #print(funcBallKeypointX,funcBallKeypointY, funcBallKeypointZ)
             for i in range(MAX_KEYPOINT_COUNT):
                 ballKeypointX[i] = funcBallKeypointX[i]
                 ballKeypointY[i] = funcBallKeypointY[i]
@@ -197,7 +193,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
                     break
             BasketCoords[1] = baskety[0]
             BasketCoords[2] = basketz[0]
-            #print(BasketCoords[2])
+            print(BasketCoords[0],BasketCoords[1],BasketCoords[2])
 
             cv2.imshow('cap', outimage)
             #cv2.imshow('dist', depth_image)
@@ -246,17 +242,21 @@ if __name__ == '__main__':
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
+        align_to = rs.stream.color
+        align = rs.align(align_to)
+
         while True:
             # Read the image from the camera
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
+            frames = align.process(frames)
             depth_frame = frames.get_depth_frame()
             color_frame = frames.get_color_frame()
             if not depth_frame or not color_frame:
                 continue
             
             # Convert images to numpy arrays
-            #depth_image = np.asanyarray(depth_frame.get_data())
+            depth_image = np.asanyarray(depth_frame.get_data())
             color_image = np.asanyarray(color_frame.get_data())
 
             #This will be sent to processing

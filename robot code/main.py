@@ -61,7 +61,7 @@ if __name__ == '__main__':
     speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', 1)
     state = mp.Value('i', State.remote)
-    attacking = mp.Value('i', Side.pink)
+    attacking = mp.Value('i', Side.blue)
     time_of_no_ball = mp.Value('f', 0) #float time_of_no_ball is the time since last ball was detected 
     manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
 
