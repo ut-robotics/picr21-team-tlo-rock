@@ -7,6 +7,7 @@ import shooting_calibration as sc
 import movement_controller as mc
 import manual_control as man
 import numpy as np
+import refcomms as ref
 from pynput import keyboard
 from functools import partial
 from enums import *
@@ -72,6 +73,7 @@ if __name__ == '__main__':
     calibration_process = mp.Process(target=sc.main, args=(speeds, state, BasketCoords, manual_inputs))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
+    referee_communications_client = mp.Process(target=ref.refclient, args=(state, attacking))
 
     camera_process.start()
     localization_process.start()
@@ -79,6 +81,7 @@ if __name__ == '__main__':
     movement_controller_process.start()
     manual_override_process.start()
     calibration_process.start()
+    referee_communications_client.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     # Roboti kasutaja sisendite võimaldamine
@@ -100,4 +103,5 @@ if __name__ == '__main__':
     movement_controller_process.kill()
     #print('moving killed')
     calibration_process.kill()
+    referee_communications_client.kill()
     print("Closing down!")
