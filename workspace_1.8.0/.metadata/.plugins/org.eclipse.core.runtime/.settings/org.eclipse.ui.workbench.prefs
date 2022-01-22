@@ -18,5 +18,6 @@ org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_BG_START=255,255,255
 org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_TEXT_COLOR=16,16,16
 org.eclipse.ui.workbench.ACTIVE_TAB_BG_END=255,255,255
 org.eclipse.ui.workbench.ACTIVE_TAB_BG_START=255,255,255
-org.eclipse.ui.workbench.INACTIVE_TAB_BG_START=242,242,242
+org.eclipse.ui.workbench.INACTIVE_TAB_BG_END=246,245,244
+org.eclipse.ui.workbench.INACTIVE_TAB_BG_START=246,245,244
 terminal.views.view.font.definition=1|Consolas|8.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;

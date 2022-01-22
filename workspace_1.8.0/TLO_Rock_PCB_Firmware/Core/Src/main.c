@@ -41,9 +41,11 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c3;
 
+TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
+TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim8;
 TIM_HandleTypeDef htim15;
 TIM_HandleTypeDef htim16;
@@ -52,6 +54,21 @@ TIM_HandleTypeDef htim17;
 PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN PV */
+int16_t Lpos_M1 = 0;
+int16_t Lpos_M2 = 0;
+int16_t Lpos_M3 = 0;
+
+int16_t tgt_M1 = 0;
+int16_t tgt_M2 = 0;
+int16_t tgt_M3 = 0;
+
+double integral_M1 = 0;
+double integral_M2 = 0;
+double integral_M3 = 0;
+
+int16_t last_err_M1 = 0;
+int16_t last_err_M2 = 0;
+int16_t last_err_M3 = 0;
 
 /* USER CODE END PV */
 
@@ -67,12 +84,33 @@ static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_TIM17_Init(void);
 static void MX_USB_PCD_Init(void);
+static void MX_TIM1_Init(void);
+static void MX_TIM6_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void throw(void)
+	{
+	int n = 0;
+	if (n == 1){
+			  HAL_Delay(25);
+			  TIM17->CCR1 = 0;
+			  HAL_Delay(1000);
+			  TIM16->CCR1 = 7000;
+			  HAL_Delay(500);
+			  TIM17->CCR1 = 1000;
+			  HAL_Delay(1000);
+			  TIM17->CCR1 = 0;
+			  TIM16->CCR1 = 4000;
+		  }
+		  else {
+			  TIM17->CCR1 =4000;
+		  }
+	}
 
 /* USER CODE END 0 */
 
@@ -113,30 +151,56 @@ int main(void)
   MX_TIM16_Init();
   MX_TIM17_Init();
   MX_USB_PCD_Init();
+  MX_TIM1_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
+  // set motors off
+  HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 1);
 
   // toggle nsleep for aprox 27us
   TIM2->CCR2 = 65100;
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-
-  HAL_Delay(10);
+  // set nsleep to high
+  HAL_Delay(100);
   TIM2->CCR2 = 65536;
 
+  //motorspeeds to zero
+  TIM2->CCR1 = 0;
+  TIM15->CCR1 = 0;
+  TIM2->CCR3 = 0;
 
+  //begin motor pwm
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);
 
-
-
-
-  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  //enable thrower and arm it while setting its speed to 0
   HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
   TIM16->CCR1 = 2500;
+  HAL_Delay(4000);
+
+  //enable graber and swt its speed to zero
+  TIM17->CCR1 = 0;
+  HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
+
+  //start encoders
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_1 | TIM_CHANNEL_2);
+  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1 | TIM_CHANNEL_2);
+  HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_1 | TIM_CHANNEL_2);
+
+
+  HAL_TIM_Base_Start_IT(&htim6);
+
+/*
+
+
 
   // thrower
   HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
 
   HAL_GPIO_TogglePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin);
   HAL_Delay(10);
-  HAL_GPIO_TogglePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin);
+  //HAL_GPIO_TogglePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin);
   HAL_Delay(10);
   HAL_GPIO_TogglePin(M1_DIR_GPIO_Port, M2_DIR_Pin);
 
@@ -144,40 +208,27 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1 | TIM_CHANNEL_2);
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_1 | TIM_CHANNEL_2);
 
-
+  TIM17->CCR1 = 0; // set graber to stop
+  //TIM16->CCR1 = 4000; // set thrower to stop (4000)
+  HAL_Delay(2000);
+  */
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int n = 1;
-  TIM17->CCR1 = 0;
-  TIM16->CCR1 = 4000;
+
+
   while (1)
   {
-	  n = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
-	  if (n == 1){
-		  HAL_Delay(25);
-		  TIM17->CCR1 = 0;
-		  HAL_Delay(1000);
-		  TIM16->CCR1 = 7000;
-		  HAL_Delay(2000);
-		  TIM17->CCR1 = 1000;
-		  HAL_Delay(3000);
-		  TIM17->CCR1 = 0;
-		  TIM16->CCR1 = 4000;
-	  }
-	  else {
-		  TIM17->CCR1 = 4000;
-	  }
+	  HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 0);
+	  TIM2->CCR1 = 1000;
 
 
+  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
-
-
-  }
   /* USER CODE END 3 */
 }
 
@@ -268,6 +319,75 @@ static void MX_I2C3_Init(void)
   /* USER CODE BEGIN I2C3_Init 2 */
 
   /* USER CODE END I2C3_Init 2 */
+
+}
+
+/**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 0;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 65535;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger2 = TIM_TRGO2_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.BreakFilter = 0;
+  sBreakDeadTimeConfig.BreakAFMode = TIM_BREAK_AFMODE_INPUT;
+  sBreakDeadTimeConfig.Break2State = TIM_BREAK2_DISABLE;
+  sBreakDeadTimeConfig.Break2Polarity = TIM_BREAK2POLARITY_HIGH;
+  sBreakDeadTimeConfig.Break2Filter = 0;
+  sBreakDeadTimeConfig.Break2AFMode = TIM_BREAK_AFMODE_INPUT;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
 
 }
 
@@ -433,6 +553,44 @@ static void MX_TIM4_Init(void)
   /* USER CODE BEGIN TIM4_Init 2 */
 
   /* USER CODE END TIM4_Init 2 */
+
+}
+
+/**
+  * @brief TIM6 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM6_Init(void)
+{
+
+  /* USER CODE BEGIN TIM6_Init 0 */
+
+  /* USER CODE END TIM6_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM6_Init 1 */
+
+  /* USER CODE END TIM6_Init 1 */
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 4;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 40000;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM6_Init 2 */
+
+  /* USER CODE END TIM6_Init 2 */
 
 }
 
@@ -764,6 +922,48 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	int16_t Cpos_M1 = (int16_t)TIM3->CNT;
+	int16_t dif_M1 = Cpos_M1 - Lpos_M1;
+	Lpos_M1 = Cpos_M1;
+
+	int16_t Cpos_M2 = (int16_t)TIM4->CNT;
+	int16_t dif_M2 = Cpos_M2 - Lpos_M2;
+	Lpos_M2 = Cpos_M2;
+
+	int16_t Cpos_M3 = (int16_t)TIM8->CNT;
+	int16_t dif_M3 = Cpos_M3 - Lpos_M3;
+	Lpos_M3 = Cpos_M3;
+
+	int16_t Err1 = tgt_M1 - dif_M1;
+	int16_t Err2 = tgt_M2 - dif_M2;
+	int16_t Err3 = tgt_M3 - dif_M3;
+
+	double pk = 1;
+	double pi = 0;
+	double pd = 0;
+
+	integral_M1 += Err1*0.01;
+	integral_M2 += Err2*0.01;
+	integral_M3 += Err3*0.01;
+
+	double derivative_M1 = (Err1 - last_err_M1) / 0.01;
+	double derivative_M2 = (Err2 - last_err_M2) / 0.01;
+	double derivative_M3 = (Err3 - last_err_M3) / 0.01;
+
+	last_err_M1 = Err1;
+	last_err_M2 = Err2;
+	last_err_M3 = Err3;
+
+	int16_t Speed_M1 = (int16_t) Err1 * pk + integral_M1 * pi + derivative_M1 * pd;
+	int16_t Speed_M2 = (int16_t) Err2 * pk + integral_M2 * pi + derivative_M2 * pd;
+	int16_t Speed_M3 = (int16_t) Err3 * pk + integral_M3 * pi + derivative_M3 * pd;
+
+
+
+}
 
 /* USER CODE END 4 */
 
