@@ -141,7 +141,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
         cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
-        cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
+        #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
 
         align_to = rs.stream.color
         align = rs.align(align_to)
