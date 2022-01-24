@@ -4,28 +4,26 @@ import struct
 from time import sleep, time
 from serial.tools import list_ports
 
-COMMAND_STRUCT_FORMAT = '<hhhIBH'
-FEEDBACK_STRUCT_FORMAT = '<hhhBH'
-
-COMMAND_STRUCT_FORMAT = '<hhhHH'
-FEEDBACK_STRUCT_FORMAT = '<hhhH'
+COMMAND_STRUCT_FORMAT = '<hhhHIL'
+FEEDBACK_STRUCT_FORMAT = '<hhhBL'
 
 FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
-
-def send_motorspeeds2(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0, grabber = True, throw = False): # send speeds to motors and return data
-    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), int(thrower), int(grabber*2+throw), 0xAAAA))
-    print(FEEDBACK_STRUCT_SIZE)
+print(struct.calcsize(COMMAND_STRUCT_FORMAT))
+def send_motorspeeds2(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 4000, grabber = False, throw = False): # send speeds to motors and return data
+    bools = int(grabber*2+throw)
+    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), bools, int(thrower), 0xAAAA))
     data = ser.read(FEEDBACK_STRUCT_SIZE)
-    print(data)
+    ser.reset_input_buffer()
     values = struct.unpack(FEEDBACK_STRUCT_FORMAT, data)
-    print(values) # returns motor data
+    print(values)
+    return(values) # returns motor data
 
 def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
-    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), int(thrower), 0, 0xAAAA))
+    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), int(thrower), 0xAAAA))
     data = ser.read(FEEDBACK_STRUCT_SIZE)
     print(data)
     values = struct.unpack(FEEDBACK_STRUCT_FORMAT, data)
-    print( values )# returns motor data
+    return( values )# returns motor data
 
 
 
@@ -53,4 +51,15 @@ changerate = 0
 
 
 print(ser)
-send_motorspeeds(ser)
+c = 70000
+f = open("väärtused.txt", "w")
+this = 0
+last = 0
+while (c > 0):
+    
+    f.write(str((this := send_motorspeeds2(ser, m2 = 1)[1])-last) +","+ str(time())+"\n")
+    last = this
+    c-=1
+f.close()
+print("done")
+

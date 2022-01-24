@@ -1,0 +1,4 @@
+main.c:77:6:CDC_On_Receive	0	static
+main.c:153:6:SystemClock_Config	88	static,ignoring_inline_asm
+main.c:94:5:main	24	static
+main.c:214:6:Error_Handler	0	static,ignoring_inline_asm

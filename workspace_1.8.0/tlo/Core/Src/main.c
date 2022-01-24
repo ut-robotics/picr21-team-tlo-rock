@@ -53,30 +53,30 @@ TIM_HandleTypeDef htim16;
 TIM_HandleTypeDef htim17;
 
 /* USER CODE BEGIN PV */
-int32_t Lpos_M1 = 0;
-int32_t Lpos_M2 = 0;
-int32_t Lpos_M3 = 0;
+double Lpos_M1 = 0;
+double Lpos_M2 = 0;
+double Lpos_M3 = 0;
 
-int32_t tgt_M1 = 0;
-int32_t tgt_M2 = 0;
-int32_t tgt_M3 = 0;
+double tgt_M1 = 0;
+double tgt_M2 = 0;
+double tgt_M3 = 0;
 
-int32_t integral_M1 = 0;
-int32_t integral_M2 = 0;
-int32_t integral_M3 = 0;
+double integral_M1 = 0;
+double integral_M2 = 0;
+double integral_M3 = 0;
 
-int32_t last_err_M1 = 0;
-int32_t last_err_M2 = 0;
-int32_t last_err_M3 = 0;
+double last_err_M1 = 0;
+double last_err_M2 = 0;
+double last_err_M3 = 0;
 
 uint32_t thrower_speed = 0;
 uint8_t grabber_on = 0;
 uint8_t thrower = 0;
 uint8_t safety_iters = 0;
 
-int16_t return_M1 = 0;
-int16_t return_M2 = 0;
-int16_t return_M3 = 0;
+volatile int16_t return_M1 = 0;
+volatile int16_t return_M2 = 0;
+volatile int16_t return_M3 = 0;
 
 
 
@@ -107,17 +107,17 @@ typedef struct Command {
 	int16_t speed1;
 	int16_t speed2;
 	int16_t speed3;
+	uint16_t bools;
 	uint32_t thrower_speed;
-	uint8_t bools;
-	uint16_t delimiter;
+	uint32_t delimiter;
 }Command;
 
 typedef struct Feedback {
 	int16_t speed1;
 	int16_t speed2;
 	int16_t speed3;
-	uint8_t bools;
-	uint16_t deliminer;
+	uint16_t bools;
+	uint32_t deliminer;
 }Feedback;
 
 Command command = {.speed1 = 0, .speed2 = 0, .speed3 = 0, .thrower_speed = 0, .bools = 0, .delimiter = 0xAAAA};
@@ -133,12 +133,6 @@ void CDC_On_Receive(uint8_t* buffer, uint32_t* length) //uint8_t* Buf, uint32_t*
 	if (command.delimiter == 0xAAAA){
 		isCommandReceived = 1;
 	}
-	feedback.speed1 = return_M1;
-	feedback.speed2 = return_M2;
-	feedback.speed3 = return_M3;
-	feedback.bools = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
-	feedback.deliminer = 0xAAAA;
-    CDC_Transmit_FS(&feedback, sizeof(feedback));
 }
 
 void throw(uint32_t speed)
@@ -158,7 +152,74 @@ void throw(uint32_t speed)
 	TIM16->CCR1 = 2500;
 }
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(tgt_M2 != 0){
+		tgt_M2 = tgt_M2;
+	}
+	int16_t Cpos_M1 = (int16_t)TIM3->CNT;
+	feedback.speed1  = Cpos_M1;
+	double dif_M1 = Cpos_M1 - Lpos_M1;
+	Lpos_M1 = Cpos_M1;
 
+	int16_t Cpos_M2 = (int16_t)TIM4->CNT;
+	feedback.speed2  = Cpos_M2;
+	double dif_M2 = Cpos_M2 - Lpos_M2;
+	Lpos_M2 = Cpos_M2;
+
+	int16_t Cpos_M3 = (int16_t)TIM8->CNT;
+	feedback.speed3  = Cpos_M3;
+	double dif_M3 = Cpos_M3 - Lpos_M3;
+
+
+	double Err1 = tgt_M1/5 - dif_M1;
+	double Err2 = tgt_M2/5 - dif_M2;
+	double Err3 = tgt_M3/5 - dif_M3;
+
+	double kp = 4000;
+	double ki = 700;
+	double kd = 300;
+
+	integral_M1 += Err1;
+	integral_M2 += Err2;
+	integral_M3 += Err3;
+
+	if (integral_M1 > 40) integral_M1 = 40;
+	if (integral_M1 < -40) integral_M1 = -40;
+
+	if (integral_M2 > 40) integral_M2 = 40;
+	if (integral_M2 < -40) integral_M2 = -40;
+
+	if (integral_M3 > 40) integral_M3 = 40;
+	if (integral_M3 < -40) integral_M3 = -40;
+
+	double derivative_M1 = (Err1 - last_err_M1);
+	double derivative_M2 = (Err2 - last_err_M2);
+	double derivative_M3 = (Err3 - last_err_M3);
+
+	last_err_M1 = Err1;
+	last_err_M2 = Err2;
+	last_err_M3 = Err3;
+
+	int32_t Speed_M1 = (int32_t) Err1 * kp + integral_M1 * ki + derivative_M1 * kd;
+	int32_t Speed_M2 = (int32_t) Err2 * kp + integral_M2 * ki + derivative_M2 * kd;
+	int32_t Speed_M3 = (int32_t) Err3 * kp + integral_M3 * ki + derivative_M3 * kd;
+
+	if (Speed_M1 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 1);
+
+	if (Speed_M2 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M2_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, 1);
+
+	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
+
+	TIM2->CCR1 = abs(Speed_M1);
+	TIM2->CCR3 = abs(Speed_M2);
+	TIM15->CCR1 = abs(Speed_M3);
+
+	safety_iters++;
+}
 
 
 /* USER CODE END 0 */
@@ -273,6 +334,7 @@ int main(void)
 	  uint8_t n = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
 
 	  if (isCommandReceived){
+		  isCommandReceived = 0;
 		  tgt_M1 = command.speed1;
 		  tgt_M2 = command.speed2;
 		  tgt_M3 = command.speed3;
@@ -298,6 +360,12 @@ int main(void)
 
 		  HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 0);
 
+		  safety_iters = 0;
+
+		  feedback.bools = (uint8_t)HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
+		  feedback.deliminer = 0xAAAA;
+		  CDC_Transmit_FS(&feedback, sizeof(feedback));
+
 
 	  }
 
@@ -305,12 +373,18 @@ int main(void)
 
 	  if (grabber_on){
 
-		  if (n) TIM17->CCR1 = 0;
+		  if (n)
+		  {
+			  TIM17->CCR1 = 0;
+			  grabber_on = 0;
+
+		  }
 		  else TIM17->CCR1 = 1000;
 
 	  }
 
 	  else TIM17->CCR1 = 0;
+	  if (n) grabber_on = 0;
 
 	  if(thrower && n){
 		  throw(thrower_speed);
@@ -991,62 +1065,6 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	int32_t Cpos_M1 = (int16_t)TIM3->CNT;
-	return_M1 += Cpos_M1;
-	int32_t dif_M1 = Cpos_M1 - Lpos_M1;
-	Lpos_M1 = Cpos_M1;
-
-	int32_t Cpos_M2 = (int16_t)TIM4->CNT;
-	return_M2 += Cpos_M2;
-	int32_t dif_M2 = Cpos_M2 - Lpos_M2;
-	Lpos_M2 = Cpos_M2;
-
-	int32_t Cpos_M3 = (int16_t)TIM8->CNT;
-	return_M3 += Cpos_M3;
-	int32_t dif_M3 = Cpos_M3 - Lpos_M3;
-	Lpos_M3 = Cpos_M3;
-
-	int32_t Err1 = tgt_M1 - dif_M1;
-	int32_t Err2 = tgt_M2 - dif_M2;
-	int32_t Err3 = tgt_M3 - dif_M3;
-
-	int32_t pk = 0;
-	int32_t pi = 0;
-	int32_t pd = 0;
-
-	integral_M1 += Err1;
-	integral_M2 += Err2;
-	integral_M3 += Err3;
-
-	int32_t derivative_M1 = (Err1 - last_err_M1);
-	int32_t derivative_M2 = (Err2 - last_err_M2);
-	int32_t derivative_M3 = (Err3 - last_err_M3);
-
-	last_err_M1 = Err1;
-	last_err_M2 = Err2;
-	last_err_M3 = Err3;
-
-	int32_t Speed_M1 = (int32_t) Err1 * pk + integral_M1 * pi + derivative_M1 * pd;
-	int32_t Speed_M2 = (int32_t) Err2 * pk + integral_M2 * pi + derivative_M2 * pd;
-	int32_t Speed_M3 = (int32_t) Err3 * pk + integral_M3 * pi + derivative_M3 * pd;
-
-	if (Speed_M1 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 0);
-	else HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 1);
-
-	if (Speed_M2 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M2_DIR_Pin, 0);
-	else HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, 1);
-
-	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
-	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
-
-	TIM2->CCR1 = abs(Speed_M1);
-	TIM15->CCR1 = abs(Speed_M2);
-	TIM2->CCR3 = abs(Speed_M3);
-
-	safety_iters++;
-}
 
 /* USER CODE END 4 */
 
