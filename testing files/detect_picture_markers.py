@@ -1,8 +1,23 @@
-#https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615
 #https://stackoverflow.com/questions/68019526/how-can-i-get-the-distance-from-my-camera-to-an-opencv-aruco-marker
 #https://docs.opencv.org/3.4/dc/dbb/tutorial_py_calibration.html
 #https://ut-robotics.github.io/robot-basketball-rules/delta-x-2020/basketball_rules_eng.html#_ar_markers
 import cv2
+
+def load_coefficients(path):
+    '''Loads camera matrix and distortion coefficients.'''
+    # FILE_STORAGE_READ
+    cv_file = cv2.FileStorage(path, cv2.FILE_STORAGE_READ)
+
+    # note we also have to specify the type to retrieve other wise we only get a
+    # FileNode object back instead of a matrix
+    camera_matrix = cv_file.getNode('K').mat()
+    dist_matrix = cv_file.getNode('D').mat()
+
+    cv_file.release()
+    return [camera_matrix, dist_matrix]
+
+
+mtx, dist = load_coefficients('testing files/CalibrationMatrices.json')
 
 image = cv2.imread('testing files/pinkarucopng.png')
 tagparam = 160 #mm
