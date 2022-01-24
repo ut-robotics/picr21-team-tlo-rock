@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -51,24 +53,34 @@ TIM_HandleTypeDef htim15;
 TIM_HandleTypeDef htim16;
 TIM_HandleTypeDef htim17;
 
-PCD_HandleTypeDef hpcd_USB_FS;
-
 /* USER CODE BEGIN PV */
-int16_t Lpos_M1 = 0;
-int16_t Lpos_M2 = 0;
-int16_t Lpos_M3 = 0;
+int32_t Lpos_M1 = 0;
+int32_t Lpos_M2 = 0;
+int32_t Lpos_M3 = 0;
 
-int16_t tgt_M1 = 0;
-int16_t tgt_M2 = 0;
-int16_t tgt_M3 = 0;
+int32_t tgt_M1 = 0;
+int32_t tgt_M2 = 0;
+int32_t tgt_M3 = 0;
 
-double integral_M1 = 0;
-double integral_M2 = 0;
-double integral_M3 = 0;
+int32_t integral_M1 = 0;
+int32_t integral_M2 = 0;
+int32_t integral_M3 = 0;
 
-int16_t last_err_M1 = 0;
-int16_t last_err_M2 = 0;
-int16_t last_err_M3 = 0;
+int32_t last_err_M1 = 0;
+int32_t last_err_M2 = 0;
+int32_t last_err_M3 = 0;
+
+uint32_t thrower_speed = 0;
+uint8_t grabber_on = 0;
+uint8_t thrower = 0;
+uint8_t safety_iters = 0;
+
+int16_t return_M1 = 0;
+int16_t return_M2 = 0;
+int16_t return_M3 = 0;
+
+
+
 
 /* USER CODE END PV */
 
@@ -83,7 +95,6 @@ static void MX_TIM8_Init(void);
 static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_TIM17_Init(void);
-static void MX_USB_PCD_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_TIM6_Init(void);
 /* USER CODE BEGIN PFP */
@@ -93,24 +104,65 @@ static void MX_TIM6_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void throw(void)
-	{
-	int n = 0;
-	if (n == 1){
-			  HAL_Delay(25);
-			  TIM17->CCR1 = 0;
-			  HAL_Delay(1000);
-			  TIM16->CCR1 = 7000;
-			  HAL_Delay(500);
-			  TIM17->CCR1 = 1000;
-			  HAL_Delay(1000);
-			  TIM17->CCR1 = 0;
-			  TIM16->CCR1 = 4000;
-		  }
-		  else {
-			  TIM17->CCR1 =4000;
-		  }
+typedef struct Command {
+	int16_t speed1;
+	int16_t speed2;
+	int16_t speed3;
+	uint32_t thrower_speed;
+	uint8_t bools;
+	uint32_t delimiter;
+}Command;
+
+typedef struct Feedback {
+	int16_t speed1;
+	int16_t speed2;
+	int16_t speed3;
+	uint8_t bools;
+	uint32_t deliminer;
+}Feedback;
+
+Command command = {.speed1 = 0, .speed2 = 0, .speed3 = 0, .thrower_speed = 0, .bools = 0, .delimiter = 0xAAAA};
+Feedback feedback = {.speed1 = 0, .speed2 = 0, .speed3 = 0, .bools = 0, .deliminer = 0xAAAA};
+
+volatile uint8_t isCommandReceived = 0;
+
+void CDC_On_Receive(uint8_t* buffer, uint32_t* length) //uint8_t* Buf, uint32_t* Len
+{
+	if (*length == sizeof(Command)){
+		memcpy(&command, buffer, sizeof(Command));
 	}
+	if (command.delimiter == 0xAAAA){
+		isCommandReceived = 1;
+	}
+
+	//feedback.speed1 = return_M1;
+			  //feedback.speed2 = return_M2;
+			  //feedback.speed3 = return_M3;
+			  //feedback.bools = n;
+			  //feedback.deliminer = 0xAAAA;
+
+	CDC_Transmit_FS(&feedback, sizeof(feedback)); //uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
+}
+
+void throw(uint32_t speed)
+{
+	if (speed > 7500) speed = 7500;
+	if (speed < 2500) speed = 2500;
+	TIM16->CCR1 = speed;
+	HAL_Delay(400);
+	TIM17->CCR1 = 1000;
+	int n = 1;
+	while (n)
+	{
+		n = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
+		HAL_Delay(200);
+	}
+	TIM17->CCR1 = 0;
+	TIM16->CCR1 = 2500;
+}
+
+
+
 
 /* USER CODE END 0 */
 
@@ -150,9 +202,9 @@ int main(void)
   MX_TIM15_Init();
   MX_TIM16_Init();
   MX_TIM17_Init();
-  MX_USB_PCD_Init();
   MX_TIM1_Init();
   MX_TIM6_Init();
+  MX_USB_Device_Init();
   /* USER CODE BEGIN 2 */
   // set motors off
   HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 1);
@@ -164,7 +216,7 @@ int main(void)
   HAL_Delay(100);
   TIM2->CCR2 = 65536;
 
-  //motorspeeds to zero
+  //motor speeds to zero
   TIM2->CCR1 = 0;
   TIM15->CCR1 = 0;
   TIM2->CCR3 = 0;
@@ -179,7 +231,7 @@ int main(void)
   TIM16->CCR1 = 2500;
   HAL_Delay(4000);
 
-  //enable graber and swt its speed to zero
+  //enable grabber and set its speed to zero
   TIM17->CCR1 = 0;
   HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
 
@@ -208,7 +260,7 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1 | TIM_CHANNEL_2);
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_1 | TIM_CHANNEL_2);
 
-  TIM17->CCR1 = 0; // set graber to stop
+  TIM17->CCR1 = 0; // set grabber to stop
   //TIM16->CCR1 = 4000; // set thrower to stop (4000)
   HAL_Delay(2000);
   */
@@ -220,8 +272,60 @@ int main(void)
 
   while (1)
   {
-	  HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 0);
-	  TIM2->CCR1 = 1000;
+
+	  uint8_t n = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
+
+	  if (isCommandReceived){
+		  tgt_M1 = command.speed1;
+		  tgt_M2 = command.speed2;
+		  tgt_M3 = command.speed3;
+		  thrower_speed = command.thrower_speed;
+		  uint8_t bools = command.bools;
+
+		  if (bools >= 2)
+		  {
+		  	  bools -= 2;
+		  	  grabber_on = 1;
+		  }
+
+		  else
+		  {
+			  grabber_on = 0;
+		  }
+
+		  if (bools >= 1)
+		  {
+			  bools -= 1;
+			  thrower = 1;
+		  }
+
+		  HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 0);
+
+
+	  }
+
+
+
+	  if (grabber_on){
+
+		  if (n) TIM17->CCR1 = 0;
+		  else TIM17->CCR1 = 1000;
+
+	  }
+
+	  else TIM17->CCR1 = 0;
+
+	  if(thrower && n){
+		  throw(thrower_speed);
+	  }
+	  else thrower = 0;
+
+	  if (safety_iters > 100){
+		  HAL_GPIO_WritePin(DRV_OFF_GPIO_Port, DRV_OFF_Pin, 1);
+		  tgt_M1 = 0;
+		  tgt_M2 = 0;
+		  tgt_M3 = 0;
+	  }
 
 
   }
@@ -848,39 +952,6 @@ static void MX_TIM17_Init(void)
 }
 
 /**
-  * @brief USB Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USB_PCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_Init 0 */
-
-  /* USER CODE END USB_Init 0 */
-
-  /* USER CODE BEGIN USB_Init 1 */
-
-  /* USER CODE END USB_Init 1 */
-  hpcd_USB_FS.Instance = USB;
-  hpcd_USB_FS.Init.dev_endpoints = 8;
-  hpcd_USB_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_FS.Init.battery_charging_enable = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_Init 2 */
-
-  /* USER CODE END USB_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -925,44 +996,59 @@ static void MX_GPIO_Init(void)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	int16_t Cpos_M1 = (int16_t)TIM3->CNT;
-	int16_t dif_M1 = Cpos_M1 - Lpos_M1;
+	int32_t Cpos_M1 = (int16_t)TIM3->CNT;
+	return_M1 += Cpos_M1;
+	int32_t dif_M1 = Cpos_M1 - Lpos_M1;
 	Lpos_M1 = Cpos_M1;
 
-	int16_t Cpos_M2 = (int16_t)TIM4->CNT;
-	int16_t dif_M2 = Cpos_M2 - Lpos_M2;
+	int32_t Cpos_M2 = (int16_t)TIM4->CNT;
+	return_M2 += Cpos_M2;
+	int32_t dif_M2 = Cpos_M2 - Lpos_M2;
 	Lpos_M2 = Cpos_M2;
 
-	int16_t Cpos_M3 = (int16_t)TIM8->CNT;
-	int16_t dif_M3 = Cpos_M3 - Lpos_M3;
+	int32_t Cpos_M3 = (int16_t)TIM8->CNT;
+	return_M3 += Cpos_M3;
+	int32_t dif_M3 = Cpos_M3 - Lpos_M3;
 	Lpos_M3 = Cpos_M3;
 
-	int16_t Err1 = tgt_M1 - dif_M1;
-	int16_t Err2 = tgt_M2 - dif_M2;
-	int16_t Err3 = tgt_M3 - dif_M3;
+	int32_t Err1 = tgt_M1 - dif_M1;
+	int32_t Err2 = tgt_M2 - dif_M2;
+	int32_t Err3 = tgt_M3 - dif_M3;
 
-	double pk = 1;
-	double pi = 0;
-	double pd = 0;
+	int32_t pk = 0;
+	int32_t pi = 0;
+	int32_t pd = 0;
 
-	integral_M1 += Err1*0.01;
-	integral_M2 += Err2*0.01;
-	integral_M3 += Err3*0.01;
+	integral_M1 += Err1;
+	integral_M2 += Err2;
+	integral_M3 += Err3;
 
-	double derivative_M1 = (Err1 - last_err_M1) / 0.01;
-	double derivative_M2 = (Err2 - last_err_M2) / 0.01;
-	double derivative_M3 = (Err3 - last_err_M3) / 0.01;
+	int32_t derivative_M1 = (Err1 - last_err_M1);
+	int32_t derivative_M2 = (Err2 - last_err_M2);
+	int32_t derivative_M3 = (Err3 - last_err_M3);
 
 	last_err_M1 = Err1;
 	last_err_M2 = Err2;
 	last_err_M3 = Err3;
 
-	int16_t Speed_M1 = (int16_t) Err1 * pk + integral_M1 * pi + derivative_M1 * pd;
-	int16_t Speed_M2 = (int16_t) Err2 * pk + integral_M2 * pi + derivative_M2 * pd;
-	int16_t Speed_M3 = (int16_t) Err3 * pk + integral_M3 * pi + derivative_M3 * pd;
+	int32_t Speed_M1 = (int32_t) Err1 * pk + integral_M1 * pi + derivative_M1 * pd;
+	int32_t Speed_M2 = (int32_t) Err2 * pk + integral_M2 * pi + derivative_M2 * pd;
+	int32_t Speed_M3 = (int32_t) Err3 * pk + integral_M3 * pi + derivative_M3 * pd;
 
+	if (Speed_M1 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 1);
 
+	if (Speed_M2 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M2_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, 1);
 
+	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
+
+	TIM2->CCR1 = abs(Speed_M1);
+	TIM15->CCR1 = abs(Speed_M2);
+	TIM2->CCR3 = abs(Speed_M3);
+
+	safety_iters++;
 }
 
 /* USER CODE END 4 */

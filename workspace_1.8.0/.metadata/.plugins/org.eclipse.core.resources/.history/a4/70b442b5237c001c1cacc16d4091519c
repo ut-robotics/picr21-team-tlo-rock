@@ -1,0 +1,24 @@
+/*
+ * usbd_cdc_if.c
+ *
+ *  Created on: Jan 23, 2022
+ *      Author: tlo-rock
+ */
+
+#ifndef SRC_USBD_CDC_IF_C_
+#define SRC_USBD_CDC_IF_C_
+
+#include stdint.h
+#include string.h
+#include stdio.h
+
+static int8_t CDC_Recieve_FS(uint8_t* Buf, uint32_t *Len)
+{
+	CDC_On_Recieve(Buf, Len);
+	USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
+	USBD_CDC_RecievePacket(&hUsbDeviceFS);
+	return (USBD_OK);
+}
+
+
+#endif /* SRC_USBD_CDC_IF_C_ */
