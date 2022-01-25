@@ -86,7 +86,7 @@ def main(target_speeds, state, running, holding_ball, holder_on, launcher_on):# 
                 ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]),holder_on.value, launcher_on.value)
                 holding_ball.value = ms[3]
 
-                #print(ms)
+                print(ms)
 
     if ser != None:
         ser.close()
