@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 000014a0  00000000  00000000  00045ba8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00021719  00000000  00000000  00047048  2**0
+ 16 .debug_macro  0002170d  00000000  00000000  00047048  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001a613  00000000  00000000  00068761  2**0
+ 17 .debug_line   0001a613  00000000  00000000  00068755  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000c99b3  00000000  00000000  00082d74  2**0
+ 18 .debug_str    000c9970  00000000  00000000  00082d68  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0014c727  2**0
+ 19 .comment      00000053  00000000  00000000  0014c6d8  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00005f20  00000000  00000000  0014c77c  2**2
+ 20 .debug_frame  00005f20  00000000  00000000  0014c72c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -4415,7 +4415,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
  8002290:	f003 0301 	and.w	r3, r3, #1
  8002294:	613b      	str	r3, [r7, #16]
  8002296:	693b      	ldr	r3, [r7, #16]
-    GPIO_InitStruct.Pin = TIM_15_CH1_M3_PWM_Pin;
+    GPIO_InitStruct.Pin = GPIO_PIN_2;
  8002298:	2304      	movs	r3, #4
  800229a:	61fb      	str	r3, [r7, #28]
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -4430,7 +4430,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
     GPIO_InitStruct.Alternate = GPIO_AF9_TIM15;
  80022a8:	2309      	movs	r3, #9
  80022aa:	62fb      	str	r3, [r7, #44]	; 0x2c
-    HAL_GPIO_Init(TIM_15_CH1_M3_PWM_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
  80022ac:	f107 031c 	add.w	r3, r7, #28
  80022b0:	4619      	mov	r1, r3
  80022b2:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000

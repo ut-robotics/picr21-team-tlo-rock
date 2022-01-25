@@ -63,8 +63,6 @@ void Error_Handler(void);
 #define TIM2_VH1_M1_PWM_GPIO_Port GPIOA
 #define M1_DIR_Pin GPIO_PIN_1
 #define M1_DIR_GPIO_Port GPIOA
-#define TIM_15_CH1_M3_PWM_Pin GPIO_PIN_2
-#define TIM_15_CH1_M3_PWM_GPIO_Port GPIOA
 #define M3_DIR_Pin GPIO_PIN_3
 #define M3_DIR_GPIO_Port GPIOA
 #define TIM3_CH2_ENCB_Pin GPIO_PIN_4
