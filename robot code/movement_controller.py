@@ -13,13 +13,16 @@ FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
 
 
 #helpers
-def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
-    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), int(thrower), 0, 0xAAAA))
+def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 4000, grabber = 0, throw = 0): # send speeds to motors and return data
+    bools = int(grabber*2+throw)
+    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), bools, int(thrower), 0xAAAA))
     data = ser.read(FEEDBACK_STRUCT_SIZE)
+    ser.reset_input_buffer()
     values = struct.unpack(FEEDBACK_STRUCT_FORMAT, data)
-    return values # returns motor data
+    print(values)
+    return(values) # returns motor data
 
-def main(target_speeds, state, running):# main function of movement controller
+def main(target_speeds, state, running, holding_ball, holder_on, launcher_on):# main function of movement controller
 
     max_speed_change = 80 #how much wheel speed can change in a second
 
@@ -78,7 +81,8 @@ def main(target_speeds, state, running):# main function of movement controller
                              
                 #print(c_speeds)
 
-                ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]))
+                ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]),holder_on.value, launcher_on.value)
+                holding_ball.value = ms[3]
                 #print(ms)
 
     if ser != None:
