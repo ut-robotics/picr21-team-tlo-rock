@@ -63,27 +63,38 @@ def searching(gs, time_of_no_ball, speeds):
     set_speed(speeds, rotate_omni(8))
     return gs
 
-def moveto(gs, time_of_no_ball, nearest_ball, speeds):
-    if time_of_no_ball.value > 0.1:
-        print("moveto to searching")
-        return GameState.searching
-
-    #print(nearest_ball[0], nearest_ball[1])
+def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding):
     error = (nearest_ball[0]-424)/4.24
-      
-    if nearest_ball[1] < 280:
-        gs = GameState.orbit
-        print("orbit")
+    if holding == 0:
+        if time_of_no_ball.value > 0.1:
+            print("moveto to searching")
+            return GameState.searching
+        
+        if nearest_ball[1] < 280:
+
+            #CREATE BALL AQURING ALGORITHM
+            gs = GameState.search_basket
+            print("ball aquired, searching basket")
+        else:
+            #print(int(math.floor(error ** 1.05 * 0.1)))
+            movement_vector = rotate_omni(int(math.floor(error * 0.04)))
+            movement_vector = combine_moves(movement_vector, move_omni(25,0))
+            speed = 50
+            if nearest_ball[1] < 1000:
+                speed = 30
+            movement_vector = rectify_speed(movement_vector,speed)
+            set_speed(speeds, movement_vector)
     else:
-        #print(int(math.floor(error ** 1.05 * 0.1)))
-        movement_vector = rotate_omni(int(math.floor(error * 0.04)))
-        movement_vector = combine_moves(movement_vector, move_omni(25,0))
-        speed = 50
-        if nearest_ball[1] < 1000:
-            speed = 30
-        movement_vector = rectify_speed(movement_vector,speed)
-        set_speed(speeds, movement_vector)
+        if nearest_ball[3] == 0:
+            set_speed(speeds, rotate_omni(8))
+        elif nearest_ball[3] > 1000:
+            movement_vector = rotate_omni(int(math.floor(error * 0.04)))
+            movement_vector = combine_moves(movement_vector, move_omni(25,0))
+            speed = 50
     return gs
+
+def aim(gs, basket, speeds):
+    pass
 
 def pid(x, kp, ki, kd, piddat):
     piddat[0]+=x
@@ -118,19 +129,13 @@ def orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids):
     
 
 
-
+'''
 def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     #print("o", nearest_ball[0],nearest_ball[1],nearest_ball[2])
     if nearest_ball[1] > 300 or time_of_no_ball.value > 0.1:
         return GameState.moveto
     
     tgt = [basket[0], basket[1], basket[2]]
-    #print("basket",basket[0],basket[1],basket[2])
-    #if time_of_no_ball.value > 0.5:
-    #    gs = GameState.searching
-    #print(nearest_ball[0],nearest_ball[1])
-    # distance from robot tgt 130
-    # side to side tgt 424,425
 
     spd = 20
     if abs(tgt[0] - 424) < 60:
@@ -155,6 +160,7 @@ def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     #print(movement_vector)
     set_speed(speeds,movement_vector)
     return gs
+'''
 
 def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
     if launchdelay < 1:
@@ -179,20 +185,12 @@ def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
             gs = GameState.searching
     return gs, launchdelay, launch_time
 
-def main(nearest_ball, speeds, state, time_of_no_ball, basket):# main function of movement controller 
+def main(nearest_ball, speeds, state, time_of_no_ball, basket, holding):# main function of movement controller 
     sleep(0.5)
-    #while True:
-    #    set_speed(speeds, thrower(550)) 
-    #    print(speeds[0],speeds[1],speeds[2],speeds[3])
-    
-    # pid constants
-    #Kp = 0.8
-    #Ki = 0.9
-    #Kd = 0.6
 
     launchdelay = 0
 
-    gs = GameState.orbit
+    gs = GameState.searching
 
     tgt = [0,0,0]
 
@@ -205,18 +203,18 @@ def main(nearest_ball, speeds, state, time_of_no_ball, basket):# main function o
         delta = current_time-last_time
         last_time = current_time
 
-        #orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds)
-
         if (state.value != State.automatic):
             continue
         #print(nearest_ball[0], nearest_ball[1],nearest_ball[2])
         if  gs == GameState.searching:
             gs = searching(gs, time_of_no_ball, speeds)
         elif gs == GameState.moveto:
-            gs = moveto(gs, time_of_no_ball, nearest_ball, speeds)
+            gs = moveto(gs, time_of_no_ball, nearest_ball, speeds, holding)
+        elif gs == GameState.search_basket:
+            gs = moveto(gs, time_of_no_ball, basket, speeds, holding)
+
         elif gs == GameState.orbit:
-            gs = orbit(gs, nearest_ball, time_of_no_ball, basket, speeds)
-            #gs = orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids)
+            gs = aim(gs, basket, speeds)
         elif gs == GameState.launch:
             gs, launchdelay, launch_time = launch(gs, launchdelay, speeds, delta, basket, nearest_ball, launch_time)
         else:

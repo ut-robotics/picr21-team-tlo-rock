@@ -64,7 +64,7 @@ def main(target_speeds, state, running, holding_ball, holder_on, launcher_on):# 
             if state.value == State.stopped:
                 send_motorspeeds(ser, *stop())
             
-            if state.value in {State.automatic,State.remote, State.calibration}:
+            if state.value in {State.automatic, State.remote, State.calibration}:
                 n_speeds = target_speeds[0:3]
                 #print(n_speeds, c_speeds)
                    
@@ -85,6 +85,7 @@ def main(target_speeds, state, running, holding_ball, holder_on, launcher_on):# 
 
                 ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]),holder_on.value, launcher_on.value)
                 holding_ball.value = ms[3]
+
                 #print(ms)
 
     if ser != None:

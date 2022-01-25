@@ -8,3 +8,4 @@ Theoretical game logic implementation
 6. throw
 --LOOP--
 '''
+
