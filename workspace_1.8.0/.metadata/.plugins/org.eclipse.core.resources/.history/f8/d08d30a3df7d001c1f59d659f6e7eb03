@@ -167,7 +167,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	int16_t Cpos_M3 = (int16_t)TIM8->CNT;
 	feedback.speed3  = Cpos_M3;
 	double dif_M3 = Cpos_M3 - Lpos_M3;
-	Lpos_M3 = Cpos_M3;
 
 
 	double Err1 = tgt_M1/15 - dif_M1;
@@ -218,8 +217,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (Speed_M2 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M2_DIR_Pin, 0);
 	else HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, 1);
 
-	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
-	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
+	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 1);
+	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 0);
 
 	TIM2->CCR1 = abs(Speed_M1);
 	TIM2->CCR3 = abs(Speed_M2);

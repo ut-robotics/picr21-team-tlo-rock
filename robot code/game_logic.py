@@ -94,7 +94,14 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding):
     return gs
 
 def aim(gs, basket, speeds):
-    pass
+    if basket[0] < 420:
+        set_speed(speeds, rotate_omni(8))
+    elif basket[0] > 430:
+        set_speed(speeds, rotate_omni(-8))
+    else:
+        return GameState.launch
+
+
 
 def pid(x, kp, ki, kd, piddat):
     piddat[0]+=x

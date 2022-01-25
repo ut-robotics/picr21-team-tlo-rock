@@ -81,8 +81,6 @@ void Error_Handler(void);
 #define TIM2_CH3_M2_PWM_GPIO_Port GPIOA
 #define M2_DIR_Pin GPIO_PIN_10
 #define M2_DIR_GPIO_Port GPIOA
-#define TIM8_CH1_ENCA_Pin GPIO_PIN_15
-#define TIM8_CH1_ENCA_GPIO_Port GPIOA
 #define NSLEEP_PWM_Pin GPIO_PIN_3
 #define NSLEEP_PWM_GPIO_Port GPIOB
 #define TIM16_CH1_THW_MOTOR_Pin GPIO_PIN_4
@@ -91,8 +89,6 @@ void Error_Handler(void);
 #define TIM4_CH1_ENCA_GPIO_Port GPIOB
 #define TIM4_CH2_ENCB_Pin GPIO_PIN_7
 #define TIM4_CH2_ENCB_GPIO_Port GPIOB
-#define TIM8_CH2_ENCB_Pin GPIO_PIN_8
-#define TIM8_CH2_ENCB_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
