@@ -74,6 +74,7 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
         if holding.value == 0:
             if time_of_no_ball.value > 0.5:
                 print("moveto to searching")
+                grab.value = 0
                 return GameState.searching
 
         elif holding.value == 1:
