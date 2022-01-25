@@ -100,12 +100,17 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
         #nearest ball here marks the basket
         if nearest_ball[2] == 0:
             set_speed(speeds, rotate_omni(20))
-        elif nearest_ball[2] > 1000:
+        elif nearest_ball[2] > 2000:
             movement_vector = rotate_omni(int(math.floor(error * 0.3)))
             movement_vector = combine_moves(movement_vector, move_omni(25,0))
             speed = 60
             set_speed(speeds, movement_vector)
-        elif nearest_ball[2] < 1800:
+        elif nearest_ball[2] < 1500:
+            movement_vector = rotate_omni(int(math.floor(error * -0.3)))
+            movement_vector = combine_moves(movement_vector, move_omni(-25,0))
+            speed = 60
+            set_speed(speeds, movement_vector)
+        else:
             return GameState.launch
     return gs
 
@@ -190,7 +195,7 @@ def launch(gs, speeds, tgt, holding, launchenable, hoidja):
         return GameState.searching
 
     dist = tgt[2]
-    throwerSpeed = max(2500, dist*3)
+    throwerSpeed = int(round(3000 + dist*1.2))
     throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1
