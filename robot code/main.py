@@ -63,6 +63,7 @@ if __name__ == '__main__':
     running = mp.Value('i', 1)
     launcher_on = mp.Value('i', 1)
     grabber_on = mp.Value('i', 1)
+    holding_ball = mp.Value('i', 1)
     state = mp.Value('i', State.remote)
     attacking = mp.Value('i', Side.blue)
     time_of_no_ball = mp.Value('f', 0) #float time_of_no_ball is the time since last ball was detected 
@@ -73,7 +74,7 @@ if __name__ == '__main__':
     localization_process = mp.Process(target=loc.localize, args=(ballKeypointX, ballKeyPointY, ballKeyPointZ, nearest_ball, time_of_no_ball))
     game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state, time_of_no_ball,BasketCoords))
     calibration_process = mp.Process(target=sc.main, args=(speeds, state, BasketCoords, manual_inputs))
-    movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running,grabber_on,launcher_on))
+    movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running, holding_ball, grabber_on,launcher_on))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
     referee_communications_client = mp.Process(target=ref.refclient, args=(state, attacking))
 
@@ -83,7 +84,7 @@ if __name__ == '__main__':
     movement_controller_process.start()
     manual_override_process.start()
     calibration_process.start()
-    referee_communications_client.start()
+    #referee_communications_client.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     # Roboti kasutaja sisendite võimaldamine

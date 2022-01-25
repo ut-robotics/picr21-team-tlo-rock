@@ -19,8 +19,8 @@ def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 4000, grabber = 0, throw
     data = ser.read(FEEDBACK_STRUCT_SIZE)
     ser.reset_input_buffer()
     values = struct.unpack(FEEDBACK_STRUCT_FORMAT, data)
-    print(values)
-    return(values) # returns motor data
+    #print(values)
+    return (values) # returns motor data
 
 def main(target_speeds, state, running, holding_ball, holder_on, launcher_on):# main function of movement controller
 
