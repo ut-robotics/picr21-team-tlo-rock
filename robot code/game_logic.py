@@ -194,7 +194,7 @@ def launch(gs, speeds, tgt, holding, launchenable):
 
     dist = tgt[2]
 
-    throw = thrower(6000)
+    throw = thrower(4000)
     set_speed(speeds, throw)
     launchenable.value = 1
 
