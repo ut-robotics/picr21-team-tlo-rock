@@ -193,14 +193,10 @@ def launch(gs, speeds, tgt, holding, launchenable):
         return GameState.searching
 
     dist = tgt[2]
-
-    throw = thrower(4000)
+    throwerSpeed = max(4000, dist*5)
+    throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1
-
-
-
-    
 
 def main(nearest_ball, speeds, state, time_of_no_ball, basket, holding, grab, launchenable):# main function of movement controller 
     sleep(0.5)
