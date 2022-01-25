@@ -167,7 +167,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		int16_t Cpos_M3 = (int16_t)TIM8->CNT;
 		feedback.speed3  = Cpos_M3;
 		double dif_M3 = Cpos_M3 - Lpos_M3;
-		Lpos_M3 = Cpos_M3;
 
 
 		double Err1 = tgt_M1/15 - dif_M1;
