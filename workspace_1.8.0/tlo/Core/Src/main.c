@@ -154,9 +154,6 @@ void throw(uint32_t speed)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(tgt_M2 != 0){
-		tgt_M2 = tgt_M2;
-	}
 	int16_t Cpos_M1 = (int16_t)TIM3->CNT;
 	feedback.speed1  = Cpos_M1;
 	double dif_M1 = Cpos_M1 - Lpos_M1;
@@ -172,9 +169,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	double dif_M3 = Cpos_M3 - Lpos_M3;
 
 
-	double Err1 = tgt_M1/5 - dif_M1;
-	double Err2 = tgt_M2/5 - dif_M2;
-	double Err3 = tgt_M3/5 - dif_M3;
+	double Err1 = tgt_M1/15 - dif_M1;
+	double Err2 = tgt_M2/15 - dif_M2;
+	double Err3 = tgt_M3/15 - dif_M3;
 
 	double kp = 4000;
 	double ki = 700;
@@ -205,14 +202,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	int32_t Speed_M2 = (int32_t) Err2 * kp + integral_M2 * ki + derivative_M2 * kd;
 	int32_t Speed_M3 = (int32_t) Err3 * kp + integral_M3 * ki + derivative_M3 * kd;
 
+	if (tgt_M1 == 0){
+		Speed_M1 = 0;
+	}
+	if (tgt_M2 == 0){
+			Speed_M2 = 0;
+		}
+	if (tgt_M3 == 0){
+			Speed_M3 = 0;
+		}
 	if (Speed_M1 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 0);
 	else HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 1);
 
 	if (Speed_M2 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M2_DIR_Pin, 0);
 	else HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, 1);
 
-	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
-	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
+	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 1);
+	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 0);
 
 	TIM2->CCR1 = abs(Speed_M1);
 	TIM2->CCR3 = abs(Speed_M2);

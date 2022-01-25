@@ -7,8 +7,9 @@ from serial.tools import list_ports
 from enums import *
 
 
-COMMAND_STRUCT_FORMAT = '<hhhHBH'
-FEEDBACK_STRUCT_FORMAT = '<hhhH'
+COMMAND_STRUCT_FORMAT = '<hhhHIL'
+FEEDBACK_STRUCT_FORMAT = '<hhhBL'
+
 FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
 
 

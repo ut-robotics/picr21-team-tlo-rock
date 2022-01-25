@@ -2,7 +2,7 @@ LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
 activeLaunchTarget=null\:---
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:empty Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:TLO_Rock_PCB_Firmware Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:usb Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:usbx Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:usb 2.elf,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:tlo Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:usb 2.elf,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:tlo Debug
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F401CCU6_MPU6050\ Debug/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F401CCU6_MPU6050\ Debug/activeLaunchTarget=null\:---

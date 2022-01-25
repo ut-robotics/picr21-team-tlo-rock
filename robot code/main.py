@@ -61,9 +61,9 @@ if __name__ == '__main__':
     nearest_ball = mp.Array('i', np.zeros(3, dtype=int))
     speeds = mp.Array('i', np.zeros(4, dtype=int))
     running = mp.Value('i', 1)
-    launcher_on = mp.Value('i', 1)
-    grabber_on = mp.Value('i', 1)
-    holding_ball = mp.Value('i', 1)
+    launcher_on = mp.Value('i', 0)
+    grabber_on = mp.Value('i', 0)
+    holding_ball = mp.Value('i', 0)
     state = mp.Value('i', State.remote)
     attacking = mp.Value('i', Side.blue)
     time_of_no_ball = mp.Value('f', 0) #float time_of_no_ball is the time since last ball was detected 
