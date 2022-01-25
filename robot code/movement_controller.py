@@ -14,7 +14,7 @@ FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
 
 #helpers
 def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 0): # send speeds to motors and return data
-    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, m1, m2, m3, thrower, 0, 0xAAAA))
+    ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), int(thrower), 0, 0xAAAA))
     data = ser.read(FEEDBACK_STRUCT_SIZE)
     values = struct.unpack(FEEDBACK_STRUCT_FORMAT, data)
     return values # returns motor data

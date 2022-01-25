@@ -7,6 +7,7 @@ import shooting_calibration as sc
 import movement_controller as mc
 import manual_control as man
 import numpy as np
+import refcomms as ref
 from pynput import keyboard
 from functools import partial
 from enums import *
@@ -62,16 +63,17 @@ if __name__ == '__main__':
     running = mp.Value('i', 1)
     state = mp.Value('i', State.remote)
     attacking = mp.Value('i', Side.pink)
-    noball = mp.Value('f', 0) #float noball is the time since last ball was detected 
+    time_of_no_ball = mp.Value('f', 0) #float time_of_no_ball is the time since last ball was detected 
     manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
 
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(ballKeypointX, ballKeyPointY, ballKeyPointZ, attacking, BasketCoords))
-    localization_process = mp.Process(target=loc.localize, args=(ballKeypointX, ballKeyPointY, ballKeyPointZ, nearest_ball, noball))
-    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state, noball,BasketCoords))
+    localization_process = mp.Process(target=loc.localize, args=(ballKeypointX, ballKeyPointY, ballKeyPointZ, nearest_ball, time_of_no_ball))
+    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state, time_of_no_ball,BasketCoords))
     calibration_process = mp.Process(target=sc.main, args=(speeds, state, BasketCoords, manual_inputs))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
+    referee_communications_client = mp.Process(target=ref.refclient, args=(state, attacking))
 
     camera_process.start()
     localization_process.start()
@@ -79,6 +81,7 @@ if __name__ == '__main__':
     movement_controller_process.start()
     manual_override_process.start()
     calibration_process.start()
+    referee_communications_client.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     # Roboti kasutaja sisendite võimaldamine
@@ -100,4 +103,5 @@ if __name__ == '__main__':
     movement_controller_process.kill()
     #print('moving killed')
     calibration_process.kill()
+    referee_communications_client.kill()
     print("Closing down!")

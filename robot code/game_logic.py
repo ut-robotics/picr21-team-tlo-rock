@@ -55,19 +55,18 @@ def set_speed(target_speeds,speed):
     for i in range(len(speed)):
         target_speeds[i] = speed [i]
 
-def searching(gs, noball, speeds):
-    #print(noball.value)
-    if noball.value == 0:
+def searching(gs, time_of_no_ball, speeds):
+    #print(time_of_no_ball.value)
+    if time_of_no_ball.value == 0:
         print("moveto")
         return GameState.moveto
     set_speed(speeds, rotate_omni(8))
     return gs
 
-def moveto(gs, noball, nearest_ball, speeds):
-    if noball.value > 0.1:
-        gs = GameState.searching
+def moveto(gs, time_of_no_ball, nearest_ball, speeds):
+    if time_of_no_ball.value > 0.1:
         print("moveto to searching")
-        return gs
+        return GameState.searching
 
     #print(nearest_ball[0], nearest_ball[1])
     error = (nearest_ball[0]-424)/4.24
@@ -93,10 +92,9 @@ def pid(x, kp, ki, kd, piddat):
     piddat[1] = x
     return(x * kp + integral * ki + derivative * kd)
 
-def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
-    if nearest_ball[1] > 350 or noball.value > 0.1:
-        #gs = GameState.moveto
-        return gs
+def orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids):
+    if nearest_ball[1] > 350 or time_of_no_ball.value > 0.1:
+        return GameState.moveto
     
     spd = 20
     
@@ -104,11 +102,13 @@ def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
     hdelta = nearest_ball[0]/424-1
     vdelta = (math.sin(((nearest_ball[1])*math.pi)/960)) - 0.6
 
-    movment_vector = move_omni(int(pid(vdelta, 3, 0, 1, pids[0])*spd), 0)
-    #print(int(pid(vdelta, 3, 0, 2, pids[0])*spd))
-    print(dif,hdelta, basket[0] , nearest_ball[0])
+    if (abs(dif)< 0.01 and abs(hdelta)< 0.15 and abs(vdelta)< 0.1):
+        return GameState.launch
+
+    movment_vector = move_omni(int(pid(vdelta, 1, 0, 1, pids[0])*spd), 0)
+    print(dif,hdelta,  vdelta,basket[0], nearest_ball[0])
     movment_vector = combine_moves(move_omni(int(pid(dif, 4, 0, 0, pids[1])*spd),90),movment_vector)
-    movment_vector = combine_moves(rotate_omni(pid(hdelta, 0.2, 0, 0, pids[2])*spd, [1,1,0]),movment_vector)
+    movment_vector = combine_moves(rotate_omni(pid(hdelta, 0.4, 0, 0.1, pids[2])*spd, [1,1,0]),movment_vector)
     movment_vector = rectify_speed(movment_vector, 20)
     set_speed(speeds,movment_vector)
     return gs
@@ -119,15 +119,14 @@ def orbit_a(gs, nearest_ball, noball, basket, speeds, pids):
 
 
 
-def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
+def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     #print("o", nearest_ball[0],nearest_ball[1],nearest_ball[2])
-    if nearest_ball[1] > 300 or noball.value > 0.1:
-        gs = GameState.moveto
-        return gs
+    if nearest_ball[1] > 300 or time_of_no_ball.value > 0.1:
+        return GameState.moveto
     
     tgt = [basket[0], basket[1], basket[2]]
     #print("basket",basket[0],basket[1],basket[2])
-    #if noball.value > 0.5:
+    #if time_of_no_ball.value > 0.5:
     #    gs = GameState.searching
     #print(nearest_ball[0],nearest_ball[1])
     # distance from robot tgt 130
@@ -141,18 +140,16 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     
 
     movement_vector = move_omni(minimax((nearest_ball[1]-160)*0.18,-spd,spd),0)
-    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd)))
-    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3)))
+    movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424)*0.04, -spd,spd), [1,1,0]))
+    #movement_vector = combine_moves(movement_vector, rotate_omni(minimax((nearest_ball[0]-424), 3,-3), [1,1,0]))
     #movement_vector = combine_moves(movement_vector, move_omni(max(min((nearest_ball[0]-424)*0.1, 3),-3),90))
-    print(movement_vector)
-    if abs(tgt[0] - 424) <= 5 and abs(nearest_ball[0]-424) <= 5:
+    #print(movement_vector)
+    if abs(tgt[0] - 424) <= 10 and abs(nearest_ball[0]-424) <= 10:
         gs = GameState.launch
     elif tgt[0] > 424:
         movement_vector = combine_moves(movement_vector, move_omni(spd, 90))
-        combine_moves(movement_vector, rotate_omni(-5))
     elif tgt[0] < 424:
         movement_vector = combine_moves(movement_vector, move_omni(-spd, 90))
-        combine_moves(movement_vector, rotate_omni(5))
     
     #movement_vector = rectify_speed(movement_vector, 20)
     #print(movement_vector)
@@ -160,31 +157,29 @@ def orbit(gs, nearest_ball, noball, basket, speeds): #old orbiter code
     return gs
 
 def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
-    if launchdelay[0] < 1:
+    if launchdelay < 1:
         set_speed(speeds,stop())
-        launchdelay[0] += delta
+        launchdelay += delta
         #print(tgt)
-        if abs(tgt[0] - 424 > 3 and abs(nearest_ball[0]-424) > 2 and abs(nearest_ball[1]-160) < 2):
-            gs = GameState.orbit
-            launchdelay[0] = 0
     else:
-        movement_vector = move_omni(5,0)
+        movement_vector = move_omni(6,0)
         #print(int(0.05*(tgt[1]-350)**2+560)) # 0.05\left(x-350\right)^{2}\ +560
         #movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+570)))
         #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
         #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
         #4.7x-1800
-        movement_vector = combine_moves(movement_vector, thrower(int(4.7*tgt[2]-1800))) #https://www.desmos.com/calculator/gumsqpcewh
+        movement_vector = combine_moves(movement_vector, thrower(1000)) #https://www.desmos.com/calculator/gumsqpcewh
+        print(int(4.7*tgt[2]-1800))
         set_speed(speeds,movement_vector)
-        launch_time[0] += delta
+        launch_time += delta
         
-        if launch_time > 6:
-            launchdelay[0] = 0
-            launch_time[0] = 0
+        if launch_time > 4:
+            launchdelay = 0
+            launch_time = 0
             gs = GameState.searching
-    return gs
+    return gs, launchdelay, launch_time
 
-def main(nearest_ball, speeds, state, noball, basket):# main function of movement controller 
+def main(nearest_ball, speeds, state, time_of_no_ball, basket):# main function of movement controller 
     sleep(0.5)
     #while True:
     #    set_speed(speeds, thrower(550)) 
@@ -195,13 +190,13 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
     #Ki = 0.9
     #Kd = 0.6
 
-    launchdelay = [0]
+    launchdelay = 0
 
     gs = GameState.orbit
 
     tgt = [0,0,0]
 
-    launch_time = [0]
+    launch_time = 0
     pids = [[0,0],[0,0],[0,0]]
 
     last_time = time()
@@ -210,19 +205,20 @@ def main(nearest_ball, speeds, state, noball, basket):# main function of movemen
         delta = current_time-last_time
         last_time = current_time
 
-        #orbit_a(gs, nearest_ball, noball, basket, speeds)
+        #orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds)
 
         if (state.value != State.automatic):
             continue
         #print(nearest_ball[0], nearest_ball[1],nearest_ball[2])
         if  gs == GameState.searching:
-            gs = searching(gs, noball, speeds)
+            gs = searching(gs, time_of_no_ball, speeds)
         elif gs == GameState.moveto:
-            gs = moveto(gs, noball, nearest_ball, speeds)
+            gs = moveto(gs, time_of_no_ball, nearest_ball, speeds)
         elif gs == GameState.orbit:
-            gs = orbit_a(gs, nearest_ball, noball, basket, speeds, pids)
+            gs = orbit(gs, nearest_ball, time_of_no_ball, basket, speeds)
+            #gs = orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids)
         elif gs == GameState.launch:
-            gs = launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time)
+            gs, launchdelay, launch_time = launch(gs, launchdelay, speeds, delta, basket, nearest_ball, launch_time)
         else:
             gs = GameState.searching
             print("reset")
