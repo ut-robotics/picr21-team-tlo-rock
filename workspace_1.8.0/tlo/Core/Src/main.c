@@ -217,8 +217,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (Speed_M2 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M2_DIR_Pin, 0);
 	else HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, 1);
 
-	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 1);
-	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 0);
+	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
+	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
 
 	TIM2->CCR1 = abs(Speed_M1);
 	TIM2->CCR3 = abs(Speed_M2);

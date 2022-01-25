@@ -1041,7 +1041,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8000c80:	e9c7 2314 	strd	r2, r3, [r7, #80]	; 0x50
 
 
-	double Err1 = tgt_M1/5 - dif_M1;
+	double Err1 = tgt_M1/15 - dif_M1;
  8000c84:	4b85      	ldr	r3, [pc, #532]	; (8000e9c <HAL_TIM_PeriodElapsedCallback+0x2cc>)
  8000c86:	e9d3 0100 	ldrd	r0, r1, [r3]
  8000c8a:	f04f 0200 	mov.w	r2, #0
@@ -1056,7 +1056,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8000ca4:	4602      	mov	r2, r0
  8000ca6:	460b      	mov	r3, r1
  8000ca8:	e9c7 2312 	strd	r2, r3, [r7, #72]	; 0x48
-	double Err2 = tgt_M2/5 - dif_M2;
+	double Err2 = tgt_M2/15 - dif_M2;
  8000cac:	4b7d      	ldr	r3, [pc, #500]	; (8000ea4 <HAL_TIM_PeriodElapsedCallback+0x2d4>)
  8000cae:	e9d3 0100 	ldrd	r0, r1, [r3]
  8000cb2:	f04f 0200 	mov.w	r2, #0
@@ -1071,7 +1071,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8000ccc:	4602      	mov	r2, r0
  8000cce:	460b      	mov	r3, r1
  8000cd0:	e9c7 2310 	strd	r2, r3, [r7, #64]	; 0x40
-	double Err3 = tgt_M3/5 - dif_M3;
+	double Err3 = tgt_M3/15 - dif_M3;
  8000cd4:	4b74      	ldr	r3, [pc, #464]	; (8000ea8 <HAL_TIM_PeriodElapsedCallback+0x2d8>)
  8000cd6:	e9d3 0100 	ldrd	r0, r1, [r3]
  8000cda:	f04f 0200 	mov.w	r2, #0
@@ -1248,7 +1248,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8000e94:	40013400 	.word	0x40013400
  8000e98:	200001d0 	.word	0x200001d0
  8000e9c:	200001d8 	.word	0x200001d8
- 8000ea0:	40140000 	.word	0x40140000
+ 8000ea0:	402e0000 	.word	0x402e0000
  8000ea4:	200001e0 	.word	0x200001e0
  8000ea8:	200001e8 	.word	0x200001e8
  8000eac:	40af4000 	.word	0x40af4000
@@ -1462,17 +1462,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  80010ca:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
  80010ce:	f001 fcf9 	bl	8002ac4 <HAL_GPIO_WritePin>
 
-	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 1);
+	if (Speed_M3 >= 0) HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M3_DIR_Pin, 0);
  80010d2:	6ffb      	ldr	r3, [r7, #124]	; 0x7c
  80010d4:	2b00      	cmp	r3, #0
  80010d6:	db06      	blt.n	80010e6 <HAL_TIM_PeriodElapsedCallback+0x516>
- 80010d8:	2201      	movs	r2, #1
+ 80010d8:	2200      	movs	r2, #0
  80010da:	2108      	movs	r1, #8
  80010dc:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
  80010e0:	f001 fcf0 	bl	8002ac4 <HAL_GPIO_WritePin>
  80010e4:	e005      	b.n	80010f2 <HAL_TIM_PeriodElapsedCallback+0x522>
-	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 0);
- 80010e6:	2200      	movs	r2, #0
+	else HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, 1);
+ 80010e6:	2201      	movs	r2, #1
  80010e8:	2108      	movs	r1, #8
  80010ea:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
  80010ee:	f001 fce9 	bl	8002ac4 <HAL_GPIO_WritePin>
