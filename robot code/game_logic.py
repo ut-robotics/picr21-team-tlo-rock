@@ -66,7 +66,7 @@ def searching(gs, time_of_no_ball, speeds, holding):
     return gs
 
 def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
-    error = (nearest_ball[0]-420)/4.24
+    error = (nearest_ball[0]-424)/4.24
     #print(nearest_ball[0])
     #print('gamestate', gs)
 
@@ -129,6 +129,7 @@ def pid(x, kp, ki, kd, piddat):
     piddat[1] = x
     return(x * kp + integral * ki + derivative * kd)
 
+'''
 def orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids):
     if nearest_ball[1] > 350 or time_of_no_ball.value > 0.1:
         return GameState.moveto
@@ -151,11 +152,6 @@ def orbit_a(gs, nearest_ball, time_of_no_ball, basket, speeds, pids):
     return gs
 
 
-
-    
-
-
-'''
 def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     #print("o", nearest_ball[0],nearest_ball[1],nearest_ball[2])
     if nearest_ball[1] > 300 or time_of_no_ball.value > 0.1:
