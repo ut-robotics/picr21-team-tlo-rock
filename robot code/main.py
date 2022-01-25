@@ -106,5 +106,5 @@ if __name__ == '__main__':
     movement_controller_process.kill()
     #print('moving killed')
     calibration_process.kill()
-    referee_communications_client.kill()
+    #referee_communications_client.kill()
     print("Closing down!")

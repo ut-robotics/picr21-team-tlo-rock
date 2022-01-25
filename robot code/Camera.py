@@ -193,7 +193,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
                     break
             BasketCoords[1] = baskety[0]
             BasketCoords[2] = basketz[0]
-            print(BasketCoords[0],BasketCoords[1],BasketCoords[2])
+            #print(BasketCoords[0],BasketCoords[1],BasketCoords[2])
 
             cv2.imshow('cap', outimage)
             #cv2.imshow('dist', depth_image)
