@@ -117,7 +117,7 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
 
 def aim(gs, basket, speeds):
     #print(basket[0])
-    if basket[0] < 422:
+    if basket[0] < 423:
         set_speed(speeds, rotate_omni(-10))
     elif basket[0] > 426:
         set_speed(speeds, rotate_omni(10))
@@ -196,7 +196,7 @@ def launch(gs, speeds, tgt, holding, launchenable, hoidja):
         return GameState.searching
 
     dist = tgt[2]
-    throwerSpeed = int(round(3500 + dist*0.5))
+    throwerSpeed = int(round(3500 + dist*0.45))
     throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1
