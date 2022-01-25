@@ -15,7 +15,7 @@ FEEDBACK_STRUCT_SIZE = struct.calcsize(FEEDBACK_STRUCT_FORMAT)
 
 #helpers
 def send_motorspeeds(ser,m1 = 0,m2 = 0,m3 = 0,thrower = 4000, grabber = 0, throw = 0): # send speeds to motors and return data
-    print(m1, m2, m3)
+    #print(m1, m2, m3)
     bools = int(grabber*2+throw)
     ser.write(struct.pack(COMMAND_STRUCT_FORMAT, int(m1), int(m2), int(m3), bools, int(thrower), 0xAAAA))
     data = ser.read(FEEDBACK_STRUCT_SIZE)
@@ -82,9 +82,12 @@ def main(target_speeds, state, running, holding_ball, holder_on, launcher_on):# 
                         i_speeds = [round(i) for i in c_speeds]
                              
                 #print(c_speeds)
-
-                ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]),holder_on.value, launcher_on.value)
-                holding_ball.value = ms[3]
+                try:
+                    ms = send_motorspeeds(ser, *(i_speeds + [target_speeds[3]]),holder_on.value, launcher_on.value)
+                    holding_ball.value = ms[3]
+                except:
+                    pass
+                #print(holding_ball.value)
 
                 #print(ms)
 

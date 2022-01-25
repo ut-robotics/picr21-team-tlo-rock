@@ -72,7 +72,7 @@ if __name__ == '__main__':
     #________________PROTSESSIDE ALUSTAMINE JA MUUTUJATE KAASA ANDMINE_____________________
     camera_process = mp.Process(target=cam.operate_camera, args=(ballKeypointX, ballKeyPointY, ballKeyPointZ, attacking, BasketCoords))
     localization_process = mp.Process(target=loc.localize, args=(ballKeypointX, ballKeyPointY, ballKeyPointZ, nearest_ball, time_of_no_ball))
-    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state, time_of_no_ball,BasketCoords, holding_ball))
+    game_logic_process = mp.Process(target=gl.main, args=(nearest_ball, speeds, state, time_of_no_ball,BasketCoords, holding_ball, grabber_on, launcher_on))
     calibration_process = mp.Process(target=sc.main, args=(speeds, state, BasketCoords, manual_inputs))
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running, holding_ball, grabber_on,launcher_on))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))

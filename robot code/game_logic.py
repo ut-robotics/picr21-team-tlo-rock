@@ -55,50 +55,69 @@ def set_speed(target_speeds,speed):
     for i in range(len(speed)):
         target_speeds[i] = speed [i]
 
-def searching(gs, time_of_no_ball, speeds):
+def searching(gs, time_of_no_ball, speeds, holding):
     #print(time_of_no_ball.value)
+    if holding.value == 1:
+        return GameState.search_basket
     if time_of_no_ball.value == 0:
         print("moveto")
         return GameState.moveto
     set_speed(speeds, rotate_omni(8))
     return gs
 
-def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding):
-    error = (nearest_ball[0]-424)/4.24
-    if holding == 0:
-        if time_of_no_ball.value > 0.1:
-            print("moveto to searching")
-            return GameState.searching
-        
-        if nearest_ball[1] < 280:
+def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
+    error = (nearest_ball[0]-420)/4.24
+    #print(nearest_ball[0])
+    #print('gamestate', gs)
 
-            #CREATE BALL AQURING ALGORITHM
+    if gs == GameState.moveto:
+        if holding.value == 0:
+            if time_of_no_ball.value > 0.5:
+                print("moveto to searching")
+                return GameState.searching
+
+        elif holding.value == 1:
             gs = GameState.search_basket
             print("ball aquired, searching basket")
-        else:
-            #print(int(math.floor(error ** 1.05 * 0.1)))
-            movement_vector = rotate_omni(int(math.floor(error * 0.04)))
+        
+        if nearest_ball[1] < 200:
+
+            grab.value = 1
+            movement_vector = rotate_omni(int(math.floor(error * 0.3)))
             movement_vector = combine_moves(movement_vector, move_omni(25,0))
             speed = 50
-            if nearest_ball[1] < 1000:
-                speed = 30
+            set_speed(speeds, movement_vector)
+
+        else:
+            #print(int(math.floor(error ** 1.05 * 0.1)))
+            movement_vector = rotate_omni(int(math.floor(error * 0.3)))
+            movement_vector = combine_moves(movement_vector, move_omni(25,0))
+            speed = 50
             movement_vector = rectify_speed(movement_vector,speed)
             set_speed(speeds, movement_vector)
     else:
-        if nearest_ball[3] == 0:
-            set_speed(speeds, rotate_omni(8))
-        elif nearest_ball[3] > 1000:
-            movement_vector = rotate_omni(int(math.floor(error * 0.04)))
+        #print(nearest_ball[0])
+        #nearest ball here marks the basket
+        if nearest_ball[2] == 0:
+            set_speed(speeds, rotate_omni(20))
+        elif nearest_ball[2] > 1000:
+            movement_vector = rotate_omni(int(math.floor(error * 0.3)))
             movement_vector = combine_moves(movement_vector, move_omni(25,0))
-            speed = 50
+            speed = 60
+            set_speed(speeds, movement_vector)
+        elif nearest_ball[2] < 1000:
+            return GameState.launch
     return gs
 
 def aim(gs, basket, speeds):
+    #print(basket[0])
     if basket[0] < 420:
-        set_speed(speeds, rotate_omni(8))
-    elif basket[0] > 430:
-        set_speed(speeds, rotate_omni(-8))
+        set_speed(speeds, rotate_omni(-20))
+    elif basket[0] > 440:
+        set_speed(speeds, rotate_omni(20))
     else:
+        print('Throwing!')
+        set_speed(speeds,stop())
         return GameState.launch
 
 
@@ -169,40 +188,24 @@ def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     return gs
 '''
 
-def launch(gs, launchdelay, speeds, delta, tgt, nearest_ball, launch_time):
-    if launchdelay < 1:
-        set_speed(speeds,stop())
-        launchdelay += delta
-        #print(tgt)
-    else:
-        movement_vector = move_omni(6,0)
-        #print(int(0.05*(tgt[1]-350)**2+560)) # 0.05\left(x-350\right)^{2}\ +560
-        #movement_vector = combine_moves(movement_vector, thrower(int(0.05*(tgt[1]-350)**2+570)))
-        #movement_vector = combine_moves(movement_vector, thrower(int(0.000006*(tgt[1]-340)**4+560)))
-        #movement_vector = combine_moves(movement_vector, thrower(int(0.00038*(tgt[1]-344)**3+610)))
-        #4.7x-1800
-        movement_vector = combine_moves(movement_vector, thrower(int((tgt[2]+1800)/4.7))) #https://www.desmos.com/calculator/gumsqpcewh
-        print(int(4.7*tgt[2]-1800))
-        set_speed(speeds,movement_vector)
-        launch_time += delta
-        
-        if launch_time > 4:
-            launchdelay = 0
-            launch_time = 0
-            gs = GameState.searching
-    return gs, launchdelay, launch_time
+def launch(gs, speeds, tgt, holding, launchenable):
+    if holding.value == 0:
+        return GameState.searching
 
-def main(nearest_ball, speeds, state, time_of_no_ball, basket, holding):# main function of movement controller 
+    dist = tgt[2]
+
+    throw = thrower(6000)
+    set_speed(speeds, throw)
+    launchenable.value = 1
+
+
+
+    
+
+def main(nearest_ball, speeds, state, time_of_no_ball, basket, holding, grab, launchenable):# main function of movement controller 
     sleep(0.5)
 
-    launchdelay = 0
-
     gs = GameState.searching
-
-    tgt = [0,0,0]
-
-    launch_time = 0
-    pids = [[0,0],[0,0],[0,0]]
 
     last_time = time()
     while True:
@@ -214,16 +217,16 @@ def main(nearest_ball, speeds, state, time_of_no_ball, basket, holding):# main f
             continue
         #print(nearest_ball[0], nearest_ball[1],nearest_ball[2])
         if  gs == GameState.searching:
-            gs = searching(gs, time_of_no_ball, speeds)
+            gs = searching(gs, time_of_no_ball, speeds, holding)
         elif gs == GameState.moveto:
-            gs = moveto(gs, time_of_no_ball, nearest_ball, speeds, holding)
+            gs = moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab)
         elif gs == GameState.search_basket:
-            gs = moveto(gs, time_of_no_ball, basket, speeds, holding)
+            gs = moveto(gs, time_of_no_ball, basket, speeds, holding, grab)
 
         elif gs == GameState.orbit:
             gs = aim(gs, basket, speeds)
         elif gs == GameState.launch:
-            gs, launchdelay, launch_time = launch(gs, launchdelay, speeds, delta, basket, nearest_ball, launch_time)
+            gs = launch(gs, speeds, basket, holding, launchenable)
         else:
             gs = GameState.searching
             print("reset")
