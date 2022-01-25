@@ -1,0 +1,13 @@
+/*
+ * usbd_cdc_if.c
+ *
+ *  Created on: Jan 23, 2022
+ *      Author: tlo-rock
+ */
+
+#ifndef SRC_USBD_CDC_IF_C_
+#define SRC_USBD_CDC_IF_C_
+
+
+
+#endif /* SRC_USBD_CDC_IF_C_ */

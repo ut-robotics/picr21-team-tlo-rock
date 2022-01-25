@@ -1,0 +1,9 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "stm32g4xx_hal.h"
+
+/*USER CODE BEGIN EXPORTED_FUNCTIONS */
+void CDC_On_Recieve(uint8_t* buffer, uint32_t* length);
+/*USER CODE END EXPORTED_FUNCTIONS */

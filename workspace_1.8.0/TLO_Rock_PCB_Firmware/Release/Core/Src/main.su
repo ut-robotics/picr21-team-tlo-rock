@@ -1,0 +1,6 @@
+main.c:129:6:CDC_On_Receive	12	static
+main.c:147:6:throw	8	static
+main.c:343:6:SystemClock_Config	88	static,ignoring_inline_asm
+main.c:173:5:main	152	static,ignoring_inline_asm
+main.c:997:6:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:1060:6:Error_Handler	0	static,ignoring_inline_asm

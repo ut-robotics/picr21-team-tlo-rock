@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;TLO_Rock_PCB_Firmware/Core/Inc/usbd_cdc_if&apos; to &apos;usbd_cdc_if.h&apos;" description="Rename resource &apos;usbd_cdc_if&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Inc/usbd_cdc_if" name="usbd_cdc_if.h" stamp="1642916113874" updateReferences="true"/>
+</session>
