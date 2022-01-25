@@ -117,9 +117,9 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
 
 def aim(gs, basket, speeds):
     #print(basket[0])
-    if basket[0] < 420:
+    if basket[0] < 422:
         set_speed(speeds, rotate_omni(-10))
-    elif basket[0] > 428:
+    elif basket[0] > 426:
         set_speed(speeds, rotate_omni(10))
     else:
         print('Throwing!')
