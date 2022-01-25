@@ -77,7 +77,6 @@ if __name__ == '__main__':
     movement_controller_process = mp.Process(target=mc.main, args=(speeds, state, running, holding_ball, grabber_on,launcher_on))
     manual_override_process = mp.Process(target=man.manualdrive, args=(manual_inputs, state, speeds))
     referee_communications_client = mp.Process(target=ref.refclient, args=(state, attacking))
-
     camera_process.start()
     localization_process.start()
     game_logic_process.start()

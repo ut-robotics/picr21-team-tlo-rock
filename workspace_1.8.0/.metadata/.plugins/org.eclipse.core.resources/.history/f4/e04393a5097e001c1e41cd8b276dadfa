@@ -142,7 +142,12 @@ void throw(uint32_t speed)
 	TIM16->CCR1 = speed;
 	HAL_Delay(400);
 	TIM17->CCR1 = 1000;
-	HAL_Delay(200);
+	int n = 1;
+	while (n)
+	{
+		n = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
+		HAL_Delay(200);
+	}
 	TIM17->CCR1 = 0;
 	TIM16->CCR1 = 2500;
 }
@@ -150,17 +155,17 @@ void throw(uint32_t speed)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	int16_t Cpos_M1 = (int16_t)TIM3->CNT;
-	//feedback.speed1  = Cpos_M1;
+	feedback.speed1  = Cpos_M1;
 	double dif_M1 = Cpos_M1 - Lpos_M1;
 	Lpos_M1 = Cpos_M1;
 
 	int16_t Cpos_M2 = (int16_t)TIM4->CNT;
-	//feedback.speed2  = Cpos_M2;
+	feedback.speed2  = Cpos_M2;
 	double dif_M2 = Cpos_M2 - Lpos_M2;
 	Lpos_M2 = Cpos_M2;
 
 	int16_t Cpos_M3 = (int16_t)TIM8->CNT;
-	//feedback.speed3  = Cpos_M3;
+	feedback.speed3  = Cpos_M3;
 	double dif_M3 = Cpos_M3 - Lpos_M3;
 	Lpos_M3 = Cpos_M3;
 
@@ -347,7 +352,6 @@ int main(void)
 		  {
 		  	  bools -= 2;
 		  	  grabber_on = 1;
-		  	  if (n) grabber_on = 0;
 		  }
 
 		  else

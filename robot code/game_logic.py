@@ -105,7 +105,7 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
             movement_vector = combine_moves(movement_vector, move_omni(25,0))
             speed = 60
             set_speed(speeds, movement_vector)
-        elif nearest_ball[2] < 1000:
+        elif nearest_ball[2] < 1800:
             return GameState.launch
     return gs
 
@@ -184,12 +184,13 @@ def orbit(gs, nearest_ball, time_of_no_ball, basket, speeds): #old orbiter code
     return gs
 '''
 
-def launch(gs, speeds, tgt, holding, launchenable):
+def launch(gs, speeds, tgt, holding, launchenable, hoidja):
+    hoidja.value = 0
     if holding.value == 0:
         return GameState.searching
 
     dist = tgt[2]
-    throwerSpeed = max(4000, dist*5)
+    throwerSpeed = max(2500, dist*3)
     throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1
@@ -218,9 +219,10 @@ def main(nearest_ball, speeds, state, time_of_no_ball, basket, holding, grab, la
         elif gs == GameState.orbit:
             gs = aim(gs, basket, speeds)
         elif gs == GameState.launch:
-            gs = launch(gs, speeds, basket, holding, launchenable)
+            gs = launch(gs, speeds, basket, holding, launchenable, grab)
         else:
             gs = GameState.searching
+            launchenable.value = 0
             print("reset")
 
 

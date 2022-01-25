@@ -142,7 +142,12 @@ void throw(uint32_t speed)
 	TIM16->CCR1 = speed;
 	HAL_Delay(400);
 	TIM17->CCR1 = 1000;
-	HAL_Delay(200);
+	int n = 1;
+	while (n)
+	{
+		n = HAL_GPIO_ReadPin(BALL_SENSOR_GPIO_Port, BALL_SENSOR_Pin);
+		HAL_Delay(200);
+	}
 	TIM17->CCR1 = 0;
 	TIM16->CCR1 = 2500;
 }
