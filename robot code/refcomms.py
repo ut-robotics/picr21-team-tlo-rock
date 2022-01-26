@@ -16,9 +16,9 @@ async def refcommClient(robotState, attackingSide):
             if robotName in refdict['targets']:
                 if refdict['signal'] == 'start':
                     if refdict['baskets'][refdict['targets'].index(robotName)] == 'blue':
-                        attackingSide = Side.blue
+                        attackingSide.value = Side.blue
                     else:
-                        attackingSide = Side.pink
+                        attackingSide.value = Side.pink
                     robotState.value = State.automatic
                     print('Starting competition!')
 
