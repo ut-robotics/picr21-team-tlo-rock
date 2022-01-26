@@ -66,7 +66,7 @@ def searching(gs, time_of_no_ball, speeds, holding):
     if time_of_no_ball.value < 4:
         movement_vector = rotate_omni(30)
     else: 
-        movement_vector = rotate_omni(20)
+        movement_vector = rotate_omni(15)
     set_speed(speeds, movement_vector)
     return gs
 
