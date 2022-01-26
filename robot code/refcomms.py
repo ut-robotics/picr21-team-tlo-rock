@@ -13,11 +13,14 @@ async def refcommClient(robotState, attackingSide):
             refcomm = await websocket.recv()
             print('Signal recieved...')
             refdict = json.loads(refcomm)
+            print(refdict['targets'])
+            if refdict['signal'] == 'start':
+                print(refdict['baskets'])
             if robotName in refdict['targets']:
                 if refdict['signal'] == 'start':
                     if refdict['baskets'][refdict['targets'].index(robotName)] == 'blue':
                         attackingSide.value = Side.blue
-                    else:
+                    elif refdict['baskets'][refdict['targets'].index(robotName)] == 'magenta':
                         attackingSide.value = Side.pink
                     robotState.value = State.automatic
                     print('Starting competition!')
