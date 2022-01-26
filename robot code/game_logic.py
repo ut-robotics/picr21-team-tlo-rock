@@ -49,7 +49,7 @@ def rectify_speed(object, max_speed): #changes the biggest wheel speed to be the
         return object
     mx = max_speed/mx
     object = [int(element * mx) for element in object]
-    return object # returns the correctedmovement vector
+    return object # returns the corrected movement vector
 
 def set_speed(target_speeds,speed):
     for i in range(len(speed)):
@@ -59,6 +59,10 @@ def searching(gs, time_of_no_ball, speeds, holding):
     #print(time_of_no_ball.value)
     if holding.value == 1:
         return GameState.search_basket
+    
+    if time_of_no_ball.value > 8:
+        if time_of_no_ball.value < 11:
+            return GameState.search_basket
     if time_of_no_ball.value == 0:
         print("moveto")
         return GameState.moveto
@@ -98,8 +102,11 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
             movement_vector = rectify_speed(movement_vector,speed)
             set_speed(speeds, movement_vector)
     else:
-        #print(nearest_ball[0])
         #nearest ball here marks the basket
+        if time_of_no_ball.value > 8:
+            set_speed(speeds, move_omni(-80, 0))
+            if time_of_no_ball.value > 11:
+                return GameState.searching
         if nearest_ball[2] == 0:
             set_speed(speeds, rotate_omni(25))
         elif nearest_ball[2] > 1500:
@@ -134,7 +141,7 @@ def launch(gs, speeds, tgt, holding, launchenable, hoidja):
         return GameState.searching
 
     dist = tgt[2]
-    throwerSpeed = int(round(4015 + dist*0.105))
+    throwerSpeed = int(round(4015 + dist*0.11))
     throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1
