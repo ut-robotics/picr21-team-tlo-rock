@@ -1,4 +1,3 @@
-from asyncio import ALL_COMPLETED
 import pyrealsense2 as rs
 import cv2
 import numpy as np
@@ -15,10 +14,12 @@ def savefile(filename, values):
     print('Values saved to file', filename)
 
 def checkBallLegitness(frame_yCoords):
-    #for colour in reversed(frame_yCoords):
-        #if colour[2] < 15:
-            #print(colour)
-            #return False
+    for colour in reversed(frame_yCoords):
+        if colour[0] < 75:
+            if colour[1] < 55:
+                if colour[2] < 30:
+                    #print(colour)
+                    return False
     return True
 
 #Function for finding keypoints of one colour
@@ -60,7 +61,11 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
 
             point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
             #print(point_depth)
-            if isLegit:
+
+            if not isLegit:
+                point_x, point_y, point_depth = (0, 0, 0)
+                
+            else:
                 tempKeypointX[i] = point_x
                 tempKeypointY[i] = point_y
                 tempKeypointZ[i] = point_depth
