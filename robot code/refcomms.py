@@ -5,8 +5,8 @@ from enums import *
 
 async def refcommClient(robotState, attackingSide):
     
-    robotName = 'TLOROCK'
-    connectTo = 'ws://192.168.3.220:8222'
+    robotName = 'tlo_rock'
+    connectTo = 'ws://192.168.3.220:8111'
 
     async with websockets.connect(connectTo, ping_interval=None) as websocket:
         while True:
