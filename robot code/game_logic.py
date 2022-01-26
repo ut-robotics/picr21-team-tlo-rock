@@ -133,7 +133,7 @@ def launch(gs, speeds, tgt, holding, launchenable, hoidja):
         return GameState.searching
 
     dist = tgt[2]
-    throwerSpeed = int(round(3600 + dist*0.41))
+    throwerSpeed = int(round(4015 + dist*0.105))
     throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1

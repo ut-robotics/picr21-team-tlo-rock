@@ -13,8 +13,9 @@ def savefile(filename, values):
     save.close()
     print('Values saved to file', filename)
 
+
 def checkBallLegitness(frame_yCoords):
-    for colour in reversed(frame_yCoords):
+    for colour in frame_yCoords:
         if colour[0] < 75:
             if colour[1] < 55:
                 if colour[2] < 30:
@@ -64,7 +65,7 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
 
             if not isLegit:
                 point_x, point_y, point_depth = (0, 0, 0)
-                
+
             else:
                 tempKeypointX[i] = point_x
                 tempKeypointY[i] = point_y
