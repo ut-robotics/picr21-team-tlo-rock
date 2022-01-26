@@ -63,8 +63,10 @@ def searching(gs, time_of_no_ball, speeds, holding):
     if time_of_no_ball.value == 0:
         print("moveto")
         return GameState.moveto
-    movement_vector = rotate_omni(30)
-    movement_vector = combine_moves(movement_vector, move_omni(-20,0))
+    if time_of_no_ball.value < 5:
+        movement_vector = rotate_omni(30)
+    else: 
+        movement_vector = rotate_omni(20)
     set_speed(speeds, movement_vector)
     return gs
 
