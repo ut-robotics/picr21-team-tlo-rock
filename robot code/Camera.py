@@ -138,8 +138,8 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     #___________________________________CAMERA SETUP_________________________________
     pipeline, cam_res_height, cam_res_width, colorizer = setupCamera()
     #________________________BLOB DETECTOR CREATION______________________________
-    detector = createblobdetector(16, 700000)
-    basketdetector = createblobdetector(100, 700000)
+    detector = createblobdetector(20, 700000)
+    basketdetector = createblobdetector(180, 700000)
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
