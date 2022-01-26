@@ -113,7 +113,7 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
         elif nearest_ball[2] > 1450:
             movement_vector = rotate_omni(int(math.floor(error * 0.4)))
             movement_vector = combine_moves(movement_vector, move_omni(75,0))
-            speed = 80
+            speed = 90
             movement_vector = rectify_speed(movement_vector,speed)
             set_speed(speeds, movement_vector)
         elif nearest_ball[2] < 1300:
