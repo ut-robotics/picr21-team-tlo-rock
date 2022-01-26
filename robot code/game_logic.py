@@ -86,13 +86,12 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
             grab.value = 1
             movement_vector = rotate_omni(int(math.floor(error * 0.3)))
             movement_vector = combine_moves(movement_vector, move_omni(60,0))
-            speed = 60
             set_speed(speeds, movement_vector)
 
         else:
             #print(int(math.floor(error ** 1.05 * 0.1)))
             movement_vector = rotate_omni(int(math.floor(error * 0.4)))
-            movement_vector = combine_moves(movement_vector, move_omni(70,0))
+            movement_vector = combine_moves(movement_vector, move_omni(80,0))
             speed = 60
             movement_vector = rectify_speed(movement_vector,speed)
             set_speed(speeds, movement_vector)
