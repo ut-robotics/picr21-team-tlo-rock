@@ -28,7 +28,7 @@ async def refcommClient(robotState, attackingSide):
             else:
                 print('Signal not directed at', robotName)
 
-            print(robotState, attackingSide)
+            #print(robotState.value, attackingSide)
 
 
 def refclient(state, attacking):
