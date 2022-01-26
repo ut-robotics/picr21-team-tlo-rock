@@ -16,9 +16,9 @@ def savefile(filename, values):
 
 def checkBallLegitness(frame_yCoords):
     for colour in frame_yCoords:
-        if colour[0] < 75:
-            if colour[1] < 55:
-                if colour[2] < 30:
+        if colour[0] < 70:
+            if colour[1] < 50:
+                if colour[2] < 25:
                     #print(colour)
                     return False
     return True
