@@ -32,9 +32,9 @@ def setupCamera():
     colorizer = rs.colorizer()
     colorizer.set_option(rs.option.visual_preset, 2)
 
-    cam_res_width = 848
+    cam_res_width = 640#848
     cam_res_height = 480
-    cam_fps = 60
+    cam_fps = 30
 
     #camera product line is D400
     config.enable_stream(rs.stream.depth, cam_res_width, cam_res_height, rs.format.z16, cam_fps)
@@ -45,10 +45,10 @@ def setupCamera():
 
     #configure exposure
     device = pipeline.get_active_profile().get_device().query_sensors()[1]
-    device.set_option(rs.option.enable_auto_exposure,0)
-    device.set_option(rs.option.enable_auto_white_balance,0)
-    device.set_option(rs.option.exposure, 100.0)
-    device.set_option(rs.option.white_balance, 50.0)
+    #device.set_option(rs.option.enable_auto_exposure,0)
+    #device.set_option(rs.option.enable_auto_white_balance,0)
+    #device.set_option(rs.option.exposure, 100.0)
+    #device.set_option(rs.option.white_balance, 50.0)
     
     #depth sensor parameters
     depth_sensor = pipeline_profile.get_device().first_depth_sensor()
@@ -56,9 +56,9 @@ def setupCamera():
     return (pipeline, cam_res_height, cam_res_width, colorizer)
 
 #__________________________________________________________________________________________________________________
-chessboardWidth = 6
+chessboardWidth = 11
 chessboardHeight = 8
-square_size = 10 #cm
+square_size = 2.5 #cm
 points = 0
 
 # termination criteria
@@ -78,13 +78,13 @@ keypoints2 = []
 
 def calibrate_chessboard(image, width, height, criteria):
     '''Calibrate a camera using chessboard images.'''
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Find the chess board corners
-    ret, corners = cv2.findChessboardCorners(gray, (width, height), None)
+    ret, corners = cv2.findChessboardCorners(image, (width, height), None)
 
     if ret:
-        corners2 = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
+        corners2 = cv2.cornerSubPix(image, corners, (11, 11), (-1, -1), criteria)
         return [corners, corners2]
 
 #______________________________________________________________________________________________________________________
@@ -111,13 +111,14 @@ if __name__ == '__main__':
 
             #This will be sent to processing
             color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
-            color_image = cv2.rectangle(color_image, (280,0), (580,75), (192,150,4), -1)
-            color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+            #color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             keypoints.clear()
             keypoints2.clear()
-            keypoints, keypoints2 = calibrate_chessboard(color_frame, chessboardWidth, chessboardHeight, termcriteria)
-            print(keypoints)
+            output = calibrate_chessboard(color_image, chessboardWidth, chessboardHeight, termcriteria)
+            if output != None:
+                keypoints, keypoints2 = output
+            print(output)
 
             images = color_image
             # Show images
