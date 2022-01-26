@@ -59,14 +59,13 @@ def searching(gs, time_of_no_ball, speeds, holding):
     #print(time_of_no_ball.value)
     if holding.value == 1:
         return GameState.search_basket
-    
-    if time_of_no_ball.value > 8:
-        if time_of_no_ball.value < 11:
-            return GameState.search_basket
+
     if time_of_no_ball.value == 0:
         print("moveto")
         return GameState.moveto
-    set_speed(speeds, rotate_omni(30))
+    movement_vector = rotate_omni(30)
+    movement_vector = combine_moves(movement_vector, move_omni(-20,0))
+    set_speed(speeds, movement_vector)
     return gs
 
 def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
@@ -103,10 +102,6 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
             set_speed(speeds, movement_vector)
     else:
         #nearest ball here marks the basket
-        if time_of_no_ball.value > 8:
-            set_speed(speeds, move_omni(-80, 0))
-            if time_of_no_ball.value > 11:
-                return GameState.searching
         if nearest_ball[2] == 0:
             set_speed(speeds, rotate_omni(25))
         elif nearest_ball[2] > 1500:
@@ -141,7 +136,7 @@ def launch(gs, speeds, tgt, holding, launchenable, hoidja):
         return GameState.searching
 
     dist = tgt[2]
-    throwerSpeed = int(round(4015 + dist*0.11))
+    throwerSpeed = int(round(4017 + dist*0.11))
     throw = thrower(throwerSpeed)
     set_speed(speeds, throw)
     launchenable.value = 1
