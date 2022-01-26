@@ -6,7 +6,7 @@ from enums import *
 async def refcommClient(robotState, attackingSide):
     
     robotName = 'TLOROCK'
-    connectTo = 'ws://localhost:8765'
+    connectTo = 'ws://192.168.3.220:8220'
 
     async with websockets.connect(connectTo, ping_interval=None) as websocket:
         while True:
@@ -32,7 +32,12 @@ async def refcommClient(robotState, attackingSide):
 
 
 def refclient(state, attacking):
-    asyncio.run(refcommClient(state, attacking))
+    while True:
+        try:
+            asyncio.run(refcommClient(state, attacking))
+        except:
+            print('Ref not reached!')
+            pass
 
 if __name__ == '__main__':
     refclient(5, 5)

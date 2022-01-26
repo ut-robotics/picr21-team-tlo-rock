@@ -83,7 +83,7 @@ if __name__ == '__main__':
     movement_controller_process.start()
     manual_override_process.start()
     calibration_process.start()
-    #referee_communications_client.start()
+    referee_communications_client.start()
 
     #_________________________________MUUD ADMIN TEGEVUSED__________________________________
     # Roboti kasutaja sisendite võimaldamine
@@ -105,5 +105,5 @@ if __name__ == '__main__':
     movement_controller_process.kill()
     #print('moving killed')
     calibration_process.kill()
-    #referee_communications_client.kill()
+    referee_communications_client.kill()
     print("Closing down!")
