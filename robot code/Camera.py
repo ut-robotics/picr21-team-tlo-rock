@@ -16,9 +16,9 @@ def savefile(filename, values):
 
 def checkBallLegitness(frame_yCoords):
     for colour in frame_yCoords:
-        if colour[0] < 75:
-            if colour[1] < 55:
-                if colour[2] < 30:
+        if colour[0] < 70:
+            if colour[1] < 50:
+                if colour[2] < 25:
                     #print(colour)
                     return False
     return True
@@ -57,7 +57,7 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
             if MAX_KEYPOINT_COUNT != 1:
                 frame_yColumn = []
                 for j in range(point_y):
-                    frame_yColumn.append(color_image[point_y][j])
+                    frame_yColumn.append(color_image[j][point_x])
                 isLegit = checkBallLegitness(frame_yColumn)
 
             point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
