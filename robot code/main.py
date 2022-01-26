@@ -65,7 +65,7 @@ if __name__ == '__main__':
     grabber_on = mp.Value('i', 0)
     holding_ball = mp.Value('i', 0)
     state = mp.Value('i', State.remote)
-    attacking = mp.Value('i', Side.blue)
+    attacking = mp.Value('i', Side.pink)
     time_of_no_ball = mp.Value('f', 0) #float time_of_no_ball is the time since last ball was detected 
     manual_inputs = mp.Array('i', np.zeros(7, dtype=int))
 

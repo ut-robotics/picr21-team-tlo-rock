@@ -15,20 +15,14 @@ def savefile(filename, values):
     print('Values saved to file', filename)
 
 def checkBallLegitness(frame_yCoords):
-    black = False
-    white = False
-    for colour in reversed(frame_yCoords):
-        if black:
-            if colour[1] < 30:
-                if colour[2] >= 150:
-                    return False
-        else:
-            if colour[2] < 50:
-                black = True
+    #for colour in reversed(frame_yCoords):
+        #if colour[2] < 15:
+            #print(colour)
+            #return False
     return True
 
 #Function for finding keypoints of one colour
-def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image):
+def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detector, MAX_KEYPOINT_COUNT, depth_image, color_image):
     # Colour detection limits
 
     lowerLimits = np.array(Trackbar_values[0:3])
@@ -55,11 +49,14 @@ def getKeyPoints(Trackbar_values, color_frame, FRAME_WIDTH, FRAME_HEIGHT, detect
         if i < MAX_KEYPOINT_COUNT:
             point_x = int(round(punkt.pt[0]))
             point_y = int(round(punkt.pt[1]))
+            #print(punkt.pt)
 
-            frame_yRow = []
-            for j in range(point_x):
-                frame_yRow.append(color_frame[point_y][j])
-            isLegit = checkBallLegitness(frame_yRow)
+            isLegit = True
+            if MAX_KEYPOINT_COUNT != 1:
+                frame_yColumn = []
+                for j in range(point_y):
+                    frame_yColumn.append(color_image[point_y][j])
+                isLegit = checkBallLegitness(frame_yColumn)
 
             point_depth = int(depth_image.get_distance(point_x,point_y)*1000)
             #print(point_depth)
@@ -136,11 +133,11 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
     pipeline, cam_res_height, cam_res_width, colorizer = setupCamera()
     #________________________BLOB DETECTOR CREATION______________________________
     detector = createblobdetector(30, 700000)
-    basketdetector = createblobdetector(40, 700000)
+    basketdetector = createblobdetector(200, 700000)
 
     #____________________ACTUAL OPERATIONS_____________________________________________________
     try:
-        cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
+        #cv2.namedWindow('cap', cv2.WINDOW_AUTOSIZE)
         #cv2.namedWindow('dist', cv2.WINDOW_AUTOSIZE)
 
         align_to = rs.stream.color
@@ -167,16 +164,16 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
 
             #This will be sent to processing
             color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
-            color_image = cv2.rectangle(color_image, (280,0), (580,75), (192,150,4), -1)
+            color_image = cv2.rectangle(color_image, (280,0), (580,75), (0,0,255), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            outimage = color_frame.copy()
+            #outimage = color_frame.copy()
             
 
             #___________________FINDING KEYPOINTS________________________________________________
             MAX_KEYPOINT_COUNT = 11
             funcBallKeypointX, funcBallKeypointY, funcBallKeypointZ = getKeyPoints(colourLimitsGreen, color_frame, 
                                                         cam_res_width, cam_res_height, detector, 
-                                                        MAX_KEYPOINT_COUNT, depth_frame)
+                                                        MAX_KEYPOINT_COUNT, depth_frame, color_image)
             #print(funcBallKeypointX,funcBallKeypointY, funcBallKeypointZ)
             for i in range(MAX_KEYPOINT_COUNT):
                 ballKeypointX[i] = funcBallKeypointX[i]
@@ -185,7 +182,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
 
             basketx, baskety, basketz = getKeyPoints(colourLimitsBasket, color_frame, 
                                 cam_res_width, cam_res_height, basketdetector, 
-                                1, depth_frame)
+                                1, depth_frame, color_image)
             BasketCoords[0] = basketx[0]
             while (color_frame[baskety[0]][basketx[0]][2] < 165): #bgr
                 baskety[0] -= 1
@@ -195,7 +192,7 @@ def operate_camera(ballKeypointX, ballKeypointY, ballKeypointZ, attacking, Baske
             BasketCoords[2] = basketz[0]
             #print(BasketCoords[0],BasketCoords[1],BasketCoords[2])
 
-            cv2.imshow('cap', outimage)
+            #cv2.imshow('cap', outimage)
             #cv2.imshow('dist', depth_image)
 
             cv2.waitKey(1)
@@ -261,7 +258,7 @@ if __name__ == '__main__':
 
             #This will be sent to processing
             color_image = cv2.normalize(color_image, np.zeros((cam_res_width, cam_res_height)), 0, 255, cv2.NORM_MINMAX)
-            color_image = cv2.rectangle(color_image, (280,0), (580,75), (192,150,4), -1)
+            color_image = cv2.rectangle(color_image, (280,0), (580,75), (0,0,255), -1)
             color_frame = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             # Colour detection limits
