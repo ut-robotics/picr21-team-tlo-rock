@@ -90,8 +90,12 @@ def moveto(gs, time_of_no_ball, nearest_ball, speeds, holding, grab):
 
             grab.value = 1
             movement_vector = rotate_omni(int(math.floor(error * 0.3)))
+            movement_vector = combine_moves(movement_vector, move_omni(5,0))
             if nearest_ball[0] > 400:
                 if nearest_ball[0] < 448:
+                    movement_vector = combine_moves(movement_vector, move_omni(60,0))
+            elif nearest_ball[0] < 448:
+                if nearest_ball[0] > 400:
                     movement_vector = combine_moves(movement_vector, move_omni(60,0))
             set_speed(speeds, movement_vector)
 
