@@ -2,11 +2,12 @@
 
 The robot assigned name is 'TLOROCK'.
 
-Running this code requires the installation of the following external python libraries beforehand: * pyrealsense2
-    * cv2
-    * numpy
-    * pynput
-    * websockets
+Running this code requires the installation of the following external python libraries beforehand:
+Markup: * pyrealsense2
+        * cv2
+        * numpy
+        * pynput
+        * websockets
     
 To run the python portion of the code navigate to the folder 'robot code' and run the 'main.py' file.    
 
