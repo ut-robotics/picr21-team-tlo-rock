@@ -2,8 +2,7 @@
 
 The robot assigned name is 'TLOROCK'.
 
-Running this code requires the installation of the following external python libraries beforehand:
-    * pyrealsense2
+Running this code requires the installation of the following external python libraries beforehand: * pyrealsense2
     * cv2
     * numpy
     * pynput
